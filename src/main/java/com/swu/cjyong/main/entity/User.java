@@ -2,7 +2,6 @@ package com.swu.cjyong.main.entity;
 
 import lombok.Data;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
@@ -11,15 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="superuser")
+@Table(name="user")
 @Data
 @Accessors(chain = true)
-public class SuperUser {
-    public static final String TOP_USRE = "TOP";
-    public static final String SECOND_USER = "SECOND";
+public class User {
 
-    public static SuperUser empty(){
-        return new SuperUser((long)-1);
+    public static User empty(){
+        return new User((long)-1);
     }
 
     @Id
@@ -32,13 +29,21 @@ public class SuperUser {
     @NonNull
     private String desc;
     @NonNull
-    private String grade;
+    private String admin;
+    @NonNull
+    private String admin2;
+    @NonNull
+    private String admin3;
+    @NonNull
+    private String tel;
+    @NonNull
+    private Long parentId;
     @NonNull
     private String type;
 
-    public SuperUser() {};
+    public User() {};
 
-    public SuperUser(Long id){
+    public User(Long id){
         this.id = id;
     };
 }

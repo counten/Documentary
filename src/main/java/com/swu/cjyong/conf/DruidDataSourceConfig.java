@@ -78,7 +78,7 @@ public class DruidDataSourceConfig implements EnvironmentAware,TransactionManage
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());;
-        entityManagerFactoryBean.setPackagesToScan("com.cjyong.spring.main");
+        entityManagerFactoryBean.setPackagesToScan("com.swu.cjyong.main.entity");
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties jpaProperties = new Properties();
         jpaProperties.put(org.hibernate.cfg.Environment.DIALECT,"org.hibernate.dialect.MySQL5Dialect");

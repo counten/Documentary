@@ -1,0 +1,43 @@
+server:
+  contextPath: /
+  port: 9090
+  max-http-header-size: 8192
+  compression:
+    min-response-size: 512
+    enabled: true
+    mime-types: text/html,text/css,text/javascript,application/javascript,image/gif,image/png,image/jpg
+  tomcat:
+    maxThreads: 10
+    minSpareThreads: 3
+    accesslog:
+      directory: /usr/local/logger/server.log
+      pattern: combined
+      enabled: true
+
+logging:
+  config: classpath:log4j2.xml
+
+spring:
+  datasource:
+        role: com.alibaba.druid.pool.DruidDataSource
+        name: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://120.77.219.167:3306/activitybackstage?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+        initialize: true
+        sql-script-encoding: UTF-8
+        druid:
+          max-active: 10
+          initial-size: 3
+          min-idle: 3
+          max-wait: 60000
+          time-between-eviction-runs-millis: 60000
+          min-evictable-idle-time-millis: 300000
+          poolPreparedStatement: true
+          maxPoolPreparedStatementPerConnectionSize: 20
+  jpa:
+    show-sql: true
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true

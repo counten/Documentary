@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
             return 1;
         }
 
-        if(superUser.getType().equals(SuperUser.FIRST_USRE)){
+        if(superUser.getType().equals(SuperUser.FIRST_USRE)) {
             superUserRepository.delete(userId);
             UserRepository.deleteByParentId(userId);
             return 0;

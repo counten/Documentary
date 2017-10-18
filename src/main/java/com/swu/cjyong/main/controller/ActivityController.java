@@ -83,7 +83,7 @@ public class ActivityController {
 
     @ApiOperation(value = "根据二级账户ID统计活动信息")
     @GetMapping("/countBySecondAccountId/{id}")
-    public long checkPassingActivtyById(@PathVariable long id) {
+    public long coutActivtysBySecondAccountId(@PathVariable long id) {
         return activityService.countBySecondAccountId(id);
     }
 

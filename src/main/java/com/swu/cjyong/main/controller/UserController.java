@@ -1,6 +1,6 @@
 package com.swu.cjyong.main.controller;
 
-import com.swu.cjyong.main.entity.ComUser;
+import com.swu.cjyong.main.entity.dto.ComUser;
 import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.service.SuperUserService;
@@ -23,15 +23,14 @@ public class UserController {
 
     @ApiOperation(value = "用户登录")
     @GetMapping("/login")
-    public ResponseEntity<ComUser> getUserByNameAndPasswd(@RequestParam String name, @RequestParam String passwd){
-
+    public ResponseEntity<ComUser> getUserByNameAndPasswd(@RequestParam String name, @RequestParam String passwd) {
         ComUser comUser = new ComUser();
         User user = userService.selectUserByNameAndPasswd(name, passwd);
-        if(null==user){
+        if(null == user){
             SuperUser superUser = superUserService.selectSuperUserByNameAndPasswd(name, passwd);
-            comUser.setType(null == superUser?0:1);
+            comUser.setType(null == superUser ? 0 : 1);
             comUser.setSuperUser(superUser);
-        }else {
+        } else {
             comUser.setType(2);
             comUser.setUser(user);
         }
@@ -45,9 +44,4 @@ public class UserController {
         return (userService.deleteUser(selfId,userId));
     }
 
-    @ApiOperation(value = "二级用户删除")
-    @DeleteMapping("/deleteSuperUser")
-    public int deleteSuperUser(@RequestParam Long selfId, @RequestParam Long userId){
-        return (superUserService.deleteSuperUser(selfId,userId));
-    }
 }

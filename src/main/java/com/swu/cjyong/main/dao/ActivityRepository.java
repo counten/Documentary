@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity,Long> {
 
-    Activity findFirstByuserTypeAndUserGradeOrderById(String userType, String userGrade);
+    Activity findFirstByUserTypeAndUserGradeOrderById(String userType, String userGrade);
 
-    Activity findSecondByuserTypeAndUserGradeOrderById(String userType, String userGrade);
+    Activity findSecondByUserTypeAndUserGradeOrderById(String userType, String userGrade);
 
 //    @Query("SELECT id, title, img FROM activity " +
 //            "WHERE activity.userType=?1 AND activity.userGrade=?2")

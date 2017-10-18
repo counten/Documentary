@@ -1,7 +1,7 @@
 package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.Activity;
-import com.swu.cjyong.main.entity.ComActs;
+import com.swu.cjyong.main.entity.dto.ComActs;
 
 public interface ActivityService {
     /**
@@ -39,9 +39,15 @@ public interface ActivityService {
     /**
      * 获取首页的活动信息
      *
-     *
-     *
      * @return ComActs
      */
     ComActs getIndexAct();
+
+    /**
+     * 根据ID获取二级账户的信息详情
+     *
+     * @param id
+     * @return
+     */
+    long countBySecondAccountId(long id);
 }

@@ -1,6 +1,8 @@
 package com.swu.cjyong.main.service.impl;
 
+import com.swu.cjyong.main.dao.SuperUserRepository;
 import com.swu.cjyong.main.dao.UserRepository;
+import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository UserRepository;
+    @Autowired
+    private SuperUserRepository superUserRepository;
 
     @Override
     public User selectUserByNameAndPasswd(String name, String passwd){
@@ -21,15 +25,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int deleteUser(Long selfId, Long userId) {
-        if(selfId !=1){
+        SuperUser superUser = superUserRepository.findOne(selfId);
+        User user = UserRepository.findOne(userId);
+
+        if(superUser == null || user == null){
             return 1;
         }
-        try {
-            UserRepository.delete(userId);
+
+        if(superUser.getType().equals(SuperUser.FIRST_USRE)){
+            superUserRepository.delete(userId);
+            UserRepository.deleteByParentId(userId);
             return 0;
-        }catch (Exception e){
-            System.out.println("Error:deleteUser in UserServiceImpl");
+        } else {
+            if(superUser.getId().equals(user.getParentId())) {
+                UserRepository.delete(userId);
+                return 0;
+            }
         }
+
         return 1;
     }
 

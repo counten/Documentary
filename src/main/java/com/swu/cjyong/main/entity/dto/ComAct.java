@@ -1,4 +1,4 @@
-package com.swu.cjyong.main.entity;
+package com.swu.cjyong.main.entity.dto;
 
 public class ComAct {
     private long id;

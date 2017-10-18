@@ -15,8 +15,11 @@ import javax.persistence.Table;
 @Data
 @Accessors(chain = true)
 public class SuperUser {
-    public static final String TOP_USRE = "TOP";
+    public static final String FIRST_USRE = "TOP";
     public static final String SECOND_USER = "SECOND";
+    public static final String THIRD_USR = "THIRD";
+
+
 
     public static SuperUser empty(){
         return new SuperUser((long)-1);

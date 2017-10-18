@@ -15,9 +15,13 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class Activity {
-    public static final String ACTIVITY_CHECKING = "checking";
-    public static final String ACTIVITY_PASSING = "passing";
-    public static final String ACTIVITY_NOTPASSING = "not_passing";
+    public static final String ACTIVITY_CHECKING = "checking";          //审核中
+    public static final String ACTIVITY_PASSING = "passing";            //通过
+    public static final String ACTIVITY_NOTPASSING = "not_passing";     //未通过
+
+    public static final String USER_TYPE_SCHOOL = "school";             //学校
+    public static final String USER_TYPE_DISTRICT = "district";         //区县
+    public static final String USER_TYPE_ENTERPRISE = "enterprise";     //企业
 
     public static Activity empty(){
         return new Activity((long)-1);

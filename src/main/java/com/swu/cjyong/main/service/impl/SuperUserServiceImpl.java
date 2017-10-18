@@ -19,20 +19,4 @@ public class SuperUserServiceImpl implements SuperUserService{
     public SuperUser selectSuperUserByNameAndPasswd(String name, String passwd){
         return superUserRepository.findFirstByNameAndPasswd(name, passwd);
     }
-
-    @Override
-    public int deleteSuperUser(Long selfId, Long userId) {
-
-        if(selfId !=1){
-            return 1;
-        }
-
-        try {
-            superUserRepository.delete(userId);
-            return 0;
-        }catch (Exception e){
-            System.out.println("Error:deleteSuperUser in SuperUserServiceImpl");
-        }
-        return 1;
-    }
 }

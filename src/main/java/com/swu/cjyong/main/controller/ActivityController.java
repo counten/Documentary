@@ -1,7 +1,7 @@
 package com.swu.cjyong.main.controller;
 
 import com.swu.cjyong.main.entity.Activity;
-import com.swu.cjyong.main.entity.ComActs;
+import com.swu.cjyong.main.entity.dto.ComActs;
 import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.service.ActivityService;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +49,7 @@ public class ActivityController {
                 .setLocation(location)
                 .setMember(member)
                 .setContent(content)
-                .setState(userGrade == SuperUser.SECOND_USER ? Activity.ACTIVITY_PASSING : Activity.ACTIVITY_CHECKING);
+                .setState(userGrade.equals(SuperUser.SECOND_USER) ? Activity.ACTIVITY_PASSING : Activity.ACTIVITY_CHECKING);
         Activity result = activityService.uploadActivity(activity);
         return new ResponseEntity<Activity>(result == null ? Activity.empty() : result, HttpStatus.OK);
     }
@@ -75,7 +75,11 @@ public class ActivityController {
         return new ResponseEntity<Activity>(result == null ? Activity.empty() : result, HttpStatus.OK);
     }
 
-
+    @ApiOperation(value = "首页活动信息获取")
+    @GetMapping("/indexAct")
+    public ResponseEntity<ComActs> indexAct(){
+        return new ResponseEntity<>(activityService.getIndexAct(), HttpStatus.OK);
+    }
 
     /**
      * 上传图片获取链接
@@ -103,12 +107,4 @@ public class ActivityController {
         }
         return imgUrl.toString();
     }
-
-
-    @ApiOperation(value = "活动信息")
-    @GetMapping("/indexAct")
-    public ResponseEntity<ComActs> indexAct(){
-        return new ResponseEntity<>(activityService.getIndexAct(), HttpStatus.OK);
-    }
-
 }

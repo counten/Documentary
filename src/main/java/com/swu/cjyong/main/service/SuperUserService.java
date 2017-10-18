@@ -14,13 +14,4 @@ public interface SuperUserService {
      * @return
      */
     SuperUser selectSuperUserByNameAndPasswd(String name, String passwd);
-
-    /**
-     * 根据自身id和用户id删除用户
-     *
-     * @param selfId
-     * @param userId
-     * @return 0删除成功
-     */
-    int deleteSuperUser(Long selfId, Long userId);
 }

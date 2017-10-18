@@ -30,7 +30,7 @@ public class SuperUser {
     @NonNull
     private String passwd;
     @NonNull
-    private String desc;
+    private String descr;
     @NonNull
     private String grade;
     @NonNull

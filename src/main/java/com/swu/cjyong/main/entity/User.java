@@ -27,7 +27,7 @@ public class User {
     @NonNull
     private String passwd;
     @NonNull
-    private String desc;
+    private String descr;
     @NonNull
     private String admin;
     @NonNull

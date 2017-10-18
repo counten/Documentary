@@ -4,6 +4,8 @@ import com.swu.cjyong.main.entity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity,Long> {
@@ -11,6 +13,8 @@ public interface ActivityRepository extends JpaRepository<Activity,Long> {
     Activity findFirstByUserTypeAndUserGradeOrderById(String userType, String userGrade);
 
     Activity findSecondByUserTypeAndUserGradeOrderById(String userType, String userGrade);
+
+    List<Activity> findByUserId(Long id);
 
 //    @Query("SELECT id, title, img FROM activity " +
 //            "WHERE activity.userType=?1 AND activity.userGrade=?2")

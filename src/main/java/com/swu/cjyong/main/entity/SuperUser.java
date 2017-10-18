@@ -38,6 +38,7 @@ public class SuperUser {
     private String grade;
     @NonNull
     private String type;
+    private long nums;
 
     public SuperUser() {};
 

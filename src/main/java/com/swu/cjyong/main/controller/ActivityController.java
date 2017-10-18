@@ -81,6 +81,11 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getIndexAct(), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据二级账户ID统计活动信息")
+    @GetMapping("/countBySecondAccountId/{id}")
+    public long coutActivtysBySecondAccountId(@PathVariable long id) {
+        return activityService.countBySecondAccountId(id);
+    }
     /**
      * 上传图片获取链接
      *

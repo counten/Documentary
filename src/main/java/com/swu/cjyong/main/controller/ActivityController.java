@@ -2,6 +2,7 @@ package com.swu.cjyong.main.controller;
 
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.ComUser;
+import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.service.ActivityService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 @RestController
@@ -27,7 +29,14 @@ public class ActivityController {
 
     @ApiOperation(value = "上传活动信息")
     @PostMapping("/uploadActivity")
-    public ResponseEntity<Activity> uploadActivity(@RequestParam(value = "activity") Activity activity,
+    public ResponseEntity<Activity> uploadActivity(@RequestParam(value = "userId") long userId,
+                                                   @RequestParam(value = "userName") String userName,
+                                                   @RequestParam(value = "userType") String userType,
+                                                   @RequestParam(value = "title") String title,
+                                                   @RequestParam(value = "time") Date time,
+                                                   @RequestParam(value = "location") String location,
+                                                   @RequestParam(value = "member") String member,
+                                                   @RequestParam(value = "content") String content,
                                                    @RequestParam(value = "files") MultipartFile[] files) {
         //上传图片生成URL
         StringBuilder imgUrl = new StringBuilder();
@@ -48,7 +57,17 @@ public class ActivityController {
                 e.printStackTrace();
             }
         }
-        activity.setImg(imgUrl.toString());
+        Activity activity = new Activity();
+        activity.setImg(imgUrl.toString())
+                .setUserId(userId)
+                .setUserName(userName)
+                .setUserType(userType)
+                .setTime(time)
+                .setTitle(title)
+                .setLocation(location)
+                .setMember(member)
+                .setContent(content)
+                .setState(userType == SuperUser.SECOND_USER ? Activity.ACTIVITY_PASSING : Activity.ACTIVITY_CHECKING);
         //插入到表中
         Activity result = activityService.uploadActivity(activity);
         return new ResponseEntity<Activity>(result == null ? Activity.empty() : activity, HttpStatus.OK);

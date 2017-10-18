@@ -35,7 +35,7 @@ public class Activity {
     @NonNull
     private String title;
     @NonNull
-    private Date time;
+    private String time;
     @NonNull
     private String location;
     @NonNull

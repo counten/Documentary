@@ -33,7 +33,7 @@ public class ActivityController {
                                                    @RequestParam(value = "userName") String userName,
                                                    @RequestParam(value = "userType") String userType,
                                                    @RequestParam(value = "title") String title,
-                                                   @RequestParam(value = "time") Date time,
+                                                   @RequestParam(value = "time") String time,
                                                    @RequestParam(value = "location") String location,
                                                    @RequestParam(value = "member") String member,
                                                    @RequestParam(value = "content") String content,

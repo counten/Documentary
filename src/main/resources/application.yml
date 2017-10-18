@@ -17,6 +17,9 @@ server:
 logging:
   config: classpath:log4j2.xml
 
+fileupload:
+  storelocation: /usr/local/activitys/img/
+
 spring:
   datasource:
         role: com.alibaba.druid.pool.DruidDataSource

@@ -15,6 +15,9 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class Activity {
+    public static final String ACTIVITY_CHECKING = "checking";
+    public static final String ACTIVITY_PASSING = "passing";
+    public static final String ACTIVITY_NOTPASSING = "not_passing";
 
     public static Activity empty(){
         return new Activity((long)-1);
@@ -34,16 +37,14 @@ public class Activity {
     @NonNull
     private String title;
     @NonNull
-    private Date time;
+    private String time;
     @NonNull
     private String location;
     @NonNull
     private String member;
     @NonNull
     private String content;
-    @NonNull
     private String img;
-    @NonNull
     private String state;
 
 

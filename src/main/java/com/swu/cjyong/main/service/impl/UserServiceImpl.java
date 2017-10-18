@@ -14,6 +14,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectUserByNameAndPasswd(String name, String passwd){
-        return UserRepository.findThirdByNameAndPasswd(name, passwd);
+        return UserRepository.findFirstByNameAndPasswd(name, passwd);
     }
 }

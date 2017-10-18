@@ -30,6 +30,8 @@ public class Activity {
     @NonNull
     private String userType;
     @NonNull
+    private String userGrade;
+    @NonNull
     private String title;
     @NonNull
     private Date time;

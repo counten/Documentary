@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-public class SuperUserController {
+public class UserController {
 
     @Autowired
     private SuperUserService superUserService;
@@ -32,15 +32,13 @@ public class SuperUserController {
         User user = userService.selectUserByNameAndPasswd(name, passwd);
         if(null==user){
             SuperUser superUser = superUserService.selectSuperUserByNameAndPasswd(name, passwd);
-            comUser.setType(1);
-            System.out.println("m1");
+            comUser.setType(null == superUser?0:1);
             comUser.setSuperUser(superUser);
         }else {
-            comUser.setType(3);
-            System.out.println("m2");
+            comUser.setType(2);
             comUser.setUser(user);
         }
 
-        return new ResponseEntity<ComUser>(comUser, HttpStatus.OK);
+        return new ResponseEntity<>(comUser, HttpStatus.OK);
     }
 }

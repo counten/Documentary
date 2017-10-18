@@ -9,10 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -37,7 +34,19 @@ public class UserController {
             comUser.setType(2);
             comUser.setUser(user);
         }
-
         return new ResponseEntity<>(comUser, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "用户删除")
+    @DeleteMapping("/deleteUser")
+    public int deleteUser(@RequestParam Long selfId, @RequestParam Long userId){
+        return (userService.deleteUser(selfId,userId));
+    }
+
+    @ApiOperation(value = "用户更新")
+    @PostMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        System.out.println(user);
+        return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
     }
 }

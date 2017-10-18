@@ -91,9 +91,10 @@ public class ActivityServiceImpl implements ActivityService{
 
     private List<ComAct> packageAct(String userType){
         List<Activity> activities =new ArrayList<>();
-        activities.add(activityRepository.findFirstByuserTypeAndUserGrade(userType, SuperUser.SECOND_USER));
-        activities.add(activityRepository.findFirstByuserTypeAndUserGrade(userType,SuperUser.THIRD_USR));
-        activities.add(activityRepository.findSecondByuserTypeAndUserGrade(userType,SuperUser.THIRD_USR));
+
+        activities.add(activityRepository.findFirstByUserTypeAndUserGradeOrderById(userType, SuperUser.SECOND_USER));
+        activities.add(activityRepository.findSecondByUserTypeAndUserGradeOrderById(userType,SuperUser.THIRD_USR));
+        activities.add(activityRepository.findSecondByUserTypeAndUserGradeOrderById(userType,SuperUser.THIRD_USR));
         List<ComAct> school = new ArrayList<>();
         for(Activity t:activities){
             if(null != t){

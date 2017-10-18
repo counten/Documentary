@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity,Long> {
 
-    Activity findFirstByuserTypeAndUserGrade(String userType, String userGrade);
+    Activity findFirstByUserTypeAndUserGradeOrderById(String userType, String userGrade);
 
-    Activity findSecondByuserTypeAndUserGrade(String userType, String userGrade);
+    Activity findSecondByUserTypeAndUserGradeOrderById(String userType, String userGrade);
 
     List<Activity> findByUserId(Long id);
 

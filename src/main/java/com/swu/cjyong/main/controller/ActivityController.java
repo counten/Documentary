@@ -86,7 +86,6 @@ public class ActivityController {
     public long coutActivtysBySecondAccountId(@PathVariable long id) {
         return activityService.countBySecondAccountId(id);
     }
-
     /**
      * 上传图片获取链接
      *

@@ -16,4 +16,24 @@ public class ActivityServiceImpl implements ActivityService{
         return activityRepository.save(activity);
     }
 
+    public Activity getActivityById(long id){
+        return activityRepository.findOne(id);
+    }
+
+    public Activity deleteActivityById(long id) {
+        Activity activity = activityRepository.findOne(id);
+        if (activity != null) {
+            activityRepository.delete(id);
+        }
+        return activity;
+    }
+
+    public Activity checkPassById(long id){
+        Activity activity = activityRepository.findOne(id);
+        if (activity != null) {
+            activity.setState(Activity.ACTIVITY_PASSING);
+            activityRepository.saveAndFlush(activity);
+        }
+        return activity;
+    }
 }

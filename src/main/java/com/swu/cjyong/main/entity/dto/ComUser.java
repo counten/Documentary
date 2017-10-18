@@ -1,5 +1,8 @@
-package com.swu.cjyong.main.entity;
+package com.swu.cjyong.main.entity.dto;
 
+
+import com.swu.cjyong.main.entity.SuperUser;
+import com.swu.cjyong.main.entity.User;
 
 public class ComUser {
     private int type;

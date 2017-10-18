@@ -2,8 +2,9 @@ package com.swu.cjyong.main.service.impl;
 
 import com.swu.cjyong.main.dao.ActivityRepository;
 import com.swu.cjyong.main.entity.Activity;
-import com.swu.cjyong.main.entity.ComAct;
-import com.swu.cjyong.main.entity.ComActs;
+import com.swu.cjyong.main.entity.SuperUser;
+import com.swu.cjyong.main.entity.dto.ComAct;
+import com.swu.cjyong.main.entity.dto.ComActs;
 import com.swu.cjyong.main.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,18 +47,22 @@ public class ActivityServiceImpl implements ActivityService{
     @Override
     public ComActs getIndexAct() {
         ComActs comActs = new ComActs();
-        comActs.setSchool(packageAct("school"));
-        comActs.setDistrict(packageAct("district"));
-        comActs.setEnterprise(packageAct("enterprise"));
+        comActs.setSchool(packageAct(Activity.USER_TYPE_SCHOOL));
+        comActs.setDistrict(packageAct(Activity.USER_TYPE_DISTRICT));
+        comActs.setEnterprise(packageAct(Activity.USER_TYPE_ENTERPRISE));
         return comActs;
+    }
+
+    public long countBySecondAccountId(long id) {
+       return 1L;
     }
 
 
     private List<ComAct> packageAct(String userType){
         List<Activity> activities =new ArrayList<>();
-        activities.add(activityRepository.findFirstByuserTypeAndUserGrade(userType,"2"));
-        activities.add(activityRepository.findFirstByuserTypeAndUserGrade(userType,"3"));
-        activities.add(activityRepository.findSecondByuserTypeAndUserGrade(userType,"3"));
+        activities.add(activityRepository.findFirstByuserTypeAndUserGrade(userType, SuperUser.SECOND_USER));
+        activities.add(activityRepository.findFirstByuserTypeAndUserGrade(userType,SuperUser.THIRD_USR));
+        activities.add(activityRepository.findSecondByuserTypeAndUserGrade(userType,SuperUser.THIRD_USR));
         List<ComAct> school = new ArrayList<>();
         for(Activity t:activities){
             if(null != t){

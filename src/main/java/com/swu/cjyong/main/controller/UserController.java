@@ -34,7 +34,6 @@ public class UserController {
             comUser.setType(2);
             comUser.setUser(user);
         }
-
         return new ResponseEntity<>(comUser, HttpStatus.OK);
     }
 
@@ -44,4 +43,10 @@ public class UserController {
         return (userService.deleteUser(selfId,userId));
     }
 
+    @ApiOperation(value = "用户更新")
+    @PostMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        System.out.println(user);
+        return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
+    }
 }

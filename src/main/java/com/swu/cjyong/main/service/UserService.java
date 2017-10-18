@@ -1,8 +1,8 @@
 package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.User;
+import com.swu.cjyong.main.entity.dto.ComUsers;
 
-import java.util.List;
 
 public interface UserService {
 
@@ -30,5 +30,13 @@ public interface UserService {
      * @param parentId
      * @return User集合
      */
-    List<User> findUserByParentId(Long parentId);
+    ComUsers findUserByParentId(Long parentId);
+
+    /**
+     * 根据自身id修改用户信息
+     *
+     * @param user
+     * @return user
+     */
+    User updateUser(User user);
 }

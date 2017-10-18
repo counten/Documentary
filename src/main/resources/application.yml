@@ -18,7 +18,7 @@ logging:
   config: classpath:log4j2.xml
 
 fileupload:
-  storelocation:
+  storelocation: /usr/local/activitys/img/
 
 spring:
   datasource:

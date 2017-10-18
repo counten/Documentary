@@ -1,6 +1,7 @@
 package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.Activity;
+import com.swu.cjyong.main.entity.ComActs;
 
 public interface ActivityService {
     /**
@@ -34,4 +35,13 @@ public interface ActivityService {
      * @return
      */
     Activity checkPassById(long id);
+
+    /**
+     * 获取首页的活动信息
+     *
+     *
+     *
+     * @return ComActs
+     */
+    ComActs getIndexAct();
 }

@@ -1,6 +1,7 @@
 package com.swu.cjyong.main.controller;
 
 import com.swu.cjyong.main.entity.Activity;
+import com.swu.cjyong.main.entity.ComActs;
 import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.service.ActivityService;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,7 @@ public class ActivityController {
     public ResponseEntity<Activity> uploadActivity(@RequestParam(value = "userId") long userId,
                                                    @RequestParam(value = "userName") String userName,
                                                    @RequestParam(value = "userType") String userType,
+                                                   @RequestParam(value = "userGrade") String userGrade,
                                                    @RequestParam(value = "title") String title,
                                                    @RequestParam(value = "time") String time,
                                                    @RequestParam(value = "location") String location,
@@ -41,12 +43,13 @@ public class ActivityController {
                 .setUserId(userId)
                 .setUserName(userName)
                 .setUserType(userType)
+                .setUserGrade(userGrade)
                 .setTime(time)
                 .setTitle(title)
                 .setLocation(location)
                 .setMember(member)
                 .setContent(content)
-                .setState(userType == SuperUser.SECOND_USER ? Activity.ACTIVITY_PASSING : Activity.ACTIVITY_CHECKING);
+                .setState(userGrade == SuperUser.SECOND_USER ? Activity.ACTIVITY_PASSING : Activity.ACTIVITY_CHECKING);
         Activity result = activityService.uploadActivity(activity);
         return new ResponseEntity<Activity>(result == null ? Activity.empty() : result, HttpStatus.OK);
     }
@@ -99,6 +102,13 @@ public class ActivityController {
             }
         }
         return imgUrl.toString();
+    }
+
+
+    @ApiOperation(value = "活动信息")
+    @GetMapping("/indexAct")
+    public ResponseEntity<ComActs> indexAct(){
+        return new ResponseEntity<>(activityService.getIndexAct(), HttpStatus.OK);
     }
 
 }

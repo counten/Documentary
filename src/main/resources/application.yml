@@ -1,6 +1,6 @@
 server:
   contextPath: /
-  port: 9090
+  port: 9091
   max-http-header-size: 8192
   compression:
     min-response-size: 512

@@ -6,9 +6,11 @@ import com.swu.cjyong.main.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
     @Autowired

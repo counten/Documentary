@@ -12,10 +12,12 @@ import com.swu.cjyong.main.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ActivityServiceImpl implements ActivityService{
 
     @Autowired

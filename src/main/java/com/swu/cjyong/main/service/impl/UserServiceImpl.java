@@ -5,6 +5,7 @@ import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ComUsers;
+import com.swu.cjyong.main.service.MemberService;
 import com.swu.cjyong.main.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository UserRepository;
     @Autowired
     private SuperUserRepository superUserRepository;
+    @Autowired
+    private MemberService memberService;
 
     @Override
     public User selectUserByNameAndPasswd(String name, String passwd){
@@ -36,6 +39,7 @@ public class UserServiceImpl implements UserService {
         if(superUser.getId().equals(user.getParentId()) ||
                 superUser.getType().equals(SuperUser.FIRST_USRE)) {
             UserRepository.delete(userId);
+            memberService.deleteByOrgId(userId);
             return 0;
         }
         return 1;

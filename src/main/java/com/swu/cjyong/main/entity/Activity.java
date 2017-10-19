@@ -27,16 +27,16 @@ public class Activity {
     private Long id;
 
     @NonNull
-    private Long user_id;
+    private Long userId;
 
     @NonNull
-    private String user_name;
+    private String userName;
 
     @NonNull
-    private Integer user_type;
+    private Integer userType;
 
     @NonNull
-    private Integer user_kind;
+    private Integer userKind;
 
     @NonNull
     private String title;
@@ -44,7 +44,7 @@ public class Activity {
     @NonNull
     private String time;
 
-    private Long create_time = System.currentTimeMillis();
+    private Long createTime = System.currentTimeMillis();
 
     @NonNull
     private String location;

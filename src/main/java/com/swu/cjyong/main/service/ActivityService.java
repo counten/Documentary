@@ -67,5 +67,5 @@ public interface ActivityService {
      *
      * @return ComActs
      */
-    List<ComAct> getActByUserId(Long userId, String userGrade);
+    List<Activity> getActByUserId(Long userId, String userGrade);
 }

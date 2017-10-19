@@ -12,7 +12,9 @@ public interface ActivityRepository extends JpaRepository<Activity,Long> {
 
     Activity findFirstByUserTypeAndUserGradeOrderById(String userType, String userGrade);
 
-    Activity findSecondByUserTypeAndUserGradeOrderById(String userType, String userGrade);
+    Activity findFirstByUserTypeAndUserGradeAndIdNotOrderById(String userType, String userGrade, Long id);
+
+/*    Activity findFirstByUserTypeAndUserGradeOrderById(String userType, String userGrade, Long id);*/
 
     List<Activity> findByUserId(Long id);
 

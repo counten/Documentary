@@ -37,23 +37,23 @@ public class User {
     private String passwd;
 
     @NonNull
-    private Integer user_type;
+    private Integer userType;
 
     @NonNull
     private String name;
 
-    private Long parent_id;
+    private Long parentId;
 
-    private Long pparent_id;
+    private Long pparentId;
 
-    private String secretary_name;
+    private String secretaryName;
 
-    private String secretary_tel;
+    private String secretaryTel;
 
-    private Integer member_num;
+    private Integer memberNum;
 
     @NonNull
-    private Integer user_kind;
+    private Integer userKind;
 
     public User() {}
 

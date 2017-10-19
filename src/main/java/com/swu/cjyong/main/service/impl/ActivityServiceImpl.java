@@ -8,6 +8,7 @@ import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ComAct;
 import com.swu.cjyong.main.entity.dto.ComActs;
+import com.swu.cjyong.main.entity.dto.ComTypes;
 import com.swu.cjyong.main.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,6 +89,15 @@ public class ActivityServiceImpl implements ActivityService{
             count = superUser.getNums();
         }
         return count;
+    }
+
+    @Override
+    public ComTypes countByUserType() {
+        ComTypes comTypes = new ComTypes();
+        comTypes.setSchool(activityRepository.countByUserType(Activity.USER_TYPE_SCHOOL));
+        comTypes.setDistrict(activityRepository.countByUserType(Activity.USER_TYPE_DISTRICT));
+        comTypes.setEnterprise(activityRepository.countByUserType(Activity.USER_TYPE_ENTERPRISE));
+        return comTypes;
     }
 
     @Override

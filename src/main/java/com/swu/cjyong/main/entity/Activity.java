@@ -8,53 +8,63 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
+
 
 @Entity
 @Table(name="activity")
 @Data
 @Accessors(chain = true)
 public class Activity {
-    public static final String ACTIVITY_CHECKING = "checking";          //审核中
-    public static final String ACTIVITY_PASSING = "passing";            //通过
-    public static final String ACTIVITY_NOTPASSING = "not_passing";     //未通过
+    // 全局变量
+    public static final int ACT_CHECKING = 1; 
+    public static final int ACT_PASS = 2;
+    public static final int ACT_NOTPASS = 3;
+    public static final int ACT_DELETE = 4;
 
-    public static final String USER_TYPE_SCHOOL = "school";             //学校
-    public static final String USER_TYPE_DISTRICT = "district";         //区县
-    public static final String USER_TYPE_ENTERPRISE = "enterprise";     //企业
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @NonNull
+    private Long user_id;
+
+    @NonNull
+    private String user_name;
+
+    @NonNull
+    private int user_type;
+
+    @NonNull
+    private String title;
+
+    @NonNull
+    private String time;
+
+    @NonNull
+    private Long create_time;
+
+    @NonNull
+    private String location;
+
+    private String participants;
+
+    @NonNull
+    private String content;
+
+    private String img;
+
+    @NonNull
+    private int state;
+
+    public Activity() {}
+
+    public Activity(Long id){
+        this.id = id;
+    }
 
     public static Activity empty(){
         return new Activity((long)-1);
     }
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    @NonNull
-    private Long userId;
-    @NonNull
-    private String userName;
-    @NonNull
-    private String userType;
-    @NonNull
-    private String userGrade;
-    @NonNull
-    private String title;
-    @NonNull
-    private String time;
-    @NonNull
-    private String location;
-    @NonNull
-    private String member;
-    @NonNull
-    private String content;
-    private String img;
-    private String state;
-
-
-    public Activity() {};
-
-    public Activity(Long id){
-        this.id = id;
-    };
 }

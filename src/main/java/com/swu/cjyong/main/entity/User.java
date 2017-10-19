@@ -9,41 +9,59 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name="user")
+@Table(name="activity")
 @Data
 @Accessors(chain = true)
 public class User {
+    // 全局变量
+    public static final int TOP_USER = 1;
+    public static final int SECOND_USER = 2;
+    public static final int THIRD_USER = 3;
+    public static final int FORTH_USER = 4;
 
-    public static User empty(){
-        return new User((long)-1);
-    }
+    public static final int DISTRICT = 1;
+    public static final int CITY = 2;
+    public static final int SCHOOL = 3;
+
 
     @Id
     @GeneratedValue
     private Long id;
+
     @NonNull
-    private String name;
+    private String account;
+
     @NonNull
     private String passwd;
-    @NonNull
-    private String descr;
-    @NonNull
-    private String admin;
-    @NonNull
-    private String admin2;
-    @NonNull
-    private String admin3;
-    @NonNull
-    private String tel;
-    @NonNull
-    private Long parentId;
-    @NonNull
-    private String type;
 
-    public User() {};
+    @NonNull
+    private int user_type;
+
+    @NonNull
+    private String name;
+
+    private Long parent_id;
+
+    private Long pparent_id;
+
+    private String secretary_name;
+
+    private String secretary_tel;
+
+    private int member_num;
+
+    @NonNull
+    private int user_kind;
+
+    public User() {}
 
     public User(Long id){
         this.id = id;
-    };
+    }
+
+    public static User empty(){
+        return new User((long)-1);
+    }
 }

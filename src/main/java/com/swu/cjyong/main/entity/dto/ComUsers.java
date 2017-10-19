@@ -1,8 +1,5 @@
 package com.swu.cjyong.main.entity.dto;
 
-import com.swu.cjyong.main.entity.SuperUser;
-import com.swu.cjyong.main.entity.User;
-
 import java.util.List;
 
 public class ComUsers {

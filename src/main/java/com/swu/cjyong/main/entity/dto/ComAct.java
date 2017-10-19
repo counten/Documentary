@@ -1,7 +1,5 @@
 package com.swu.cjyong.main.entity.dto;
 
-import com.swu.cjyong.main.entity.Activity;
-
 import java.util.ArrayList;
 import java.util.List;
 

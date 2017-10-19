@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    // 删除三级用户
     public int deleteUser(Long selfId, Long userId) {
         SuperUser superUser = superUserRepository.findOne(selfId);
         User user = UserRepository.findOne(userId);
@@ -32,17 +33,11 @@ public class UserServiceImpl implements UserService {
             return 1;
         }
 
-        if(superUser.getType().equals(SuperUser.FIRST_USRE)){
-            superUserRepository.delete(userId);
-            UserRepository.deleteByParentId(userId);
+        if(superUser.getId().equals(user.getParentId()) ||
+                superUser.getType().equals(SuperUser.FIRST_USRE)) {
+            UserRepository.delete(userId);
             return 0;
-        } else {
-            if(superUser.getId().equals(user.getParentId())) {
-                UserRepository.delete(userId);
-                return 0;
-            }
         }
-
         return 1;
     }
 

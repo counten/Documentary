@@ -1,5 +1,10 @@
 package com.swu.cjyong.main.entity.dto;
 
+import com.swu.cjyong.main.entity.Activity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ComAct {
     private long id;
     private String title;
@@ -27,6 +32,20 @@ public class ComAct {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public static List<ComAct> ActToComAct(List<Activity> activities){
+        List<ComAct> comActs = new ArrayList<>();
+        for(Activity activity:activities) {
+            if(null != activity){
+                ComAct comAct = new ComAct();
+                comAct.setId(activity.getId());
+                comAct.setImg(activity.getImg());
+                comAct.setTitle(activity.getTitle());
+                comActs.add(comAct);
+            }
+        }
+        return comActs;
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.Activity;
+import com.swu.cjyong.main.entity.dto.ComAct;
 import com.swu.cjyong.main.entity.dto.ComActs;
+
+import java.util.List;
 
 public interface ActivityService {
     /**
@@ -56,5 +59,5 @@ public interface ActivityService {
      *
      * @return ComActs
      */
-    ComActs getActByType();
+    List<ComAct> getActByType(String type);
 }

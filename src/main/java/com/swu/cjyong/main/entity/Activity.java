@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Accessors(chain = true)
 public class Activity {
     // 全局变量
-    public static final int ACT_CHECKING = 1; 
+    public static final int ACT_CHECKING = 1;
     public static final int ACT_PASS = 2;
     public static final int ACT_NOTPASS = 3;
     public static final int ACT_DELETE = 4;
@@ -33,7 +33,7 @@ public class Activity {
     private String user_name;
 
     @NonNull
-    private int user_type;
+    private Integer user_type;
 
     @NonNull
     private String title;
@@ -55,7 +55,7 @@ public class Activity {
     private String img;
 
     @NonNull
-    private int state;
+    private Integer state;
 
     public Activity() {}
 

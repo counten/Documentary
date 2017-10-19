@@ -37,7 +37,7 @@ public class User {
     private String passwd;
 
     @NonNull
-    private int user_type;
+    private Integer user_type;
 
     @NonNull
     private String name;
@@ -50,10 +50,10 @@ public class User {
 
     private String secretary_tel;
 
-    private int member_num;
+    private Integer member_num;
 
     @NonNull
-    private int user_kind;
+    private Integer user_kind;
 
     public User() {}
 

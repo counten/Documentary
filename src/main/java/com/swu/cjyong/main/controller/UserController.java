@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "用户更新")
-    @PostMapping("/updateUser")
+    @PutMapping("/updateUser")
     public ResponseEntity<User> updateUser(@RequestBody User user){
         System.out.println(user);
         return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);

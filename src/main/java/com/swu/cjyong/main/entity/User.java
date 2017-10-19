@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="activity")
+@Table(name="user")
 @Data
 @Accessors(chain = true)
 public class User {

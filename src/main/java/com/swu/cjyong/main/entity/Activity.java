@@ -36,13 +36,15 @@ public class Activity {
     private Integer user_type;
 
     @NonNull
+    private Integer user_kind;
+
+    @NonNull
     private String title;
 
     @NonNull
     private String time;
 
-    @NonNull
-    private Long create_time;
+    private Long create_time = System.currentTimeMillis();
 
     @NonNull
     private String location;

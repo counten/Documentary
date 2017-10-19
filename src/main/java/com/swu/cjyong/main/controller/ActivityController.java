@@ -93,7 +93,7 @@ public class ActivityController {
 
     @ApiOperation(value = "根据用户Id获取上传的活动")
     @GetMapping("/byUserId/{userId}/{userGrade}")
-    public ResponseEntity<List<ComAct>> getActByUserId(@PathVariable Long userId, @PathVariable String userGrade){
+    public ResponseEntity<List<Activity>> getActByUserId(@PathVariable Long userId, @PathVariable String userGrade){
         return new ResponseEntity<>(activityService.getActByUserId(userId, userGrade), HttpStatus.OK);
     }
 

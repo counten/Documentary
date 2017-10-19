@@ -5,6 +5,7 @@ import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ComUsers;
+import com.swu.cjyong.main.service.MemberService;
 import com.swu.cjyong.main.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,31 +15,34 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository UserRepository;
+    private UserRepository userRepository;
     @Autowired
     private SuperUserRepository superUserRepository;
+    @Autowired
+    private MemberService memberService;
 
     @Override
     public User selectUserByNameAndPasswd(String name, String passwd){
-        return UserRepository.findFirstByNameAndPasswd(name, passwd);
+        return userRepository.findFirstByNameAndPasswd(name, passwd);
     }
 
     @Override
     public int deleteUser(Long selfId, Long userId) {
         SuperUser superUser = superUserRepository.findOne(selfId);
-        User user = UserRepository.findOne(userId);
+        User user = userRepository.findOne(userId);
 
-        if(superUser == null || user == null){
+        if(superUser == null || user == null) {
             return 1;
         }
 
         if(superUser.getType().equals(SuperUser.FIRST_USRE)) {
             superUserRepository.delete(userId);
-            UserRepository.deleteByParentId(userId);
+            userRepository.deleteByParentId(userId);
+
             return 0;
         } else {
             if(superUser.getId().equals(user.getParentId())) {
-                UserRepository.delete(userId);
+                userRepository.delete(userId);
                 return 0;
             }
         }
@@ -59,16 +63,16 @@ public class UserServiceImpl implements UserService {
             comUsers.setSuperUsers(superUserRepository.findAll());
         } else if(superUser.getType().equals(SuperUser.SECOND_USER)){
             comUsers.setType(2);
-            comUsers.setUsers(UserRepository.findUserByParentId(parentId));
+            comUsers.setUsers(userRepository.findUserByParentId(parentId));
         }
         return comUsers;
     }
 
     @Override
     public User updateUser(User user) {
-        if(user.getId() == null || UserRepository.findOne(user.getId())== null){
+        if(user.getId() == null || userRepository.findOne(user.getId())== null){
             return null;
         }
-        return UserRepository.save(user);
+        return userRepository.save(user);
     }
 }

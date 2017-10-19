@@ -37,11 +37,13 @@ public class ComAct {
     public static List<ComAct> ActToComAct(List<Activity> activities){
         List<ComAct> comActs = new ArrayList<>();
         for(Activity activity:activities) {
-            ComAct comAct = new ComAct();
-            comAct.setId(activity.getId());
-            comAct.setImg(activity.getImg());
-            comAct.setTitle(activity.getTitle());
-            comActs.add(comAct);
+            if(null != activity){
+                ComAct comAct = new ComAct();
+                comAct.setId(activity.getId());
+                comAct.setImg(activity.getImg());
+                comAct.setTitle(activity.getTitle());
+                comActs.add(comAct);
+            }
         }
         return comActs;
     }

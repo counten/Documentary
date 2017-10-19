@@ -61,4 +61,11 @@ public interface ActivityService {
      * @return ComActs
      */
     List<ComAct> getActByType(String type);
+
+    /**
+     * 获取用户上传的所有活动信息
+     *
+     * @return ComActs
+     */
+    List<ComAct> getActByUserId(Long userId, String userGrade);
 }

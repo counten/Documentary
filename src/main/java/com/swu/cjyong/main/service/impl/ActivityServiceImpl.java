@@ -96,6 +96,12 @@ public class ActivityServiceImpl implements ActivityService{
         return ComAct.ActToComAct(activities);
     }
 
+    @Override
+    public List<ComAct> getActByUserId(Long userId, String userGrade) {
+        List<Activity> activities = activityRepository.findByUserIdAndUserGrade(userId, userGrade);
+        return ComAct.ActToComAct(activities);
+    }
+
 
     private List<ComAct> packageAct(String userType){
         List<Activity> activities =new ArrayList<>();

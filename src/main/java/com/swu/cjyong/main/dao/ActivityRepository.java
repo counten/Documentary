@@ -19,7 +19,7 @@ public interface ActivityRepository extends JpaRepository<Activity,Long> {
 
 /*    Activity findFirstByUserTypeAndUserGradeOrderById(String userType, String userGrade, Long id);*/
 
-    List<Activity> findByUserId(Long id);
+    List<Activity> findByUserIdAndUserGrade(Long id, String userGrade);
 
     List<Activity> findByUserType(String userType);
 }

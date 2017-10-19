@@ -3,8 +3,8 @@ package com.swu.cjyong.main.service;
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.dto.ComAct;
 import com.swu.cjyong.main.entity.dto.ComActs;
+import com.swu.cjyong.main.entity.dto.ComTypes;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ActivityService {
@@ -54,6 +54,15 @@ public interface ActivityService {
      * @return
      */
     long countBySecondAccountId(long id);
+
+    /**
+     * 根据账户类型统计活动数量
+     *
+     *
+     * @return
+     */
+    ComTypes countByUserType();
+
 
     /**
      * 获取一个类别的活动信息

@@ -4,6 +4,7 @@ import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.dto.ComAct;
 import com.swu.cjyong.main.entity.dto.ComActs;
 import com.swu.cjyong.main.entity.SuperUser;
+import com.swu.cjyong.main.entity.dto.ComTypes;
 import com.swu.cjyong.main.service.ActivityService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +102,13 @@ public class ActivityController {
     public long coutActivtysBySecondAccountId(@PathVariable long id) {
         return activityService.countBySecondAccountId(id);
     }
+
+    @ApiOperation(value = "分类统计活动数量")
+    @GetMapping("/countByUserType")
+    public ResponseEntity<ComTypes> countByUserType() {
+        return new ResponseEntity<>(activityService.countByUserType(), HttpStatus.OK);
+    }
+
     /**
      * 上传图片获取链接
      *

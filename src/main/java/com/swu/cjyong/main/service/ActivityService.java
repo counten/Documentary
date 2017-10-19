@@ -50,4 +50,11 @@ public interface ActivityService {
      * @return
      */
     long countBySecondAccountId(long id);
+
+    /**
+     * 获取一个类别的活动信息
+     *
+     * @return ComActs
+     */
+    ComActs getActByType();
 }

@@ -88,6 +88,11 @@ public class ActivityServiceImpl implements ActivityService{
         return count;
     }
 
+    @Override
+    public ComActs getActByType() {
+        return null;
+    }
+
 
     private List<ComAct> packageAct(String userType){
         List<Activity> activities =new ArrayList<>();

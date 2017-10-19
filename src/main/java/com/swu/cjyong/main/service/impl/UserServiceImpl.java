@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository UserRepository;
+    private UserRepository userRepository;
     @Autowired
     private SuperUserRepository superUserRepository;
     @Autowired
@@ -23,22 +23,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectUserByNameAndPasswd(String name, String passwd){
-        return UserRepository.findFirstByNameAndPasswd(name, passwd);
+        return userRepository.findFirstByNameAndPasswd(name, passwd);
     }
 
     @Override
     // 删除三级用户
     public int deleteUser(Long selfId, Long userId) {
         SuperUser superUser = superUserRepository.findOne(selfId);
-        User user = UserRepository.findOne(userId);
+        User user = userRepository.findOne(userId);
 
-        if(superUser == null || user == null){
+        if(superUser == null || user == null) {
             return 1;
         }
 
         if(superUser.getId().equals(user.getParentId()) ||
                 superUser.getType().equals(SuperUser.FIRST_USRE)) {
-            UserRepository.delete(userId);
+            userRepository.delete(userId);
             memberService.deleteByOrgId(userId);
             return 0;
         }
@@ -58,16 +58,16 @@ public class UserServiceImpl implements UserService {
             comUsers.setSuperUsers(superUserRepository.findAll());
         } else if(superUser.getType().equals(SuperUser.SECOND_USER)){
             comUsers.setType(2);
-            comUsers.setUsers(UserRepository.findUserByParentId(parentId));
+            comUsers.setUsers(userRepository.findUserByParentId(parentId));
         }
         return comUsers;
     }
 
     @Override
     public User updateUser(User user) {
-        if(user.getId() == null || UserRepository.findOne(user.getId())== null){
+        if(user.getId() == null || userRepository.findOne(user.getId())== null){
             return null;
         }
-        return UserRepository.save(user);
+        return userRepository.save(user);
     }
 }

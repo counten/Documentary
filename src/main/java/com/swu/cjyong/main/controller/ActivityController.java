@@ -1,6 +1,7 @@
 package com.swu.cjyong.main.controller;
 
 import com.swu.cjyong.main.entity.Activity;
+import com.swu.cjyong.main.entity.dto.ComAct;
 import com.swu.cjyong.main.entity.dto.ComActs;
 import com.swu.cjyong.main.entity.SuperUser;
 import com.swu.cjyong.main.service.ActivityService;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -79,6 +81,12 @@ public class ActivityController {
     @GetMapping("/indexAct")
     public ResponseEntity<ComActs> indexAct(){
         return new ResponseEntity<>(activityService.getIndexAct(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据类型获取活动")
+    @GetMapping("/byType/{type}")
+    public ResponseEntity<List<ComAct>> getActByType(@PathVariable String type){
+        return new ResponseEntity<>(activityService.getActByType(type), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据二级账户ID统计活动信息")

@@ -89,27 +89,17 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
-    public ComActs getActByType() {
-        return null;
+    public List<ComAct> getActByType(String type) {
+        List<Activity> activities = activityRepository.findByUserType(type);
+        return ComAct.ActToComAct(activities);
     }
 
 
     private List<ComAct> packageAct(String userType){
         List<Activity> activities =new ArrayList<>();
-
         activities.add(activityRepository.findFirstByUserTypeAndUserGradeOrderById(userType, SuperUser.SECOND_USER));
         activities.add(activityRepository.findSecondByUserTypeAndUserGradeOrderById(userType,SuperUser.THIRD_USR));
         activities.add(activityRepository.findSecondByUserTypeAndUserGradeOrderById(userType,SuperUser.THIRD_USR));
-        List<ComAct> school = new ArrayList<>();
-        for(Activity t:activities){
-            if(null != t){
-                ComAct comAct = new ComAct();
-                comAct.setId(t.getId());
-                comAct.setImg(t.getImg());
-                comAct.setTitle(t.getTitle());
-                school.add(comAct);
-            }
-        }
-        return school;
+        return ComAct.ActToComAct(activities);
     }
 }

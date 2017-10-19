@@ -28,8 +28,12 @@ public class UserController {
         User user = userService.selectUserByNameAndPasswd(name, passwd);
         if(null == user){
             SuperUser superUser = superUserService.selectSuperUserByNameAndPasswd(name, passwd);
-            comUser.setType(null == superUser ? 0 : 1);
-            comUser.setSuperUser(superUser);
+            if(null != superUser){
+                comUser.setType(1);
+                comUser.setSuperUser(superUser);
+            } else {
+                comUser.setType(0);
+            }
         } else {
             comUser.setType(2);
             comUser.setUser(user);

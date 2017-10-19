@@ -52,7 +52,7 @@ public class MemberController {
     }
 
     @ApiOperation(value = "根据组织ID获取团员信息")
-    @DeleteMapping("/getByOrgId/{id}")
+    @GetMapping("/getByOrgId/{id}")
     public ResponseEntity<List<Member>> getMembersByOrgId(@PathVariable long orgId) {
         List<Member> members = memberService.getMembersByOrgId(orgId);
         return new ResponseEntity<>(members, HttpStatus.OK);

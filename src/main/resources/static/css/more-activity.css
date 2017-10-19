@@ -1,0 +1,41 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2017-10-18 15:39:16
+ * @version $Id$
+ */
+.section .title-bar{
+	padding:1rem 0;
+	font-size:2rem;
+	color:#fff;
+	background-color:#666;
+}
+.section .title-bar h3{
+	float:left;
+	font-weight:normal;
+	text-indent:1em;
+}
+.section .activity-box{
+	padding:1rem;
+	background-color:#f6f6f6;
+	border-bottom:1px solid #ccc;
+}
+.section .activity-box a{
+	display:block;
+}
+.section .activity-box a img{
+	display:block;
+	float:left;
+	width:26%;
+	min-height:4rem;
+	max-height:15rem;
+}
+.section .activity-box a .title{
+	float:left;
+	padding:1%;
+	width:70%;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3rem;
+}

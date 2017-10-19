@@ -1,0 +1,62 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2017-10-18 15:49:58
+ * @version $Id$
+ */
+.activity-title{
+	padding:1rem;
+	font-size:2rem;
+	color:#fff;
+	font-weight:normal;
+	background-color:#666;
+	line-height:3rem;
+	text-align:center;
+}
+.activity-detail{
+	background-color:#f6f6f6;
+}
+.activity-detail .activity-info ul li{
+	font-size:1.6rem;
+	color:454647;
+	line-height:4rem;
+}
+.activity-detail .activity-info ul li:after{
+	content: '';
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	clear: both;
+}
+.activity-detail .activity-info ul li span{
+	display:block;
+	float:left;
+	width:18%;
+	text-align:right;
+}
+.activity-detail .activity-info ul li span.info{
+	width:70%;
+	padding-left:2%;
+	text-align:left;
+}
+.activity-detail .activity-img{
+	margin-top:4rem;
+}
+.activity-detail .activity-img .img-box{
+	margin:4rem auto;
+	width:80%;
+}
+.activity-detail .activity-img .img-box img{
+	max-width:100%;
+}
+.activity-detail .activity-content{
+	margin:auto;
+	padding-bottom:10rem;
+	width:80%;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3rem;
+	text-indent:2em;
+}

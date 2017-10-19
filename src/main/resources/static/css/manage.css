@@ -1,0 +1,134 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2017-10-18 21:24:14
+ * @version $Id$
+ */
+.menu{
+	height:4rem;
+	color:#fff;
+	font-size:1.6rem;
+	line-height:4rem;
+	background-color:#666;
+	text-align:center;
+}
+.menu ul li{
+	float:left;
+	width:25%;
+	cursor:pointer;
+}
+.menu ul li:hover{
+	background-color:#444;
+}
+
+.menu-content{
+	display:none;
+	background-color:#f6f6f6;
+}
+
+.menu-content #chart{
+	padding:5rem 2rem;
+	width:100%;
+	height:30rem;
+}
+.menu-content .activity-box{
+	position:relative;
+	padding:1rem;
+	background-color:#f6f6f6;
+	border-bottom:1px solid #ccc;
+}
+.menu-content .activity-box a{
+	display:block;
+	float:left;
+	width:85%;
+}
+.menu-content .activity-box a img{
+	display:block;
+	float:left;
+	width:30%;
+	min-height:4rem;
+}
+.menu-content .activity-box a .title{
+	float:left;
+	padding:1.2% 0 2% 1%;
+	width:66%;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3rem;
+	max-height:6rem;
+	overflow:hidden;
+}
+.menu-content .activity-box .operation{
+	float:left;
+	padding:1% 0;
+	width:15%;
+	font-size:1.6rem;
+	line-height:3rem;
+	text-align:center;
+}
+.menu-content .activity-box .operation .pass{
+	color:#5dB431;
+	cursor:pointer;
+}
+.menu-content .activity-box .operation .pass:hover{
+	text-decoration:underline;
+}
+.menu-content .activity-box .operation .stop{
+	color:#DD4E42;
+	cursor:pointer;
+}
+.menu-content .activity-box .stop:hover{
+	text-decoration:underline;
+}
+
+.menu-content .search-box{
+	margin:auto;
+	padding:5% 0 0;
+	width:50%;
+}
+.menu-content .search-box input{
+	display:block;
+	float:left;
+	width:60%;
+	height:3.2rem;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3.2rem;
+	text-indent:1em;
+	border:none;
+	outline:none;
+}
+.menu-content .search-box button{
+	display:block;
+	float:left;
+	width:40%;
+	height:3.2rem;
+	font-size:1.6rem;
+	color:#fff;
+	background-color:#5dB431;
+	border:none;
+	outline:none;
+	cursor:pointer;
+}
+.menu-content .search-box button:hover{
+	background-color:#5CB451;
+}
+.menu-content .tip{
+	height:4rem;
+	font-size:1.6rem;
+	color:#DD4E42;
+	line-height:4rem;
+}
+
+.menu-content .sub-account-box .sub-account{
+	border-top:1px solid #eee;
+	border-bottom:1px solid #eee;
+}
+.menu-content .sub-account-box .sub-account ul li{
+	float:left;
+	width:30%;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3rem;
+}

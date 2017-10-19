@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors liugang (742230063@qq.com)
+ * @date    2017-10-18 08:26:46
+ * @version 1.0
+ */
+html{font-size:10px;}
+body,h1,h2,h3,h4,h5,h6,p,dd{margin:0;}
+ul,ol,dl{margin:0;padding:0;list-style:none;}
+select{margin:0;padding:0;}
+img{border:none;vertical-align:middle;}
+a{text-decoration:none;color:#666;color:inherit;outline:none;}
+body{font:1.4rem/1.5 'Microsoft Yahei',sans-serif;color:#666;/*sans-serif 是手机默认字体*/}
+.clearfix:after{
+	content: '';
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	clear: both;
+}
+.container{
+	margin:auto;
+	min-width:320px;
+	max-width:100rem;
+}

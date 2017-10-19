@@ -46,13 +46,19 @@ public class MemberController {
     }
 
     @ApiOperation(value = "根据组织ID删除团员信息")
-    @DeleteMapping("/deleteByOrgId/{id}")
-    void deleteByOrgId(@PathVariable long orgId) {
-        memberService.deleteByOrgId(orgId);
+    @DeleteMapping("/deleteByOrgId/{orgId}")
+    public Long deleteByOrgId(@PathVariable long orgId) {
+        try {
+            memberService.deleteByOrgId(orgId);
+        } catch (Exception e) {
+            return 0L;
+        }
+        return 1L;
+
     }
 
     @ApiOperation(value = "根据组织ID获取团员信息")
-    @DeleteMapping("/getByOrgId/{id}")
+    @GetMapping("/getByOrgId/{orgId}")
     public ResponseEntity<List<Member>> getMembersByOrgId(@PathVariable long orgId) {
         List<Member> members = memberService.getMembersByOrgId(orgId);
         return new ResponseEntity<>(members, HttpStatus.OK);

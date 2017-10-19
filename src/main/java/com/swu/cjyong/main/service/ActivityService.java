@@ -4,6 +4,7 @@ import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.dto.ComAct;
 import com.swu.cjyong.main.entity.dto.ComActs;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ActivityService {

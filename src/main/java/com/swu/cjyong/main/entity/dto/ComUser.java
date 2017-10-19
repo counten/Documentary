@@ -22,7 +22,6 @@ public class ComUser {
     }
 
     public void setUser(User user) {
-        user.setPasswd("");
         this.user = user;
     }
 

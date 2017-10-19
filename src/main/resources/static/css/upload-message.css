@@ -1,0 +1,111 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors liugang (742230063@qq.com)
+ * @date    2017-10-18 08:26:46
+ * @version 1.0
+ */
+@media screen and (max-width:1000px){
+ 	body{
+		background-color:#f6f6f6;
+	}
+}
+ .container{
+ 	max-height:1000px;
+ 	background-color:#f6f6f6;
+ }
+ .title{
+ 	height:6rem;
+ 	font-size:2rem;
+ 	color:#fff;
+ 	font-weight:normal;
+ 	line-height:6rem;
+ 	background-color:#666;
+ }
+  .title a{
+  	display:inline-block;
+  	width:5%;
+  	text-align:center;
+  }
+ .uploadbox{
+ 	margin-top:2%;
+ }
+ .uploadbox ul li{
+ 	width:100%;
+ 	position:relative;
+ 	overflow:hidden;
+ }
+ .uploadbox ul li span{
+ 	display:block;
+ 	margin-left:5%;
+ 	font-size:1.8rem;
+ 	color:#565758;
+ 	line-height:4rem;
+ }
+ .uploadbox ul li textarea{
+ 	display:block;
+ 	padding:1%;
+ 	margin:auto;
+ 	width:90%;
+ 	font-size:1.6rem;
+ 	color:#565758;
+ 	text-indent:1em;
+ 	resize:none;
+ 	border:none;
+ 	outline:none;
+ }
+ .uploadbox ul li #message-img{
+ 	position:absolute;
+ 	top:-999px;
+ }
+ .uploadbox ul li label{
+ 	display:inline-block;
+ 	margin:2rem 0 2rem 5%;
+ 	width:12rem;
+ 	height:3rem;
+ 	font-size:1.6rem;
+ 	color:#fff;
+	background-color:#5dB431;
+	line-height:3rem;
+	text-align:center;
+	border-radius:2px;
+	cursor:pointer;
+ }
+ .uploadbox ul li label:hover{
+ 	background-color:#5CB451;
+ }
+ .uploadbox ul li button{
+ 	display:block;
+ 	margin:2% auto;
+	max-width:20rem;
+	width:80%;
+	height:4rem;
+	font-size:1.6rem;
+	color:#fff;
+	background-color:#5dB431;
+	border:none;
+	outline:none;
+	border-radius:2px;
+	cursor:pointer;
+ }
+.uploadbox ul li button:hover{
+ 	background-color:#5CB451;
+ }
+.uploadbox ul li #img-box{
+	margin:auto;
+	width:90%;
+}
+ .uploadbox ul li #img-box .img-preview-box{
+ 	margin:2%;
+ 	float:left;
+	width:16rem;
+	height:9rem;
+ }
+
+ .uploadbox ul li .tip{
+	height:4rem;
+	font-size:1.6rem;
+	color:#DD4E42;
+	line-height:4rem;
+	text-align:center;
+ }

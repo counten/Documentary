@@ -1,0 +1,76 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors liugang (742230063@qq.com)
+ * @date    2017-10-18 08:26:46
+ * @version 1.0
+ */
+.topbar{
+	height:3rem;
+	min-width:320px;
+	background-color:#eee;
+}
+.topbar ul{
+	margin-right:5%;
+	float:right;
+}
+.topbar ul li{
+	float:left;
+}
+.topbar ul li a{
+	display:block;
+	padding:0 1rem;
+	line-height:3rem;
+	font-size:1.4rem;
+	color:#454647;
+}
+.topbar ul li a:hover{
+	color:#666;
+	text-decoration:underline;
+}
+.content{
+	padding-bottom:10rem;
+}
+.content .section .title-bar{
+	padding:0.8rem 1.4rem;
+	font-size:2rem;
+	color:#fff;
+	background-color:#666;
+}
+.content .section .title-bar h3{
+	float:left;
+	font-weight:normal;
+}
+.content .section .title-bar .more{
+	display:block;
+	float:right;
+	width:10rem;
+	text-align:right;
+}
+.content .section .activity-box{
+	padding:1rem;
+	background-color:#f6f6f6;
+	border-bottom:1px solid #ccc;
+}
+.content .section .activity-box a{
+	display:block;
+}
+.content .section .activity-box a img{
+	display:block;
+	float:left;
+	width:26%;
+	min-height:4rem;
+	max-height:15rem;
+}
+.content .section .activity-box a .title{
+	float:left;
+	padding:1%;
+	width:70%;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3rem;
+}
+.bottom{
+	height:8rem;
+	background-color:#666;
+}

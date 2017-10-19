@@ -1,0 +1,148 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2017-10-18 16:42:50
+ * @version $Id$
+ */
+ @media screen and (max-width:576px){
+ 	body{
+		background-color:#f6f6f6;
+	}
+}
+.menu{
+	height:4rem;
+	color:#fff;
+	font-size:1.6rem;
+	line-height:4rem;
+	background-color:#666;
+	text-align:center;
+}
+.menu ul li{
+	float:left;
+	width:33.33%;
+	cursor:pointer;
+}
+.menu ul li:hover{
+	background-color:#444;
+}
+
+.menu-content{
+	display:none;
+	background-color:#f6f6f6;
+}
+
+.menu-content .activity-box{
+	position:relative;
+	padding:1rem;
+	background-color:#f6f6f6;
+	border-bottom:1px solid #ccc;
+}
+.menu-content .activity-box a{
+	display:block;
+	float:left;
+	width:85%;
+}
+.menu-content .activity-box a img{
+	display:block;
+	float:left;
+	width:30%;
+	min-height:4rem;
+}
+.menu-content .activity-box a .title{
+	float:left;
+	padding:1.2% 0 2% 1%;
+	width:66%;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3rem;
+	max-height:6rem;
+	overflow:hidden;
+}
+.menu-content .activity-box .operation{
+	float:left;
+	padding:1% 0;
+	width:15%;
+	font-size:1.6rem;
+	line-height:3rem;
+	text-align:center;
+}
+.menu-content .activity-box .operation .state{
+	color:#5dB431;
+}
+.menu-content .activity-box .operation .delete{
+	color:#DD4E42;
+	cursor:pointer;
+}
+.menu-content .activity-box .delete:hover{
+	text-decoration:underline;
+}
+.menu-content ul li{
+	padding:1rem;
+}
+.menu-content ul li:after{
+	content: '';
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	clear: both;
+}
+.menu-content ul li #modify{
+	float:right;
+	width:20%;
+	font-size:1.6rem;
+	color:#5dB431;
+	line-height:3.2rem;
+	text-align:center;
+	cursor:pointer;
+}
+.menu-content ul li #modify:hover{
+	text-decoration:underline;
+}
+.menu-content ul li span{
+	display:block;
+	float:left;
+	width:20%;
+	height:3.2rem;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3.2rem;
+	text-align:right;
+}
+.menu-content ul li input{
+	display:block;
+	float:left;
+	margin-left:2%;
+	width:70%;
+	height:3.2rem;
+	font-size:1.6rem;
+	color:#454647;
+	line-height:3.2rem;
+	text-indent:1em;
+	background-color:#f6f6f6;
+	border:none;
+	outline:none;
+}
+.menu-content ul li button{
+	display:block;
+	margin:auto;
+	width:20rem;
+	height:4rem;
+	font-size:1.6rem;
+	color:#fff;
+	background-color:#5dB431;
+	border:none;
+	outline:none;
+}
+.menu-content ul li button:hover{
+	background-color:#5CB451;
+}
+
+.menu-content ul li #tip{
+	height:4rem;
+	font-size:1.6rem;
+	color:#DD4E42;
+	text-align:center;
+	line-height:4rem;
+}

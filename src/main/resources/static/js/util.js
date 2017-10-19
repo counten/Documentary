@@ -55,40 +55,50 @@
 		var type = json.type || "get";
 		var url = json.url;
 		var data = json.data;
+		var jsonType = json.jsonType;
+		var jointData = json.jointData === undefined?true:false; 
 		var success = json.success;
 		var error = json.error;
 		var dataStr = "";
-		if(data){
-			for(var key in data){
-				dataStr += key+"="+data[key]+"&"
-			}
-			dataStr += "_=" + new Date().getTime();
-			if(type.toLowerCase() == "get"){
-				url += "?" + dataStr;
+		if(data && jointData){
+			if(jsonType){
+				dataStr = JSON.stringify(data);
+			}else{
+				for(var key in data){
+					dataStr += key+"="+data[key]+"&"
+
+				}
+				/*dataStr += "_=" + new Date().getTime();*/
+				if(type.toLowerCase() == "get"){
+					url += "?" + dataStr;
+				}
 			}
 		}
 		var xhr = new XMLHttpRequest();
 		xhr.open(type,url,true);
-		/*xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');*/
+		if(jsonType){
+			xhr.setRequestHeader('content-type','application/json;charset=UTF-8');
+		}else{
+			/*xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');*/
+		}
 		xhr.send(dataStr);
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4){
 				if(xhr.status>=200&&xhr.status<300){
 					try{
-						var json = JSON.parse(shr.responseText);
+						var json = JSON.parse(xhr.responseText);
 					}catch(Error){
 						console.log("json parse error");
 					}finally{
 						if(json){
 							success&&success(json);
-							error&&error(json)
 						}else{
-							success&&success(shr.responseText);
-							error&&error(shr.responseText)
+							error&&error(xhr.responseText)
 						}
 					}
-					
-				};
+				}else{
+					error&&error(xhr.responseText);
+				}
 			}
 		}
 	}
@@ -127,6 +137,9 @@
 	*/
 	function getURIParams(){
 		var location = document.location.href;
+		if(location.indexOf("?") < 0){
+			return null;
+		}
 		var strParams = location.substring( location.indexOf("?") + 1);
 		return divideParams(strParams,"&");
 	}

@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors liugang (742230063@qq.com)
+ * @date    2017-10-18 08:26:46
+ * @version 1.0
+ */
+ @media screen and (max-width:576px){
+ 	body{
+		background-color:#f6f6f6;
+	}
+}
+ .login-box{
+ 	margin:6% auto;
+ 	padding:2rem 0; 
+ 	max-width:48rem;
+ 	max-height:48rem;
+ 	background-color:#f6f6f6;
+ }
+ .login-box ul li{
+ 	margin:2% auto;
+ 	max-width:33rem;
+ 	min-width:20rem;
+	font-size:1.6rem;
+	line-height:4rem;
+	text-align:center;
+ }
+ .login-box ul li:after{
+ 	content: '';
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	clear: both;
+ }
+ .login-box ul li h3{
+ 	margin:5% 0 8%;
+ 	font-size:3rem;
+ 	color:#888;
+ 	line-height:4rem;
+ 	
+ }
+ .login-box ul li span{
+ 	display:block;
+ 	float:left;
+ 	width:22%;
+ 	color:#464748;
+ 	text-align:right;
+ }
+ .login-box ul li input{
+ 	display:block;
+ 	float:left;
+ 	margin-left:5%;
+	width:70%;
+	height:3.2rem;
+	color:#565656;
+	font-size:1.6rem;
+	line-height:3.2rem;
+	text-indent:1em;
+	border:none;
+	outline:none;
+	border-radius:2px;
+ }
+ .login-box ul li select{
+ 	display:block;
+ 	float:left;
+ 	margin-left:5%;
+ 	width:60%;
+ 	height:3.2rem;
+ 	color:#565758;
+ 	font-size:1.6rem;
+ 	line-height:3.2rem;
+ 	text-align:center;
+ 	border:none;
+ 	outline:none;
+ }
+ .login-box ul li button{
+ 	margin:5% auto;
+ 	width:80%;
+ 	height:3.4rem;
+ 	color:#fff;
+ 	font-size:1.6rem;
+	line-height:3.4rem;
+	background-color:#5dB431;
+ 	border:none;
+	outline:none;
+	cursor:pointer;
+	border-radius:2px;
+ }
+.login-box ul li button:hover{
+	background-color:#5CB451;
+}
+.login-box ul li .tip{
+	height:4rem;
+	font-size:1.6rem;
+	color:#DD4E42;
+}

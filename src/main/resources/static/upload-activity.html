@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>发表活动</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/upload-activity.css">
+</head>
+<body>
+    <div class="container">
+    	<h3 class="title"><a href="index.html">&lt;=</a>&nbsp;&nbsp;活动发表</h3>
+    	<div class="uploadbox">
+    		<ul>
+          <li>
+            <span>标题:</span>
+            <input type="text" id="activity-title">
+          </li>
+          <li>
+            <span>参与人员:</span>
+            <input type="text" id="activity-member">
+          </li>
+          <li>
+            <span>时间:</span>
+            <input type="date" id="activity-date">
+          </li>
+          <li>
+            <span>地点:</span>
+            <input type="text" id="activity-location">
+          </li>
+    			<li>
+    				<span>内容:</span>
+    				<textarea name="" id="activity-content" rows="15" ></textarea>
+    			</li>
+    			<li>
+    				<input type="file" id="activity-img" class="message-img" accept="image/*" multiple>
+    				<label for="activity-img">添加图片</label>
+    			</li>
+    			<li>
+    				<div id="img-box" class="clearfix"></div>
+    			</li>
+    			<li>
+    				<button id="btn-upload">发表</button>
+    			</li>
+    			<li>
+    				<p id="tip" class="tip"></p>
+    			</li>
+    		</ul>
+    	</div>
+    </div>
+    <script src="js/util.js"></script>
+    <script src="js/upload-activity.js"></script>
+</body>
+</html>

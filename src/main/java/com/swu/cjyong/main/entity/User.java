@@ -55,6 +55,12 @@ public class User {
     @NonNull
     private Integer userKind;
 
+    private Integer numCheck = 0;
+    private Integer numPass = 0;
+    private Integer numNotPass = 0;
+    private Integer numDelete = 0;
+
+
     public User() {}
 
     public User(Long id){

@@ -13,5 +13,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     User findFirstByAccountAndPasswd(String name, String passwd);
 
     List<User> findByParentId(Long parentId);
+
+    User findFirstByAccount(String name);
 }
 

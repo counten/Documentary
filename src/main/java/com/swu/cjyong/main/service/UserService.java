@@ -30,4 +30,11 @@ public interface UserService {
      */
     List<User> getUserByParentId(Long selfId);
 
+    /**
+     * 创建不同用户
+     * @param selfId
+     * @param User
+     * @return User
+     */
+    User createUser(Long selfId, User user);
 }

@@ -64,4 +64,8 @@ public class User {
     public static User empty(){
         return new User((long)-1);
     }
+
+    public static User empty(int state){
+        return new User((long)state);
+    }
 }

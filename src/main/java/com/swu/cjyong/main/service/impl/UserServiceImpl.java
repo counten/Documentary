@@ -71,10 +71,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public int deleteUser(Long selfId, Long userId) {
         User user = userRepository.findOne(userId);
-        User pUser = userRepository.findOne(selfId);
-        if (null == user ) {
-
+        // 判断存在和所属关系
+        if (null == user || user.getParentId() != selfId) {
+            return 1;
         }
+        // 级联删除
+        if(user.getUserType() == User.THIRD_USER) {
+            userRepository.deleteByParentId(userId);
+        }
+        userRepository.delete(userId);
+
         return 0;
     }
 }

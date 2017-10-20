@@ -59,4 +59,9 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserByParentId(parentId), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "用户删除")
+    @DeleteMapping("/deleteUser")
+    public int deleteUser(@RequestParam Long selfId, @RequestParam Long userId){
+        return (userService.deleteUser(selfId,userId));
+    }
 }

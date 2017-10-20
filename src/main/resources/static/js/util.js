@@ -59,6 +59,8 @@
 		var jointData = json.jointData === undefined?true:false; 
 		var success = json.success;
 		var error = json.error;
+		var contentType = json.contentType || "application/x-www-form-urlencoded";
+		var contentTypeNeed = json.contentTypeNeed;
 		var dataStr = "";
 		if(data && jointData){
 			if(jsonType){
@@ -73,13 +75,17 @@
 					url += "?" + dataStr;
 				}
 			}
+		}else{
+			dataStr = data;
 		}
 		var xhr = new XMLHttpRequest();
 		xhr.open(type,url,true);
 		if(jsonType){
 			xhr.setRequestHeader('content-type','application/json;charset=UTF-8');
 		}else{
-			/*xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');*/
+			if(contentTypeNeed){
+				xhr.setRequestHeader('content-type',contentType);
+			}
 		}
 		xhr.send(dataStr);
 		xhr.onreadystatechange = function(){

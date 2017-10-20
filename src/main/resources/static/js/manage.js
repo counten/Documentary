@@ -92,12 +92,137 @@
 	oChart.setOption(option); 
 
 
+	//下属账户管理--------
+	//搜索事件
+	var aDeleteSubData = [],  //下属账户信息
+		aDeleteSub = [],  //删除按钮
+		oSubAccountBox = document.getElementById("sub-account-box"),
+		aSubAccount = [],
+		oSearchSubInput = document.getElementById("search-sub-input",aMenuContent[1]),
+		oSearchSub = document.getElementById("search-sub");
+
+		oSearchSub.onclick = function(){
+			if(checkSubId()){
+				
+			}
+		}
+		
+		function checkSubId(){
+			if(oSearchSubInput.value.length == 0){
+				oSearchActivityTip.innerText = "id不能为空";
+				return false;
+			}
+			if(oSearchSubInput.value.length > 11){
+				oSearchActivityTip.innerText = "id过大";
+				return false;
+			}
+			return true;
+		}
+
+		function setDeleteSubEvent(){
+			for(var i=0;i<aDeleteSub.length;i++){
+				aDeleteSub[i].index = i;
+				aDeleteSub[i].onclick = function(){
+
+				}
+			}
+		}
+
+	//---审核-----
+	var aActivityBox = [],
+		aPass = [],
+		aStop = [],
+		aData = [];
+		aData[0] = {
+			title:"那是你金口难开"
+		}
+		aActivityBox = getElementsByClass("activity-box",aMenuContent[2]);
+		aPass = getElementsByClass("pass",aMenuContent[2]);
+		aStop = getElementsByClass("stop",aMenuContent[2]);
+		setOperationEvent();
+		function setOperationEvent(){
+			for(var i=0;i<aPass.length;i++){
+				aPass[i].index = i;
+				aPass[i].onclick = function(){
+					if(confirm('是否同意 "'+aData[this.index].title+'" 活动发布?')){
+						console.log("pass");
+					}
+				}
+			}
+
+			for(var i=0;i<aStop.length;i++){
+				aStop[i].index = i;
+				aStop[i].onclick = function(){
+					if(confirm('是否禁止 "'+aData[this.index].title+'" 活动发布?')){
+						console.log("stop");
+					}
+				}
+			}
+		}
 
 
 
 
+	//删除活动-----------
+	var oActivityWrapper = document.getElementById("activity-wrapper"),
+		oActivityIdInput = document.getElementById("activity-id-input",aMenuContent[3]),
+		oSearchActivity = document.getElementById("search-activity"),
+		oSearchActivityTip = document.getElementById("search-activity-tip"),
+		aOperationDelete = [],
+		aActivityDeleteBox = [],
+		aDeleteData = [];
 
-	//审核
+		//搜索事件
+		oSearchActivity.onclick = function(){
+			if(checkActivityId()){
+
+			}
+		}
+		function checkActivityId(){
+			if(oActivityIdInput.value.length == 0){
+				oSearchActivityTip.innerText = "id不能为空";
+				return false;
+			}
+			if(oActivityIdInput.value.length > 11){
+				oSearchActivityTip.innerText = "id过大";
+				return false;
+			}
+
+			return true;
+		}
+		//只允许输入数字
+		oActivityIdInput.onkeyup = function(){
+			if(this.value.length = 1 && this.value == "0"){
+				this.value = "";
+			}
+			this.value=this.value.replace(/\D/g,'');
+		}
+		
+
+		aOperationDelete = getElementsByClass("delete",oActivityWrapper);
+		setDeleteEvent();
+		function setDeleteEvent(){
+			for(var i=0;i<aOperationDelete.length;i++){
+				aOperationDelete[i].index = i;
+				aOperationDelete[i].onclick = function(){
+					var index = this.index;
+					if(confirm('是否删除"'+dataPass[index].title+'"活动')){
+						ajax({
+							type:"post",
+							url : "http://cqgqt.xenoeye.org:443/activity/byId/"+userInfo.id+"/"+tempData.id+"?_method=delete",
+							success : function(data){
+								if(data.state == 4){
+									oActivityWrapper.removeChild(aActivityDeleteBox[index]);
+								}
+							},
+							fail : function(){
+								alert("删除失败");
+							}
+						});
+					}
+				}
+			}
+		}
 	
 	window.onload = function(){
 		var oHtml = document.getElementsByTagName('html')[0];

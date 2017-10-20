@@ -19,13 +19,13 @@
 				font = Math.max(6,font);//取最大值,限定最小值
 				oHtml.style.fontSize = font + 'px';
 			}
-	
 	}
 
 	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
 	//如果没有登录则跳转到登录页
+	console.log(userInfo)
 	if(!userInfo){
 		window.location.href = "login.html";
 	}
@@ -37,8 +37,8 @@
 		length = 3;
 		//初始显示0
 		selected(0);
-		//如果账号类型为二级，则隐藏待审核
-		if(userInfo.type == 2){
+		//如果账号类型为二或三级，则隐藏待审核
+		if(userInfo.userType == 2 || userInfo.userType == 3){
 			aMenuLi[2].style.display = "none";
 			length = 2;
 		}
@@ -74,24 +74,22 @@
 		if(userInfo){
 			var html = '';
 			html += '<ul>';
-			if(userInfo.type == 2){
-				html += '<li><div id="modify">修改</div></li>';
+			html += '<li><div id="modify">修改</div></li>';
+			html += '<li><span>用户名:</span><input type="text" value="'+userInfo.account+'"disabled></li>';
+			html += '<li><span>密码:</span><input type="password" disabled value="'+userInfo.passwd+'"></li>'
+			html += '<li style="display:none"><span>确认密码:</span><input type="password" disabled></li>';
+			if(userInfo.userType == 3){
+				html += '<li><span>团委书记:</span><input type="text" disabled value="'+userInfo.secretaryName+'"></li>';
+				html += '<li><span>团委书记电话:</span><input type="text" disabled value="'+userInfo.secretaryTel+'"></li>';
+			}else if(userInfo.userType == 4){
+				html += '<li><span>团支部书记:</span><input type="text" disabled value="'+userInfo.secretaryName+'"></li>';
+				html += '<li><span>团支部书记电话:</span><input type="text" disabled value="'+userInfo.secretaryTel+'"></li>';
+				html += '<li><span>团委支部名称:</span><input type="text" disabled value="'+userInfo.name+'"></li>';
+				html += '<li><span>团员总数:</span><input type="text" disabled value="'+userInfo.memberNum+'"></li>';
 			}
-			html += '<li><span>用户名:</span><input type="text" value="'+userInfo.user.name+'"disabled></li>';
-			if(userInfo.type == 2){
-				html += '<li><span>密码:</span><input type="password" disabled value="'+userInfo.user.passwd+'"></li>';
-				html += '<li style="display:none"><span>确认密码:</span><input type="password" disabled></li>';
-				html += '<li><span>描述:</span><input type="text" disabled value="'+userInfo.user.descr+'"></li>'
-				html += '<li><span>团支部书记:</span><input type="text" disabled value="'+userInfo.user.admin+'"></li>';
-				html += '<li><span>团支部副书记:</span><input type="text" disabled value="'+userInfo.user.admin2+'"></li>';
-				html += '<li><span>团支部委员:</span><input type="text" disabled value="'+userInfo.user.admin3+'"></li>';
-				html += '<li><span>联系方式:</span><input type="text" disabled value="'+userInfo.user.tel+'"></li>';
-			}
-			html += '<li><span>用户类型:</span><input type="text" disabled value="'+userInfo.user.type+'"></li>';
-			if(userInfo.type == 2){
-				html += '<li style="display:none"><button id="btn-submit">提交</button></li>';
-				html += '<li><p id="tip"></p></li>';
-			}
+			html += '<li><span>用户类型:</span><input type="text" disabled value="'+userInfo.userType+'"></li>';
+			html += '<li style="display:none"><button id="btn-submit">提交</button></li>';
+			html += '<li><p id="tip"></p></li>';
 			html += '</ul>';
 			aMenuContent[0].innerHTML = html;
 			aInfoLi = aMenuContent[0].getElementsByTagName("li"),
@@ -119,7 +117,7 @@
 
 			//密码更改事件
 			aInfoInput[1].onblur = function(){
-				if(trim(this.value) != userInfo.user.passwd){
+				if(trim(this.value) != userInfo.passwd){
 					aInfoLi[3].style.display = "block";
 					passwordChanged = true;
 				}else{
@@ -127,40 +125,63 @@
 					passwordChanged = false;
 				}
 			}
-			if(aInfoInput[7]){
-				aInfoInput[7].onkeyup = function(){
-					this.value=this.value.replace(/\D/g,'');
-				}
+			if(userInfo.userType == 3){
+				aInfoInput[4].onkeyup = limitNum;
+			}else{
+				aInfoInput[4].onkeyup = limitNum;
+				aInfoInput[6].onkeyup = limitNum;
+			}
+			function limitNum(){
+				this.value=this.value.replace(/\D/g,'');
 			}
 			oBtnSubmit.onclick = function(){
-				if(check() && userInfo.type == 2){
-					var dataJson = {
-						  admin: aInfoInput[4].value,
-						  admin2: aInfoInput[5].value,
-						  admin3: aInfoInput[6].value,
-						  descr: aInfoInput[3].value,
-						  id: userInfo.user.id,
-						  name: trim(aInfoInput[0].value),
-						  parentId: userInfo.user.parentId,
-						  passwd: trim(aInfoInput[1].value),
-						  tel: aInfoInput[7].value,
-						  type: aInfoInput[8].value
+				if(check()){
+					var dataJson;
+					if(userInfo.userType == 3){
+						dataJson = {
+						  "account": trim(aInfoInput[0].value),
+						  "id": userInfo.id,
+						  "memberNum": userInfo.memberNum,
+						  "name": userInfo.name,
+						  "parentId": userInfo.parentId,
+						  "passwd": trim(aInfoInput[1].value),
+						  "pparentId": userInfo.pparentId,
+						  "secretaryName": aInfoInput[3].value,
+						  "secretaryTel": aInfoInput[4].value,
+						  "userKind": userInfo.userKind,
+						  "userType": userInfo.userType
+						}
+					}else{
+						dataJson = {
+						  "account": trim(aInfoInput[0].value),
+						  "id": userInfo.id,
+						  "memberNum": aInfoInput[6].value,
+						  "name": trim(aInfoInput[5].value),
+						  "parentId": userInfo.parentId,
+						  "passwd": trim(aInfoInput[1].value),
+						  "pparentId": userInfo.pparentId,
+						  "secretaryName": aInfoInput[3].value,
+						  "secretaryTel": aInfoInput[4].value,
+						  "userKind": userInfo.userKind,
+						  "userType": userInfo.userType
+						}
 					}
 					ajax({
 						type : "post",
-						url :"http://120.77.219.167:9191/users/updateUser?_method=put",
+						url :"http://cqgqt.xenoeye.org:443/users/updateUser?_method=put",
 						data :dataJson,
 						jsonType:true,
 						success : function(data){
-							oTip.innerText = "修改信息成功";
 							for(var i=0;i<aInfoInput.length-1;i++){
-								aInfoInput[i].setAttribute("disabled");
+								aInfoInput[i].setAttribute("disabled",true);
 								aInfoInput[i].style.backgroundColor = "#f6f6f6";
-								aInfoLi[aInfoLi.length-2].style.display = "none";
-								aInfoLi[3].style.display = "none";
-								oTip.innerText = "";
 							}
-
+							aInfoLi[aInfoLi.length-2].style.display = "none";
+							aInfoLi[3].style.display = "none";
+							oTip.innerText = "";
+							userInfo = dataJson;
+							setCookie(JSON.stringify(userInfo));
+							alert("修改信息成功");
 						},
 						fail : function(){
 							oTip.innerText = "访问服务器失败";
@@ -185,11 +206,33 @@
 					return false;
 				}
 			}
-			if(trim(aInfoInput[7].value).length < 6){
-				oTip.innerText = "联系方式有误";
+			if(trim(aInfoInput[4].value).length < 6 || trim(aInfoInput[4].value).length > 11){
+				oTip.innerText = "电话有误";
 				return false;
 			}
 			
+			if(trim(aInfoInput[3].value).length == 0){
+				if(userInfo.userType == 3){
+					oTip.innerText = "团委书记不能为空";
+				}else{
+					oTip.innerText = "团支部书记不能为空";
+				}
+				return false;
+			}
+			if(userInfo.userType == 4){
+				if(trim(aInfoInput[5].value).length == 0){
+					oTip.innerText = "团支部名称不能为空";
+					return false;
+				}
+				if(trim(aInfoInput[6].value).length == 0){
+					oTip.innerText = "团员总数不能为空";
+					return false;
+				}
+				if(trim(aInfoInput[6].value).length > 10){
+					oTip.innerText = "团员总数过大";
+					return false;
+				}
+			}
 			return true;
 
 		}
@@ -202,43 +245,39 @@
 			dataChecking = [],
 			htmlPass = "",
 			htmlChecking = "";
-		var url = "http://120.77.219.167:9191/activitys/byUserId/"+userInfo.user.id;
-		if(userInfo.type == 1){
-			url += "/" + userInfo.user.grade;
-		}else{
-			url += "/THIRD";
-		}
+
 		ajax({
-			url : url,
+			url : "http://cqgqt.xenoeye.org:443/activity/byUserId/"+userInfo.id,
 			success : askUploadedSuccess
 		});
 		function askUploadedSuccess(data){
+			console.log(data)
 			for(var i=0;i<data.length;i++){
-				if(data[i].state = "passing"){
+				if(data[i].state == 1){
 					htmlPass +='<div class="activity-box clearfix">';
             		htmlPass +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-              		htmlPass +=			'<img src="http://120.77.219.167:9192'+data[i].img.split(";")[0]+'" alt="">';
+              		htmlPass +=			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
               		htmlPass +=				'<div class="title">'+data[i].title+'</div>';
             		htmlPass +=		'</a>';
            			htmlPass += 	'<div class="operation">';
              		htmlPass +=  	  	'<div class="state">审核通过</div>';
-                  	htmlPass +=			'<div class="delete">删除</di2>';
+                  	htmlPass +=			'<div class="delete">删除</div>';
              		htmlPass +=		'</div>';
           			htmlPass +='</div>';
           			dataPass.push(data[i]);
-				}else{ 
+				}else if(data[i].state != 4){ 
 					htmlChecking +='<div class="activity-box clearfix">';
             		htmlChecking +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-              		htmlChecking +=			'<img src="http://120.77.219.167:9192'+data[i].img.split(";")[0]+'" alt="">';
+              		htmlChecking +=			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
               		htmlChecking +=				'<div class="title">'+data[i].title+'</div>';
             		htmlChecking +=		'</a>';
            			htmlChecking += 	'<div class="operation">';
-           			if(data[i].state == "checking"){
+           			if(data[i].state == 2){
 	             		htmlChecking +=  	  	'<div class="state">正在审核</div>';
 	             	}else{
 	             		htmlChecking +=  	  	'<div class="state" style="color:#DD4E42">审核失败</div>';
 	             	}
-                  	htmlChecking +=			'<div class="delete">删除</di2>';
+                  	htmlChecking +=			'<div class="delete">删除</div>';
              		htmlChecking +=		'</div>';
           			htmlChecking +='</div>';
           			dataChecking.push(data[i]);
@@ -247,7 +286,7 @@
 			aMenuContent[1].innerHTML = htmlPass;
 			aPassDelete = getElementsByClass("delete",aMenuContent[1]);
 			aPassActivity = getElementsByClass("activity-box",aMenuContent[1]);
-			if(userInfo.type == 2){
+			if(userInfo.userType == 4){
 				aMenuContent[2].innerHTML = htmlChecking;
 				aCheckingDelete = getElementsByClass("delete",aMenuContent[2]);
 				aCheckingActivity = getElementsByClass("activity-box",aMenuContent[2]);
@@ -266,10 +305,10 @@
 					}
 				}
 			}
-			if(userInfo.type == 2){
+			if(userInfo.userType == 4){
 				for(var i=0;i<aCheckingDelete.length;i++){
-					aPassDelete[i].index = i;
-					aPassDelete[i].onclick = function(e){
+					aCheckingDelete[i].index = i;
+					aCheckingDelete[i].onclick = function(e){
 						e = e || event;
 						e.cancelBubble = true;
 						if(confirm("是否删除"+dataChecking[this.index].title+"活动")){
@@ -289,10 +328,11 @@
 			}
 			ajax({
 				type:"post",
-				url : "http://120.77.219.167:9191/activitys/byId/"+tempData.id+"?_method=delete",
+				url : "http://cqgqt.xenoeye.org:443/activity/byId/"+userInfo.id+"/"+tempData.id+"?_method=delete",
 				success : function(data){
-					//deleteSuccess(data,index,state);
-					console.log(data)
+					if(data.state == 4){
+						deleteSuccess(data,index,state);
+					}
 				}
 			});
 		}

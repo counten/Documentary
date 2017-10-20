@@ -29,17 +29,19 @@
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
 		//向topbar中插入元素
+		console.log(userInfo)
 	var html = '<ul class="clearfix">';
 	if(userInfo){
-		html += '<li><a href="login.html">欢迎！'+userInfo.user.name+'</a></li>';
-		if(userInfo.type == 1){
-			if(userInfo.user.grade = "TOP") {
-				html += '<li><a href="manage.html">管理页</a></li>';
-			}else{
-				html += '<li><a href="upload-activity.html">发表活动</a></li>';
-				html += '<li><a href="user-center.html">个人中心</a></li>';
-				html += '<li><a href="manage.html">管理页</a></li>';
-			}
+		html += '<li><a href="">欢迎！'+userInfo.account+'</a></li>';
+		if(userInfo.userType == 1){
+			html += '<li><a href="manage.html">管理页</a></li>';
+		}else if(userInfo.userType == 2){
+			html += '<li><a href="upload-activity.html">发表活动</a></li>';
+			html += '<li><a href="manage.html">管理页</a></li>';
+		}else if( userInfo.userType == 3){
+			html += '<li><a href="upload-activity.html">发表活动</a></li>';
+			html += '<li><a href="user-center.html">个人中心</a></li>';
+			html += '<li><a href="manage.html">管理页</a></li>';
 		}else{
 			html += '<li><a href="upload-activity.html">发表活动</a></li>';
 			html += '<li><a href="user-center.html">个人中心</a></li>';
@@ -54,7 +56,7 @@
 	
 	//请求数据
 	ajax({
-		url : "http://120.77.219.167:9191/activitys/indexAct",
+		url : "http://cqgqt.xenoeye.org:443/activity/actIndex",
 		data : {},
 		success : askInfoSuccess
 	});
@@ -66,7 +68,7 @@
 		for(var i=0;i<data.district.length;i++){
 			html1 += '<div class="activity-box">';
 	    	html1 +=	'<a href="detail-activity.html?ID='+data.district[i].id+'" class="clearfix">';
-	    	html1 +=		'<img src="http://120.77.219.167:9192'+data.district[i].img.split(";")[0]+'" alt="">';
+	    	html1 +=		'<img src="http://cqgqt.xenoeye.org:9192'+data.district[i].img.split(";")[0]+'" alt="">';
 	    	html1 +=		'<div class="title">'+data.district[i].title+'</div>';
 	    	html1 +=	'</a>'; 
 	    	html1 +='</div>';
@@ -76,7 +78,7 @@
 		for(var i=0;i<data.enterprise.length;i++){
 			html2 += '<div class="activity-box">';
 	    	html2 +=	'<a href="detail-activity.html?ID='+data.enterprise[i].id+'" class="clearfix">';
-	    	html2 +=		'<img src="http://120.77.219.167:9192'+data.enterprise[i].img.split(";")[0]+'" alt="">';
+	    	html2 +=		'<img src="http://cqgqt.xenoeye.org:9192'+data.enterprise[i].img.split(";")[0]+'" alt="">';
 	    	html2 +=		'<div class="title">'+data.enterprise[i].title+'</div>';
 	    	html2 +=	'</a>';
 	    	html2 +='</div>';
@@ -86,7 +88,7 @@
 		for(var i=0;i<data.school.length;i++){
 			html3 += '<div class="activity-box">';
 	    	html3 +=	'<a href="detail-activity.html?ID='+data.school[i].id+'" class="clearfix">';
-	    	html3 +=		'<img src="http://120.77.219.167:9192'+data.school[i].img.split(";")[0]+'" alt="">';
+	    	html3 +=		'<img src="http://cqgqt.xenoeye.org:9192'+data.school[i].img.split(";")[0]+'" alt="">';
 	    	html3 +=		'<div class="title">'+data.school[i].title+'</div>';
 	    	html3 +=	'</a>';
 	    	html3 +='</div>';

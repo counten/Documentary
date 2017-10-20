@@ -26,14 +26,13 @@ window.onload = function(){
 		oActivityImg = document.getElementById("activity-img"),
 		oActivityContent = document.getElementById("activity-content"),
 		aActivityInfo = getElementsByClass("info");
-		console.log(aActivityInfo.length)
 
 		var params = getURIParams();
 		if(!params){
 			window.location.href = "index.html";
 		}else{
 			ajax({
-				url : "http://120.77.219.167:9191/activitys/byId/"+params.ID,
+				url : "http://cqgqt.xenoeye.org:443/activity/byActId/"+params.ID,
 				success : askInfoSuccess
 			});
 		}
@@ -56,12 +55,12 @@ window.onload = function(){
 		function askInfoSuccess(data){
 			oActivityTitle.innerText = data.title;
 			aActivityInfo[0].innerText = data.userName;
-			aActivityInfo[1].innerText = data.userGrade;
+			aActivityInfo[1].innerText = data.userType;
 			aActivityInfo[2].innerText = data.id;
 			var state = "";
-			if(data.state = "passing"){
+			if(data.state = 1){
 				state = "审核通过";
-			}else if(data.state = "checking"){
+			}else if(data.state = 2){
 				state = "正在审核";
 			}else{
 				state = "审核失败";
@@ -69,15 +68,16 @@ window.onload = function(){
 			aActivityInfo[3].innerText = state;
 			aActivityInfo[4].innerText = data.time;
 			aActivityInfo[5].innerText = data.location;
-			aActivityInfo[6].innerText = data.member;
-			aActivityInfo[7].innerText = data.userType;
+			aActivityInfo[6].innerText = data.participants;
+			aActivityInfo[7].innerText = data.userKind;
+			aActivityInfo[8].innerText = data.createTime;
 
 			//图片
 			var html = "";
 			var imgUrl = data.img.split(";");
 			for(var i=0;i<imgUrl.length;i++){
 				html += '<div class="img-box">';
-				html +=		'<img src="http://120.77.219.167:9192'+imgUrl[i]+'" alt="">';
+				html +=		'<img src="http://cqgqt.xenoeye.org:9192'+imgUrl[i]+'" alt="">';
 				html += '</div>';
 			}
 			oActivityImg.innerHTML = html;

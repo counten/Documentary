@@ -25,20 +25,20 @@
 		var type ="district";
 		switch(params.type){
 			case "DISTRICT_ACTIVITY" : {
-				type = "district";
+				type = 1;
 				oActivityType.innerText = "区县活动";
 			}break;
 			case "COMPANY_ACTIVITY" : {
-				type = "enterprise";
+				type = 2;
 				oActivityType.innerText = "企业活动";
 			}break;
 			case "SCHOOL_ACTIVITY" : {
-				type = "school";
+				type = 3;
 				oActivityType.innerText = "学校活动";
 			}break;
 		}
 		ajax({
-			url : "http://120.77.219.167:9191/activitys/byType/"+type,
+			url : "http://cqgqt.xenoeye.org:443/activity/byKindId/"+type,
 			success:askInfoSuccess
 		});
 		function askInfoSuccess(data){
@@ -46,7 +46,7 @@
 			for(var i=0;i<data.length;i++){
 				html += '<div class="activity-box">';
 		    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-		    	html +=			'<img src="http://120.77.219.167:9192'+data[i].img.split(";")[0]+'" alt="">';
+		    	html +=			'<img src="'+data[i].img.split(";")[0]+'" alt="">';
 		    	html +=			'<div class="title">'+data[i].title+'</div>';
 		    	html +=		'</a>';
 		    	html +='</div>';

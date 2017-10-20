@@ -23,21 +23,28 @@
  	 obtnUpload.onclick = function(){
  	 	if(check()){
  	 		var data = new FormData();
- 	 		data.append("userName",userInfo.user.name);
- 	 		data.append("userType",userInfo.user.type);
- 	 		data.append("location",trim(oActivityLocation.value));
- 	 		data.append("member",trim(oActivityMember.value));
- 	 		data.append("time",trim(oActivityDate.value));
- 	 		data.append("userId",userInfo.user.id);
- 	 		data.append("files",oActivityImg.files);
+ 	 		data.append("userId",userInfo.id);
+ 	 		data.append("userName",userInfo.account);
+ 	 		data.append("userType",userInfo.userType);
+ 	 		data.append("userKind",userInfo.userKind);
  	 		data.append("title",trim(oActivityTitle.value));
+ 	 		data.append("time",trim(oActivityDate.value));
+ 	 		data.append("location",trim(oActivityLocation.value));
+ 	 		data.append("participants",trim(oActivityMember.value));
+ 	 		data.append("content",oActivityContent.value);
+ 	 		for(var i=0;i<oActivityImg.files.length;i++){
+	 	 		data.append("files",oActivityImg.files[i]);
+	 	 	}
+ 	 		oTip.style.color = "#5dB431";
+ 	 		oTip.innerText = "正在上传图片....";
  	 		ajax({
 	 			type : "post",
-	 			url : "http://120.77.219.167:9191/activitys/uploadActivity",
+	 			url : "http://cqgqt.xenoeye.org:443/activity/uploadActivity",
 	 			data : data,
+	 			contentTypeNeed : false,
 	 			jointData : false,
 	 			success : function(data){
-	 				console.log(data);
+	 				oTip.innerText = "发表成功";
 	 			},
 	 			error : uploadFail
 	 		});
@@ -60,6 +67,7 @@
  	 }
 
  	 function uploadFail(){
+ 	 	oTip.style.style = "#DD4E42";
  	 	oTip.innerText = "发表失败";
  	 }
  	 function check(){

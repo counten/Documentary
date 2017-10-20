@@ -1,47 +1,44 @@
 /**
  * 
- * @authors liugang (742230063@qq.com)
- * @date    2017-10-18 09:41:04
- * @version 1.0
+ * @authors Your Name (you@example.org)
+ * @date    2017-10-19 22:38:17
+ * @version $Id$
  */
- var oUsernameInput = document.getElementById("username"),
+var oUsernameInput = document.getElementById("username"),
 	 oPasswordInput = document.getElementById("password"),
-	 oBtnLogin = document.getElementById("btn-login"),
+	 oSurePasswordInput = document.getElementById("sure-password"),
+	 oBtnSubmit = document.getElementById("btn-submit"),
 	 oTip = document.getElementById("tip");
 
-	 oBtnLogin.onclick = function(){
+	 oBtnSubmit.onclick = function(){
 	 	if(check()){
 	 		oTip.innerText = "";
 	 		ajax({
 	 			type:"get",
 	 			url : "http://cqgqt.xenoeye.org:443/users/login/",
 	 			data : {
-	 				account : trim(oUsernameInput.value),
+	 				name : trim(oUsernameInput.value),
 	 				passwd : trim(oPasswordInput.value)
 	 			},
-	 			success : login,
-	 			error : loginFail
+	 			success : askSuccess,
+	 			error : askFail
 	 		});
 	 	}
 	 } 
 
-	 function loginFail(json){
+	 function askFail(json){
 	 	oTip.innerText = "访问服务器失败";
 	 }
 
-	 function login(data){
-	 	if(data && data.id != -1){
-		 	setCookie("userInfo",JSON.stringify(data),12*3600*1000);
-		 	window.location.href = "index.html";
-		 }else{
-		 	oTip.innerText = "用户名或密码错误";
-		 }
+	 function askSuccess(data){
+	 	
 	 }
 
 
 	 function check(){
 		var username = trim(oUsernameInput.value);
 		var password = trim(oPasswordInput.value);
+		var surePassword = trim(oSurePasswordInput.value);
 		if(username.length == 0){
 			oTip.innerText = "账号不能为空";
 			return false;
@@ -58,7 +55,13 @@
 			oTip.innerText = "密码长度在6~16之间";
 			return false;
 		}
+		if(surePassword.length == 0){
+			oTip.innerText = "请确认密码";
+			return false;
+		}
+		if(surePassword != password){
+			oTip.innerText = "两次输入的密码不相同";
+			return false;
+		}
 		return true;
 	 }
-
-	

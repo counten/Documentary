@@ -21,7 +21,7 @@ public interface ActivityService {
      * @param actId
      * @return
      */
-    Activity checkPassById(Long selfId, Long actId);
+    Activity checkPassById(Long selfId, Long actId, Integer checkResult);
 
     /**
      * 获取当前用户活动信息

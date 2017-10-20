@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
-    List<Activity> findByUserIdAndState(Long userId, Integer userState);
+    List<Activity> findByUserIdAndStateNot(Long userId, Integer userState);
     List<Activity> findByUserKindAndState(Integer userKind, Integer userState);
     List<Activity> findByState(Integer state);
     Activity findFirstByUserKindAndUserTypeAndStateOrderByCreateTime(

@@ -81,16 +81,16 @@
 .menu-content .activity-box .stop:hover{
 	text-decoration:underline;
 }
-.menu-content .activity-box .operation .delete{
+ .menu-content .activity-box .operation .delete{
 	color:#DD4E42;
 	cursor:pointer;
 	line-height:3rem;
 }
 .menu-content .activity-box .delete:hover{
 	text-decoration:underline;
-}
+} 
 
-.menu-content .search-box{
+/* .menu-content .search-box{
 	margin:auto;
 	padding:5% 0 0;
 	width:50%;
@@ -130,7 +130,7 @@
 	color:#DD4E42;
 	line-height:2rem;
 	text-align:center;
-}
+} */
 .menu-content .addAccount a{
 	display:block;
 	padding:3% 5% 4%;

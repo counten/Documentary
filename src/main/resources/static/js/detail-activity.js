@@ -58,9 +58,9 @@ window.onload = function(){
 			aActivityInfo[1].innerText = data.userType;
 			aActivityInfo[2].innerText = data.id;
 			var state = "";
-			if(data.state = 1){
+			if(data.state == 2){
 				state = "审核通过";
-			}else if(data.state = 2){
+			}else if(data.state == 1){
 				state = "正在审核";
 			}else{
 				state = "审核失败";

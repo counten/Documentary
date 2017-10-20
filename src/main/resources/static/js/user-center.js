@@ -25,7 +25,6 @@
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
 	//如果没有登录则跳转到登录页
-	console.log(userInfo)
 	if(!userInfo){
 		window.location.href = "login.html";
 	}
@@ -180,7 +179,7 @@
 							aInfoLi[3].style.display = "none";
 							oTip.innerText = "";
 							userInfo = dataJson;
-							setCookie(JSON.stringify(userInfo));
+							setCookie("userInfo",JSON.stringify(userInfo));
 							alert("修改信息成功");
 						},
 						fail : function(){
@@ -253,7 +252,7 @@
 		function askUploadedSuccess(data){
 			console.log(data)
 			for(var i=0;i<data.length;i++){
-				if(data[i].state == 1){
+				if(data[i].state == 2){
 					htmlPass +='<div class="activity-box clearfix">';
             		htmlPass +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
               		htmlPass +=			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
@@ -272,7 +271,7 @@
               		htmlChecking +=				'<div class="title">'+data[i].title+'</div>';
             		htmlChecking +=		'</a>';
            			htmlChecking += 	'<div class="operation">';
-           			if(data[i].state == 2){
+           			if(data[i].state == 1){
 	             		htmlChecking +=  	  	'<div class="state">正在审核</div>';
 	             	}else{
 	             		htmlChecking +=  	  	'<div class="state" style="color:#DD4E42">审核失败</div>';

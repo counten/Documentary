@@ -30,6 +30,7 @@
 	 }
 
 	 function login(data){
+	 	console.log(data)
 	 	if(data && data.id != -1){
 		 	setCookie("userInfo",JSON.stringify(data),12*3600*1000);
 		 	window.location.href = "index.html";

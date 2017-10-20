@@ -74,12 +74,12 @@
 	    	html1 +='</div>';
 		}
 		oDistrictActivity.innerHTML = html1;
-		//企业活动
-		for(var i=0;i<data.enterprise.length;i++){
+		//城市活动
+		for(var i=0;i<data.city.length;i++){
 			html2 += '<div class="activity-box">';
-	    	html2 +=	'<a href="detail-activity.html?ID='+data.enterprise[i].id+'" class="clearfix">';
-	    	html2 +=		'<img src="http://cqgqt.xenoeye.org:9192'+data.enterprise[i].img.split(";")[0]+'" alt="">';
-	    	html2 +=		'<div class="title">'+data.enterprise[i].title+'</div>';
+	    	html2 +=	'<a href="detail-activity.html?ID='+data.city[i].id+'" class="clearfix">';
+	    	html2 +=		'<img src="http://cqgqt.xenoeye.org:9192'+data.city[i].img.split(";")[0]+'" alt="">';
+	    	html2 +=		'<div class="title">'+data.city[i].title+'</div>';
 	    	html2 +=	'</a>';
 	    	html2 +='</div>';
 		}

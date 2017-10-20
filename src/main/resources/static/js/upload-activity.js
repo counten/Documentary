@@ -7,6 +7,7 @@
 	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
+	console.log(userInfo.userKind)
 	//如果没有登录则跳转到登录页
 	if(!userInfo){
 		window.location.href = "login.html";
@@ -44,7 +45,11 @@
 	 			contentTypeNeed : false,
 	 			jointData : false,
 	 			success : function(data){
-	 				oTip.innerText = "发表成功";
+	 				if(data.state == 1){
+		 				oTip.innerText = "提交成功，等待审核";
+		 			}else{
+		 				oTip.innerText = "提交成功";
+		 			}
 	 			},
 	 			error : uploadFail
 	 		});
@@ -121,7 +126,6 @@
 				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
 				font = Math.max(6,font);//取最大值,限定最小值
 				html.style.fontSize = font + 'px';
-				console.log(11111)
 			}
 	
 	}

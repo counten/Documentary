@@ -99,7 +99,7 @@
 						if(json){
 							success&&success(json);
 						}else{
-							error&&error(xhr.responseText)
+							success&&success(xhr.responseText)
 						}
 					}
 				}else{

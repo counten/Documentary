@@ -67,4 +67,14 @@ public class UserServiceImpl implements UserService{
             return user_new;
         }
     }
+
+    @Override
+    public int deleteUser(Long selfId, Long userId) {
+        User user = userRepository.findOne(userId);
+        User pUser = userRepository.findOne(selfId);
+        if (null == user ) {
+
+        }
+        return 0;
+    }
 }

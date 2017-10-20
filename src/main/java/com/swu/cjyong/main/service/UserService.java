@@ -37,4 +37,12 @@ public interface UserService {
      * @return User
      */
     User createUser(Long selfId, User user);
+
+
+    /**
+     * 删除不同用户
+     * @param selfId
+     * @param userId
+     */
+     int deleteUser(Long selfId, Long userId);
 }

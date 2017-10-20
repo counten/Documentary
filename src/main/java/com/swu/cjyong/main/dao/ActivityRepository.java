@@ -16,5 +16,5 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             Integer userKind,
             Integer userType,
             Integer userState);
-    List<Activity> findByUserKindAndStateAndUserTypeNotIn(Pageable pageable, Integer userState, Integer userKind, Integer userType);
+    List<Activity> findByUserKindAndStateAndUserTypeNot(Pageable pageable, Integer userState, Integer userKind, Integer userType);
 }

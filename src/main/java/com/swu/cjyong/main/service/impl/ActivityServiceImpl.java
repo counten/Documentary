@@ -101,8 +101,8 @@ public class ActivityServiceImpl implements ActivityService {
         }
 
         PageRequest pr = new PageRequest(0, size);
-        result.addAll(activityRepository.findByUserKindAndStateAndUserTypeNotIn(
-                pr, Activity.ACT_PASS, kind, User.SECOND_USER
+        result.addAll(activityRepository.findByUserKindAndStateAndUserTypeNot(
+                pr, kind, Activity.ACT_PASS, User.SECOND_USER
                 ));
         return result.stream()
                 .map(BriefActivity::Act2BriefAct)

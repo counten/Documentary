@@ -56,7 +56,7 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRepository.save(activity);
     }
 
-    public Activity checkPassById(Long selfId, Long actId, Integer checkResult) {
+    public Activity checkPassById(Long selfId, Long actId, Long checkResult) {
         Activity currentActivity = activityRepository.findOne(actId);
         if(currentActivity == null) {
             return null;
@@ -66,7 +66,7 @@ public class ActivityServiceImpl implements ActivityService {
         if (currentUser.getParentId().equals(selfId)) {             //允许审批
             User actOwner = userRepository.findOne(currentActivity.getUserId());
             actOwner.setNumCheck(Math.max(0, actOwner.getNumCheck() - 1));
-            if (checkResult.equals(1)) {
+            if (checkResult.equals(1L)) {
                 actOwner.setNumPass(actOwner.getNumPass() + 1);
             } else {
                 actOwner.setNumNotPass(actOwner.getNumNotPass() + 1);
@@ -75,7 +75,7 @@ public class ActivityServiceImpl implements ActivityService {
             if (actOwner.getParentId() != null) {
                 User parent = userRepository.findOne(actOwner.getParentId());
                 parent.setNumCheck(Math.max(0, parent.getNumCheck() - 1));
-                if (checkResult.equals(1)) {
+                if (checkResult.equals(1L)) {
                     parent.setNumPass(parent.getNumPass() + 1);
                 } else {
                     parent.setNumNotPass(parent.getNumNotPass() + 1);
@@ -85,7 +85,7 @@ public class ActivityServiceImpl implements ActivityService {
             if (actOwner.getPparentId() != null) {
                 User pparent = userRepository.findOne(actOwner.getPparentId());
                 pparent.setNumCheck(Math.max(0, pparent.getNumCheck() - 1));
-                if (checkResult.equals(1)) {
+                if (checkResult.equals(1L)) {
                     pparent.setNumPass(pparent.getNumPass() + 1);
                 } else {
                     pparent.setNumNotPass(pparent.getNumNotPass() + 1);
@@ -93,7 +93,7 @@ public class ActivityServiceImpl implements ActivityService {
                 userRepository.saveAndFlush(pparent);
             }
 
-            currentActivity.setState(checkResult.equals(1) ? Activity.ACT_PASS : Activity.ACT_NOTPASS);
+            currentActivity.setState(checkResult.equals(1L) ? Activity.ACT_PASS : Activity.ACT_NOTPASS);
             return activityRepository.saveAndFlush(currentActivity);
         }
 
@@ -124,7 +124,7 @@ public class ActivityServiceImpl implements ActivityService {
                 currentUser.setNumNotPass(Math.max(0, currentUser.getNumNotPass() - 1));
             }
             userRepository.saveAndFlush(currentUser);
-            if (currentUser.getPparentId() != null) {
+            if (currentUser.getParentId() != null) {
                 User parent = userRepository.findOne(currentUser.getParentId());
                 parent.setNumDelete(parent.getNumDelete() + 1);
                 if (currentState.equals(Activity.ACT_CHECKING)) {

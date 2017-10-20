@@ -56,10 +56,10 @@ public class ActivityController {
     }
 
     @ApiOperation(value = "审批活动信息")
-    @PutMapping("checkPass/byId/{selfId}/{actId}/{checkResult}")
+    @PutMapping("checkPass/byId/{selfId}/{actId}/{checkResultId}")
     public ResponseEntity<Activity> checkPassingActivtyById(@PathVariable Long selfId,
                                                             @PathVariable Long actId,
-                                                            @PathVariable Integer checkResultId) {
+                                                            @PathVariable Long checkResultId) {
         Activity result = activityService.checkPassById(selfId, actId, checkResultId);
         return new ResponseEntity<>(result == null ? Activity.empty() : result, HttpStatus.OK);
     }

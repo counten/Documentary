@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -29,19 +28,71 @@ public class ActivityServiceImpl implements ActivityService {
     private UserRepository userRepository;
 
     public Activity uploadActivity(Activity activity) {
+        //活动数量更新
+        if (activity.getState().equals(Activity.ACT_CHECKING)) {
+            User actOwner = userRepository.findOne(activity.getUserId());
+            actOwner.setNumCheck(actOwner.getNumCheck() + 1);
+            userRepository.saveAndFlush(actOwner);
+            if (actOwner.getParentId() != null) {
+                User parent = userRepository.findOne(actOwner.getParentId());
+                parent.setNumCheck(parent.getNumCheck() + 1);
+                userRepository.saveAndFlush(parent);
+            }
+            if (actOwner.getPparentId() != null) {
+                User pparent = userRepository.findOne(actOwner.getPparentId());
+                pparent.setNumCheck(pparent.getNumCheck() + 1);
+                userRepository.saveAndFlush(pparent);
+            }
+        } else {
+            User actOwner = userRepository.findOne(activity.getUserId());
+            actOwner.setNumPass(actOwner.getNumPass() + 1);
+            userRepository.saveAndFlush(actOwner);
+            if (actOwner.getParentId() != null) {
+                User parent = userRepository.findOne(actOwner.getParentId());
+                parent.setNumPass(parent.getNumPass() + 1);
+                userRepository.saveAndFlush(parent);
+            }
+        }
         return activityRepository.save(activity);
     }
 
     public Activity checkPassById(Long selfId, Long actId, Integer checkResult) {
         Activity currentActivity = activityRepository.findOne(actId);
-
         if(currentActivity == null) {
             return null;
         }
-
         //权限检查
         User currentUser = userRepository.findOne(currentActivity.getUserId());
-        if (currentUser.getParentId().equals(selfId) || currentUser.getPparentId().equals(selfId)) {
+        if (currentUser.getParentId().equals(selfId)) {             //允许审批
+            User actOwner = userRepository.findOne(currentActivity.getUserId());
+            actOwner.setNumCheck(Math.max(0, actOwner.getNumCheck() - 1));
+            if (checkResult.equals(1)) {
+                actOwner.setNumPass(actOwner.getNumPass() + 1);
+            } else {
+                actOwner.setNumNotPass(actOwner.getNumNotPass() + 1);
+            }
+            userRepository.saveAndFlush(actOwner);
+            if (actOwner.getParentId() != null) {
+                User parent = userRepository.findOne(actOwner.getParentId());
+                parent.setNumCheck(Math.max(0, parent.getNumCheck() - 1));
+                if (checkResult.equals(1)) {
+                    parent.setNumPass(parent.getNumPass() + 1);
+                } else {
+                    parent.setNumNotPass(parent.getNumNotPass() + 1);
+                }
+                userRepository.saveAndFlush(parent);
+            }
+            if (actOwner.getPparentId() != null) {
+                User pparent = userRepository.findOne(actOwner.getPparentId());
+                pparent.setNumCheck(Math.max(0, pparent.getNumCheck() - 1));
+                if (checkResult.equals(1)) {
+                    pparent.setNumPass(pparent.getNumPass() + 1);
+                } else {
+                    pparent.setNumNotPass(pparent.getNumNotPass() + 1);
+                }
+                userRepository.saveAndFlush(pparent);
+            }
+
             currentActivity.setState(checkResult.equals(1) ? Activity.ACT_PASS : Activity.ACT_NOTPASS);
             return activityRepository.saveAndFlush(currentActivity);
         }
@@ -56,12 +107,47 @@ public class ActivityServiceImpl implements ActivityService {
     public Activity deleteActivityById(Long selfId, Long actId) {
         Activity currentActivity = activityRepository.findOne(actId);
 
-        if (currentActivity == null) {
+        if (currentActivity == null || currentActivity.getState().equals(Activity.ACT_DELETE)) {
             return null;
         }
 
         //权限校验
-        if (currentActivity.getUserId().equals(selfId)) {
+        if (currentActivity.getUserId().equals(selfId)) {   //允许删除
+            User currentUser = userRepository.findOne(selfId);
+            currentUser.setNumDelete(currentUser.getNumDelete() + 1);
+            Integer currentState = currentActivity.getState();
+            if (currentState.equals(Activity.ACT_CHECKING)) {
+                currentUser.setNumCheck(Math.max(0, currentUser.getNumCheck() - 1));
+            } else if (currentState.equals(Activity.ACT_PASS)) {
+                currentUser.setNumPass(Math.max(0, currentUser.getNumPass() - 1));
+            } else {
+                currentUser.setNumNotPass(Math.max(0, currentUser.getNumNotPass() - 1));
+            }
+            userRepository.saveAndFlush(currentUser);
+            if (currentUser.getPparentId() != null) {
+                User parent = userRepository.findOne(currentUser.getParentId());
+                parent.setNumDelete(parent.getNumDelete() + 1);
+                if (currentState.equals(Activity.ACT_CHECKING)) {
+                    parent.setNumCheck(Math.max(0, parent.getNumCheck() - 1));
+                } else if (currentState.equals(Activity.ACT_PASS)) {
+                    parent.setNumPass(Math.max(0, parent.getNumPass() - 1));
+                } else {
+                    parent.setNumNotPass(Math.max(0, parent.getNumNotPass() - 1));
+                }
+                userRepository.saveAndFlush(parent);
+            }
+            if (currentUser.getPparentId() != null) {
+                User pparent = userRepository.findOne(currentUser.getPparentId());
+                pparent.setNumDelete(pparent.getNumDelete() + 1);
+                if (currentState.equals(Activity.ACT_CHECKING)) {
+                    pparent.setNumCheck(Math.max(0, pparent.getNumCheck() - 1));
+                } else if (currentState.equals(Activity.ACT_PASS)) {
+                    pparent.setNumPass(Math.max(0, pparent.getNumPass() - 1));
+                } else {
+                    pparent.setNumNotPass(Math.max(0, pparent.getNumNotPass() - 1));
+                }
+                userRepository.saveAndFlush(pparent);
+            }
             currentActivity.setState(Activity.ACT_DELETE);
             activityRepository.saveAndFlush(currentActivity);
             return currentActivity;

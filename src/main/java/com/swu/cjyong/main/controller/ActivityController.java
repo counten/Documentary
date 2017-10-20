@@ -102,6 +102,13 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getIndexActivity(), HttpStatus.OK);
     }
 
+/*    @ApiOperation(value = "获取自己和下属对应状态的活动信息")
+    @GetMapping("actIndex")
+    public ResponseEntity<ActivityIndex> getActIndex(){
+        return new ResponseEntity<>(activityService.getIndexActivity(), HttpStatus.OK);
+    }*/
+
+
 
 
 

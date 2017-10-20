@@ -2,6 +2,7 @@ package com.swu.cjyong.main.controller;
 
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
+import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.service.ActivityService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ActivityController {
 
     @ApiOperation(value = "上传活动信息")
     @PostMapping("/uploadActivity")
-    public ResponseEntity<Activity> uploadActivity(@RequestParam(value = "userId") long userId,
+    public ResponseEntity<Activity> uploadActivity(@RequestParam(value = "userId") Long userId,
                                                    @RequestParam(value = "userName") String userName,
                                                    @RequestParam(value = "userType") Integer userType,
                                                    @RequestParam(value = "userKind") Integer userKind,
@@ -92,6 +93,12 @@ public class ActivityController {
     public ResponseEntity<List<Activity>> getActByStateId(@PathVariable Integer state){
         return new ResponseEntity<>(activityService.getActivityByState(state), HttpStatus.OK);
     }
+
+/*    @ApiOperation(value = "获取首页的活动信息")
+    @GetMapping("actIndex")
+    public ResponseEntity<ActivityIndex> getActIndex(){
+        return new ResponseEntity<>(activityService.getIndexActivity(state), HttpStatus.OK);
+    }*/
 
 
 

@@ -1,6 +1,7 @@
 package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.Activity;
+import com.swu.cjyong.main.entity.dto.ActivityIndex;
 
 import java.util.List;
 
@@ -62,4 +63,11 @@ public interface ActivityService {
      * @return
      */
     List<Activity> getActivityByState(Integer state);
+
+    /**
+     * 获取主页的活动信息
+     *
+     * @return
+     */
+    ActivityIndex getIndexActivity();
 }

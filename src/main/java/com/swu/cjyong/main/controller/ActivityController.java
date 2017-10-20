@@ -50,7 +50,7 @@ public class ActivityController {
                 .setLocation(location)
                 .setParticipants(participants)
                 .setContent(content)
-                .setState(userType == User.FORTH_USER ? Activity.ACT_CHECKING : Activity.ACT_PASS);
+                .setState(userType.equals(User.FORTH_USER) ? Activity.ACT_CHECKING : Activity.ACT_PASS);
         Activity result = activityService.uploadActivity(activity);
         return new ResponseEntity<>(result == null ? Activity.empty() : result, HttpStatus.OK);
     }
@@ -94,11 +94,11 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getActivityByState(state), HttpStatus.OK);
     }
 
-/*    @ApiOperation(value = "获取首页的活动信息")
+    @ApiOperation(value = "获取首页的活动信息")
     @GetMapping("actIndex")
     public ResponseEntity<ActivityIndex> getActIndex(){
-        return new ResponseEntity<>(activityService.getIndexActivity(state), HttpStatus.OK);
-    }*/
+        return new ResponseEntity<>(activityService.getIndexActivity(), HttpStatus.OK);
+    }
 
 
 
@@ -112,19 +112,21 @@ public class ActivityController {
     private String imgFileupload(MultipartFile[] files) {
         StringBuilder imgUrl = new StringBuilder();
         for (MultipartFile file : files) {
-            String fileName = file.getOriginalFilename();
-            String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            //处理中文乱码问题
-            fileName = UUID.randomUUID() + suffixName;
-            File dest = new File(fileLocation + fileName);
-            if(!dest.getParentFile().exists()) {
-                dest.getParentFile().mkdirs();
-            }
-            try {
-                file.transferTo(dest);
-                imgUrl.append(fileLocation + fileName + ";");
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (file != null) {
+                String fileName = file.getOriginalFilename();
+                String suffixName = fileName.substring(fileName.lastIndexOf("."));
+                //处理中文乱码问题
+                fileName = UUID.randomUUID() + suffixName;
+                File dest = new File(fileLocation + fileName);
+                if (!dest.getParentFile().exists()) {
+                    dest.getParentFile().mkdirs();
+                }
+                try {
+                    file.transferTo(dest);
+                    imgUrl.append(fileLocation + fileName + ";");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return imgUrl.toString();

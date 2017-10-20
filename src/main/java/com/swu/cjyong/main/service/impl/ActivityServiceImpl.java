@@ -4,12 +4,19 @@ import com.swu.cjyong.main.dao.ActivityRepository;
 import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
+import com.swu.cjyong.main.entity.dto.ActivityIndex;
+import com.swu.cjyong.main.entity.dto.BriefActivity;
 import com.swu.cjyong.main.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional
@@ -43,7 +50,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public List<Activity> getActivityByUserId(Long userId) {
-        return activityRepository.findByUserIdAndStateNot(userId, Activity.ACT_DELETE);
+        return activityRepository.findByUserIdAndState(userId, Activity.ACT_PASS);
     }
 
     public Activity deleteActivityById(Long selfId, Long actId) {
@@ -68,11 +75,37 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public List<Activity> getActivityByKindId(Integer kind) {
-        return activityRepository.findByUserKindAndStateNot(kind, Activity.ACT_DELETE);
+        return activityRepository.findByUserKindAndState(kind, Activity.ACT_PASS);
     }
 
     public List<Activity> getActivityByState(Integer state) {
         return activityRepository.findByState(state);
     }
 
+    public ActivityIndex getIndexActivity() {
+        return new ActivityIndex()
+                .setDistrict(getTopThreeBriefActivitysByKind(User.DISTRICT))
+                .setCity(getTopThreeBriefActivitysByKind(User.CITY))
+                .setSchool(getTopThreeBriefActivitysByKind(User.SCHOOL));
+    }
+
+    private List<BriefActivity> getTopThreeBriefActivitysByKind(Integer kind) {
+        List<Activity> result = new ArrayList<Activity>();
+        //先获取一条二级用户的活动信息
+        Activity firstOne = activityRepository.findFirstByUserKindAndUserTypeAndStateOrderByCreateTime(
+                kind, User.SECOND_USER, Activity.ACT_PASS);
+        int size = 3;
+        if (firstOne != null) {
+            size = 2;
+            result.add(firstOne);
+        }
+
+        PageRequest pr = new PageRequest(0, size);
+        result.addAll(activityRepository.findByUserKindAndStateAndUserTypeNotIn(
+                pr, Activity.ACT_PASS, kind, User.SECOND_USER
+                ));
+        return result.stream()
+                .map(BriefActivity::Act2BriefAct)
+                .collect(toList());
+    }
 }

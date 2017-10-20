@@ -169,6 +169,27 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRepository.findByState(state);
     }
 
+    @Override
+    public List<Activity> getCheckingActivity(Long selfId) {
+        User user = userRepository.findOne(selfId);
+        List<Activity> activities = new ArrayList<>();
+        if (null == user || user.getUserType() < User.SECOND_USER ||
+                user.getUserType()>User.THIRD_USER ){
+            return activities;
+        }
+        List<User> users = userRepository.findByUserTypeAndParentId(User.FORTH_USER, selfId);
+
+        for (User u:users){
+            List<Activity> activities1 = activityRepository.findByStateAndUserId(Activity.ACT_CHECKING, u.getId());
+            for (Activity act:activities1){
+                if (null != act){
+                    activities.add(act);
+                }
+            }
+        }
+        return activities;
+    }
+
     public ActivityIndex getIndexActivity() {
         return new ActivityIndex()
                 .setDistrict(getTopThreeBriefActivitysByKind(User.DISTRICT))

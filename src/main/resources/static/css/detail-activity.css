@@ -35,11 +35,13 @@
 	display:block;
 	float:left;
 	width:18%;
+	font-weight:bold;
 	text-align:right;
 }
 .activity-detail .activity-info ul li span.info{
 	width:70%;
 	padding-left:2%;
+	font-weight:normal;
 	text-align:left;
 }
 .activity-detail .activity-img{
@@ -48,6 +50,7 @@
 .activity-detail .activity-img .img-box{
 	margin:4rem auto;
 	width:80%;
+	text-align:center;
 }
 .activity-detail .activity-img .img-box img{
 	max-width:100%;
@@ -60,4 +63,18 @@
 	color:#454647;
 	line-height:3rem;
 	text-indent:2em;
+}
+
+.bottom{
+	padding:4rem;
+}
+.bottom a{
+	display:block;
+	font-size:1.8rem;
+	color:#565758;
+	line-height:4rem;
+	text-align:center;
+}
+.bottom a:hover{
+	text-decoration:underline;
 }

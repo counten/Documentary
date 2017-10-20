@@ -12,7 +12,7 @@
 			window.onresize =run;
 			function run(){
 				var w = window.innerWidth//浏览器窗口大小
-				var font = w/100;
+				var font = w/60;
 				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
 				font = Math.max(6,font);//取最大值,限定最小值
 				oHtml.style.fontSize = font + 'px';
@@ -46,7 +46,9 @@
 			for(var i=0;i<data.length;i++){
 				html += '<div class="activity-box">';
 		    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-		    	html +=			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+		    	html += 		'<div class="img-box">'
+		    	html +=				'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+		    	html +=			'</div>';
 		    	html +=			'<div class="title">'+data[i].title+'</div>';
 		    	html +=		'</a>';
 		    	html +='</div>';

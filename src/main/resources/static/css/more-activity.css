@@ -24,12 +24,14 @@
 .section .activity-box a{
 	display:block;
 }
-.section .activity-box a img{
-	display:block;
+.section .activity-box a .img-box{
 	float:left;
 	width:26%;
 	min-height:4rem;
-	max-height:15rem;
+}
+.section .activity-box a .img-box img{
+	width:100%;
+	max-height:12rem;
 }
 .section .activity-box a .title{
 	float:left;

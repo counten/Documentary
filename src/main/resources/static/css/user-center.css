@@ -7,7 +7,7 @@
  */
  @media screen and (max-width:576px){
  	body{
-		background-color:#f6f6f6;
+		background-color:#f8f8f8;
 	}
 }
 .menu{
@@ -29,29 +29,38 @@
 
 .menu-content{
 	display:none;
-	background-color:#f6f6f6;
+	background-color:#f8f8f8;
 }
 
 .menu-content .activity-box{
 	position:relative;
 	padding:1rem;
-	background-color:#f6f6f6;
+	background-color:#f8f8f8;
 	border-bottom:1px solid #ccc;
 }
-.menu-content .activity-box a{
+ .menu-content .activity-box a{
 	display:block;
 	float:left;
 	width:85%;
 }
-.menu-content .activity-box a img{
+.menu-content .activity-box a .img-box{
+	float:left;
+	width:26%;
+	min-height:4rem;
+}
+.menu-content .activity-box a .img-box img{
+	width:100%;
+	max-height:12rem;
+}
+/* .menu-content .activity-box a img{
 	display:block;
 	float:left;
 	width:30%;
 	min-height:4rem;
-}
+} */
 .menu-content .activity-box a .title{
 	float:left;
-	padding:1.2% 0 2% 1%;
+	padding:1% 0 1% 2%;
 	width:66%;
 	font-size:1.6rem;
 	color:#454647;
@@ -120,7 +129,7 @@
 	color:#454647;
 	line-height:3.2rem;
 	text-indent:1em;
-	background-color:#f6f6f6;
+	background-color:#f8f8f8;
 	border:none;
 	outline:none;
 }
@@ -145,4 +154,18 @@
 	color:#DD4E42;
 	text-align:center;
 	line-height:4rem;
+}
+
+.bottom{
+	padding:4rem;
+}
+.bottom a{
+	display:block;
+	font-size:1.8rem;
+	color:#565758;
+	line-height:4rem;
+	text-align:center;
+}
+.bottom a:hover{
+	text-decoration:underline;
 }

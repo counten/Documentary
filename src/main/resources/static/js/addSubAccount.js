@@ -49,8 +49,10 @@ var oUsernameInput = document.getElementById("username"),
 
 	 function askSuccess(data){
 	 	if(data.id < 0){
-		 	oTip.innerText = "该用户名已存在";
+	 		oTip.style.color = "#DD4E42";
+		 	oTip.innerText = "该账号已存在,请重新输入";
 		 }else{
+		 	oTip.style.color = "#5dB431";
 		 	oTip.innerText = "创建下属账户成功";
 		 }
 	 }

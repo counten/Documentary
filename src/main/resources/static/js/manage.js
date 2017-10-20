@@ -4,6 +4,22 @@
  * @date    2017-10-18 21:24:26
  * @version $Id$
  */
+
+ 	window.onload = function(){
+		var oHtml = document.getElementsByTagName('html')[0];
+
+			//通过标签名('')
+			run();//先执行一次abc函数
+			window.onresize =run;
+			function run(){
+				var w = window.innerWidth//浏览器窗口大小
+				var font = w/60;
+				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
+				font = Math.max(6,font);//取最大值,限定最小值
+				oHtml.style.fontSize = font + 'px';
+				oChart.resize();
+			}
+	}
  	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
@@ -11,45 +27,7 @@
 	if(!userInfo){
 		window.location.href = "login.html";
 	}
- 	var oMenu = document.getElementById("menu"),
-		aMenuLi = oMenu.getElementsByTagName("li"),
-		aMenuContent = getElementsByClass("menu-content"),
-		currentLiIndex = 1;
-		//初始显示0
-		selected(0);
 
-		//添加事件
-		for(var i=0;i<aMenuLi.length;i++){
-			aMenuLi[i].index = i;
-			aMenuLi[i].onclick = function(){
-				selected(this.index);
-			}
-		}
-
-		function selected(index){
-			if(index != currentLiIndex){
-				aMenuLi[index].style.backgroundColor = "#444";
-				aMenuLi[currentLiIndex].style.backgroundColor = "#666";
-				aMenuContent[index].style.display = "block";
-				aMenuContent[currentLiIndex].style.display = "none";
-				currentLiIndex = index;
-
-				switch(currentLiIndex){
-					case 0:{
-
-					}break;
-					case 1:{
-						getSubAccountData();
-					}break;
-					case 2:{
-						//getCheckingData();
-					}break;
-					case 3:{
-
-					}break;
-				}
-			}
-		}
 
 	var oChart = echarts.init(document.getElementById('chart')); 
 		option = {
@@ -100,18 +78,75 @@
 		        radius : '55%',
 		        center: ['50%', '60%'],
 		        data:[
-		            {value:310, name:'审核失败'},
-		            {value:234, name:'正在审核'},
-		            {value:135, name:'已删除'},
-		            {value:1548, name:'已发表'}
+		            {value:userInfo.numNotPass, name:'审核失败'},
+		            {value:userInfo.numCheck, name:'正在审核'},
+		            {value:userInfo.numDelete, name:'已删除'},
+		            {value:userInfo.numPass, name:'已发表'}
 		        ]
 		    }
 		]
 		};
+
+
+ 	var oMenu = document.getElementById("menu"),
+		aMenuLi = oMenu.getElementsByTagName("li"),
+		aMenuContent = getElementsByClass("menu-content"),
+		currentLiIndex = 1;
+		//初始显示0
+		selected(0);
+
+		//添加事件
+		for(var i=0;i<aMenuLi.length;i++){
+			aMenuLi[i].index = i;
+			aMenuLi[i].onclick = function(){
+				selected(this.index);
+			}
+		}
+
+		function selected(index){
+			if(index != currentLiIndex){
+				aMenuLi[index].style.backgroundColor = "#444";
+				aMenuLi[currentLiIndex].style.backgroundColor = "#666";
+				aMenuContent[index].style.display = "block";
+				aMenuContent[currentLiIndex].style.display = "none";
+				currentLiIndex = index;
+
+				switch(currentLiIndex){
+					case 0:{
+						ajax({
+				 			type:"get",
+				 			url : "http://cqgqt.xenoeye.org:443/users/login/",
+				 			data : {
+				 				account : userInfo.account,
+				 				passwd : userInfo.passwd
+				 			},
+				 			success : function(data){
+				 				userInfo = data;
+				 				// 使用刚指定的配置项和数据显示图表。 
+								oChart.setOption(option); 
+				 				setCookie("userInfo",JSON.stringify(data),12*3600*1000);
+				 			}
+
+				 		});
+						
+					}break;
+					case 1:{
+						getSubAccountData();
+					}break;
+					case 2:{
+						getCheckingData();
+					}break;
+					case 3:{
+
+					}break;
+				}
+			}
+		}
+
+	
                     
  
-	// 使用刚指定的配置项和数据显示图表。 
-	oChart.setOption(option); 
+	
 
 
 	//下属账户管理--------
@@ -204,9 +239,29 @@
 		//请求待审核数据
 		function getCheckingData(){
 			ajax({
-				url : "",
-				success : function(){
-
+				url : "http://cqgqt.xenoeye.org:443/activity/bySelfId/"+userInfo.id,
+				success : function(data){
+					var html = "";
+					for(var i=0;i<data.length;i++){
+						html += '<div class="activity-box clearfix">'
+          				html += 	'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
+          				html += 		'<div class="img-box">'
+            			html += 			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+            			html += 		'</div>';
+           				html += 		'<div class="title">'+data[i].title+'</div>';
+          				html += 	'</a>';
+          				html += 	'<div class="operation">';
+          				html += 		'<div class="pass">通过</div>';
+           				html += 		'<div class="stop">禁止</div>';
+          				html += 	'</div>';
+         				html += '</div>';
+					}
+					aMenuContent[2].innerHTML = html;
+					aActivityBox = getElementsByClass("activity-box",aMenuContent[2]);
+					aPass = getElementsByClass("pass",aMenuContent[2]);
+					aStop = getElementsByClass("stop",aMenuContent[2]);
+					aData = data;
+					setOperationEvent();
 				}
 			});
 		}
@@ -312,18 +367,4 @@
 			}
 		}*/
 	
-	window.onload = function(){
-		var oHtml = document.getElementsByTagName('html')[0];
-
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/100;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				oHtml.style.fontSize = font + 'px';
-				oChart.resize();
-			}
-	}
+	

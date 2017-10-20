@@ -2,6 +2,7 @@ package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
+import com.swu.cjyong.main.entity.dto.BriefUser;
 
 import java.util.List;
 

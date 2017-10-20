@@ -2,6 +2,7 @@ package com.swu.cjyong.main.controller;
 
 import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.User;
+import com.swu.cjyong.main.entity.dto.BriefUser;
 import com.swu.cjyong.main.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,11 @@ public class UserController {
     @DeleteMapping("/deleteUser")
     public int deleteUser(@RequestParam Long selfId, @RequestParam Long userId){
         return (userService.deleteUser(selfId,userId));
+    }
+
+    @ApiOperation(value = "获取下属用户活动数量")
+    @GetMapping("/getBelongsNumPass")
+    public ResponseEntity<List<BriefUser>> getBelongsNumPass(@RequestParam Long selfId) {
+        return new ResponseEntity<>(userService.getNumPassBelongs(selfId), HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.User;
+import com.swu.cjyong.main.entity.dto.BriefUser;
 
 import java.util.List;
 
@@ -45,4 +46,12 @@ public interface UserService {
      * @param userId
      */
      int deleteUser(Long selfId, Long userId);
+
+    /**
+     * 获取下级上传活动数量
+     * @Param selfId
+     * @return List<BriefUser>
+     */
+
+    List<BriefUser> getNumPassBelongs(Long selfId);
 }

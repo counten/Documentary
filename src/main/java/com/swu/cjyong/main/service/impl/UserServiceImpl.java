@@ -2,6 +2,7 @@ package com.swu.cjyong.main.service.impl;
 
 import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.User;
+import com.swu.cjyong.main.entity.dto.BriefUser;
 import com.swu.cjyong.main.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,36 @@ public class UserServiceImpl implements UserService{
         } finally {
             return user_new;
         }
+    }
+
+    @Override
+    public List<BriefUser> getNumPassBelongs(Long selfId) {
+        List<BriefUser> briefUsers = new ArrayList<>();
+        // selfId 不存在
+        User pUser = userRepository.findOne(selfId);
+        if (null == pUser) {
+            return briefUsers;
+        }
+
+        // 获取下级用户
+        List<User> users = new ArrayList<>();
+        if(pUser.getUserType() == User.TOP_USER){
+            users = userRepository.findByUserType(User.SECOND_USER);
+        } else {
+            users = userRepository.findByUserTypeAndParentId(pUser.getUserType()+1, selfId);
+        }
+
+        // 没有下级用户
+        if (users.size() == 0){
+            return briefUsers;
+        }
+
+        // 获取每个下级用户的数量
+        for (User u: users){
+            briefUsers.add(BriefUser.UserToBriefUser(u));
+        }
+
+        return briefUsers;
     }
 
     @Override

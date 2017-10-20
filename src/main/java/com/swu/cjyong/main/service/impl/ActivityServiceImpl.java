@@ -6,6 +6,7 @@ import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.entity.dto.BriefActivity;
+import com.swu.cjyong.main.entity.dto.BriefUser;
 import com.swu.cjyong.main.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -88,6 +89,7 @@ public class ActivityServiceImpl implements ActivityService {
                 .setCity(getTopThreeBriefActivitysByKind(User.CITY))
                 .setSchool(getTopThreeBriefActivitysByKind(User.SCHOOL));
     }
+
 
     private List<BriefActivity> getTopThreeBriefActivitysByKind(Integer kind) {
         List<Activity> result = new ArrayList<Activity>();

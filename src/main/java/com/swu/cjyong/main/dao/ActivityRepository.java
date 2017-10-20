@@ -9,12 +9,12 @@ import java.util.List;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
-    List<Activity> findByUserIdAndState(Long userId, Integer userState);
+    List<Activity> findByUserIdAndStateNot(Long userId, Integer userState);
     List<Activity> findByUserKindAndState(Integer userKind, Integer userState);
     List<Activity> findByState(Integer state);
     Activity findFirstByUserKindAndUserTypeAndStateOrderByCreateTime(
             Integer userKind,
             Integer userType,
             Integer userState);
-    List<Activity> findByUserKindAndStateAndUserTypeNotIn(Pageable pageable, Integer userState, Integer userKind, Integer userType);
+    List<Activity> findByUserKindAndStateAndUserTypeNot(Pageable pageable, Integer userState, Integer userKind, Integer userType);
 }

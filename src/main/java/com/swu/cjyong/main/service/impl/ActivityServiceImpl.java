@@ -32,7 +32,7 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRepository.save(activity);
     }
 
-    public Activity checkPassById(Long selfId, Long actId) {
+    public Activity checkPassById(Long selfId, Long actId, Integer checkResult) {
         Activity currentActivity = activityRepository.findOne(actId);
 
         if(currentActivity == null) {
@@ -42,7 +42,7 @@ public class ActivityServiceImpl implements ActivityService {
         //权限检查
         User currentUser = userRepository.findOne(currentActivity.getUserId());
         if (currentUser.getParentId().equals(selfId) || currentUser.getPparentId().equals(selfId)) {
-            currentActivity.setState(Activity.ACT_PASS);
+            currentActivity.setState(checkResult.equals(1) ? Activity.ACT_PASS : Activity.ACT_NOTPASS);
             return activityRepository.saveAndFlush(currentActivity);
         }
 
@@ -50,7 +50,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public List<Activity> getActivityByUserId(Long userId) {
-        return activityRepository.findByUserIdAndState(userId, Activity.ACT_PASS);
+        return activityRepository.findByUserIdAndStateNot(userId, Activity.ACT_DELETE);
     }
 
     public Activity deleteActivityById(Long selfId, Long actId) {
@@ -101,8 +101,8 @@ public class ActivityServiceImpl implements ActivityService {
         }
 
         PageRequest pr = new PageRequest(0, size);
-        result.addAll(activityRepository.findByUserKindAndStateAndUserTypeNotIn(
-                pr, Activity.ACT_PASS, kind, User.SECOND_USER
+        result.addAll(activityRepository.findByUserKindAndStateAndUserTypeNot(
+                pr, kind, Activity.ACT_PASS, User.SECOND_USER
                 ));
         return result.stream()
                 .map(BriefActivity::Act2BriefAct)

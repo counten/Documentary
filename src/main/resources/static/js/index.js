@@ -45,6 +45,7 @@
 			html += '<li><a href="upload-activity.html">发表活动</a></li>';
 			html += '<li><a href="user-center.html">个人中心</a></li>';
 		}
+		html += '<li><a href="javascript:void(0);" onclick="loginout()">退出登录</a></li>'
 		html += '</ul>';
 		oTopBar.innerHTML += html;
 	}else{
@@ -56,7 +57,6 @@
 	//请求数据
 	ajax({
 		url : "http://cqgqt.xenoeye.org:443/activity/actIndex",
-		data : {},
 		success : askInfoSuccess
 	});
 
@@ -100,6 +100,11 @@
 		}
 		oSchoolActivity.innerHTML = html3;
 
+	}
+
+	function loginout(){
+		delCookie("userInfo");
+		window.location.href = "index.html";
 	}
 
 

@@ -28,8 +28,13 @@
 }
 
 .menu-content #chart{
-	padding:5rem 2rem;
-	width:100%;
+	margin:5rem auto;
+	width:90%;
+	height:30rem;
+}
+.menu-content #bar-chart{
+	margin:5rem auto;
+	width:90%;
 	height:30rem;
 }
 .menu-content .activity-box{

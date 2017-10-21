@@ -18,6 +18,7 @@
 				font = Math.max(6,font);//取最大值,限定最小值
 				oHtml.style.fontSize = font + 'px';
 				oChart.resize();
+				oBarChart.resize();
 			}
 	}
  	//获取用户信息cookie
@@ -30,64 +31,11 @@
 
 
 	var oChart = echarts.init(document.getElementById('chart')); 
-		option = {
-		title : {
-		    text: '发表活动统计',
-		    x:'center',
-		    fontSize:"2rem"
-		},
-		tooltip : {
-		    trigger: 'item',
-		    formatter: "{a} <br/>{b} : {c} ({d}%)"
-		},
-		legend: {
-		    orient : 'vertical',
-		    x : 'left',
-		    data:['已发表','已删除','正在审核','审核失败']
-		},
-		lable:{
-	        normal:{
-	            textStyle:{
-	                fontsize:'1.6rem'
-	            }
-	        }
-	    },
-		toolbox: {
-		    show : true,
-		    feature : {
-		        mark : {show: true},
-		        magicType : {
-		            show: true, 
-		            type: ['pie', 'funnel'],
-		            option: {
-		                funnel: {
-		                    x: '25%',
-		                    width: '50%',
-		                    funnelAlign: 'left',
-		                    max: 10000
-		                }
-		            }
-		        }
-		    }
-		},
-		calculable : true,
-		series : [
-		    {
-		        name:'访问来源',
-		        type:'pie',
-		        radius : '55%',
-		        center: ['50%', '60%'],
-		        data:[
-		            {value:userInfo.numNotPass, name:'审核失败'},
-		            {value:userInfo.numCheck, name:'正在审核'},
-		            {value:userInfo.numDelete, name:'已删除'},
-		            {value:userInfo.numPass, name:'已发表'}
-		        ]
-		    }
-		]
-		};
-
-
+		var oBarChart = echarts.init(document.getElementById('bar-chart'));
+		var aNames = [];
+		var aPassNum = [];
+		
+		
  	var oMenu = document.getElementById("menu"),
 		aMenuLi = oMenu.getElementsByTagName("li"),
 		aMenuContent = getElementsByClass("menu-content"),
@@ -114,7 +62,6 @@
 				switch(currentLiIndex){
 					case 0:{
 						ajax({
-				 			type:"get",
 				 			url : "http://cqgqt.xenoeye.org:443/users/login/",
 				 			data : {
 				 				account : userInfo.account,
@@ -122,12 +69,133 @@
 				 			},
 				 			success : function(data){
 				 				userInfo = data;
+				 				var	option = {
+									title : {
+									    text: '发表活动统计',
+									    x:'center',
+									    fontSize:"2rem"
+									},
+									tooltip : {
+									    trigger: 'item',
+									    formatter: "{a} <br/>{b} : {c} ({d}%)"
+									},
+									toolbox: {
+								        show : true,
+								        feature : {
+								            dataView : {show: true, readOnly: false},
+								            saveAsImage : {show: true}
+								        }
+							    		},
+									calculable : true,
+									series : [
+									    {
+									        name:'活动量',
+									        type:'pie',
+									        radius : '55%',
+									        center: ['50%', '60%'],
+									        data:[
+									        	 {
+									            	value:userInfo.numPass, 
+									            	name:'已发表 ' + userInfo.numPass ,
+									            	itemStyle : {
+									            		normal : {color : "rgba(0,255,0,0.8)"}
+									            	}
+									            },
+									            {
+									            	value:userInfo.numCheck, 
+									            	name:'正在审核 ' + userInfo.numCheck,
+									            	itemStyle : {
+									            		normal : {color : "rgba(255,255,0,0.8)"}
+									            	}
+									            },
+									            {
+									            	value:userInfo.numNotPass, 
+									            	name:'审核失败 ' + userInfo.numNotPass,
+									            	itemStyle : {
+									            		normal : {color : "rgba(255,0,0,0.5)"}
+									            	}
+									            },
+									            {
+									            	value:userInfo.numDelete, 
+									            	name:'已删除 ' + userInfo.numDelete,
+									            	itemStyle : {
+									            		normal : {color : "rgba(255,0,0,0.8)"}
+									            	}
+									            }
+									        ]
+									    }
+									]
+									};
 				 				// 使用刚指定的配置项和数据显示图表。 
 								oChart.setOption(option); 
 				 				setCookie("userInfo",JSON.stringify(data),12*3600*1000);
 				 			}
-
 				 		});
+				 		if(userInfo.userType == 1){
+					 		ajax({
+					 			url : "http://cqgqt.xenoeye.org:443/users/getBelongsNumPass?selfId="+userInfo.id,
+					 			success : function(data){
+					 				aNames = [];
+					 				aPassNum = [];
+
+					 				for(var i=0;i<data.length;i++){
+					 					aNames.push(data[i].account);
+					 					aPassNum.push(data[i].numPass);
+					 				}
+					 				var option2 = {
+									    title : {
+									        text: '二级团委组织活动发布量',
+									        x : "center"
+									    },
+									    tooltip : {
+									        trigger: 'axis'
+									    },
+									    toolbox: {
+									        show : true,
+									        feature : {
+									            dataView : {show: true, readOnly: false},
+									            saveAsImage : {show: true}
+									        }
+
+									    },
+									    calculable : true,
+									    xAxis : [
+									        {
+									            type : 'value',
+									            boundaryGap : [0, 0.01]
+									        }
+									    ],
+									    yAxis : [
+									        {
+									            type : 'category',
+									            data : aNames
+									        }
+									    ],
+									    series : [
+									        {
+									            name:'活动发布量',
+									            type:'bar',
+									            data:aPassNum,
+									            itemStyle : {
+									            	normal : {
+									            		color : "#5dB431"
+									            	}
+									            },
+									            markLine : {
+									                data : [
+									                    {type : 'average', name: '平均值'}
+									                ]
+									            }
+									        },
+									    ]
+									};
+					 				oBarChart.setOption(option2);
+					 			},
+					 			error : function(){
+					 				oBarChart.setOption(option2);
+					 			}
+					 		});
+					 	}
 						
 					}break;
 					case 1:{
@@ -290,7 +358,7 @@
 		function checkPass(sign,index){
 			ajax({
 				type:"post",
-				url : "http://cqgqt.xenoeye.org:443/activity/checkPass/byId/"+userInfo.id+"/"+aData[this.index].id+"?_method=put",
+				url : "http://cqgqt.xenoeye.org:443/activity/checkPass/byId/"+userInfo.id+"/"+aData[index].id+"/"+sign+"?_method=put",
 				success : function(){
 					aMenuContent[2].removeChild(aActivityBox[index]);
 				},

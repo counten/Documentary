@@ -1,5 +1,13 @@
 package com.swu.cjyong.main.controller;
 
+import com.google.gson.Gson;
+import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
@@ -108,11 +116,12 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getCheckingActivity(selfId), HttpStatus.OK);
     }
 
-/*    @ApiOperation(value = "获取自己和下属对应状态的活动信息")
-    @GetMapping("actIndex")
-    public ResponseEntity<ActivityIndex> getActIndex(){
-        return new ResponseEntity<>(activityService.getIndexActivity(), HttpStatus.OK);
-    }*/
+    @ApiOperation(value = "尝试上传图片到七牛云")
+    @PostMapping("uploadFileToQiniu")
+    public Long uploadFileToQiniu(@RequestParam(value = "file") MultipartFile file){
+        uploadFileToQiniuYun(file);
+        return 1L;
+    }
 
 
 
@@ -138,12 +147,53 @@ public class ActivityController {
                 }
                 try {
                     file.transferTo(dest);
-                    imgUrl.append(fileLocation + fileName + ";");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                imgUrl.append(fileLocation + fileName + ";");
+                /*uploadFileToQiniuYun(fileLocation + fileName);*/
             }
         }
         return imgUrl.toString();
     }
+
+    private boolean uploadFileToQiniuYun(MultipartFile file) {
+        //构造一个带指定Zone对象的配置类
+        Configuration cfg = new Configuration(Zone.zone2());
+        //...其他参数参考类注释
+        UploadManager uploadManager = new UploadManager(cfg);
+        //...生成上传凭证，然后准备上传
+        String accessKey = "sJzCRaqeVgt8BtJ1mTW1PnRb4nbRTrj-asSv1AGi";
+        String secretKey = "jNyuMXq-MN3WI4yTbWQG3HQF9wiGjBXFZjDwO3Ss";
+        String bucket = "cjyong";
+        //如果是Windows情况下，格式是 D:\\qiniu\\test.png
+        //String localFilePath = "/home/qiniu/test.png";
+        /*String localFilePath = "C:\\Users\\cjyong\\Desktop\\23146a42-6c33-4346-b282-26aaf9ccff4f.jpg";*/
+
+        //默认不指定key的情况下，以文件内容的hash值作为文件名
+        String key = null;
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucket);
+        try {
+            byte[] uploadBytes = file.getBytes();
+            Response response = uploadManager.put(uploadBytes, key, upToken);
+            //解析上传成功的结果
+            DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+            System.out.println(putRet.key);
+            System.out.println(putRet.hash);
+        } catch (QiniuException ex) {
+            Response r = ex.response;
+            System.err.println(r.toString());
+            try {
+                System.err.println(r.bodyString());
+            } catch (QiniuException ex2) {
+                //ignore
+            }
+        } catch (IOException e) {
+
+        }
+        return true;
+    }
+
+
 }

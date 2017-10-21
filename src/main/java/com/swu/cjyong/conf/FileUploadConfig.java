@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.MultipartConfigElement;
 
-@Configuration
+//@Configuration
 public class FileUploadConfig {
     @Value("${fileupload.storelocation}")
     private String fileLocation;

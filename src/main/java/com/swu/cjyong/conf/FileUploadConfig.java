@@ -9,7 +9,7 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import javax.servlet.MultipartConfigElement;
 
-@Configuration
+//@Configuration
 public class FileUploadConfig {
     @Value("${fileupload.storelocation}")
     private String fileLocation;

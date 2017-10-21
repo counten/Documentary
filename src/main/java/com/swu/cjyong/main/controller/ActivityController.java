@@ -116,11 +116,12 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getCheckingActivity(selfId), HttpStatus.OK);
     }
 
-/*    @ApiOperation(value = "获取自己和下属对应状态的活动信息")
-    @GetMapping("actIndex")
-    public ResponseEntity<ActivityIndex> getActIndex(){
-        return new ResponseEntity<>(activityService.getIndexActivity(), HttpStatus.OK);
-    }*/
+    @ApiOperation(value = "尝试上传图片到七牛云")
+    @PostMapping("uploadFileToQiniu")
+    public Long uploadFileToQiniu(@RequestParam(value = "file") MultipartFile file){
+        uploadFileToQiniuYun(file);
+        return 1L;
+    }
 
 
 
@@ -150,13 +151,13 @@ public class ActivityController {
                     e.printStackTrace();
                 }
                 imgUrl.append(fileLocation + fileName + ";");
-                uploadFileToQiniuYun(fileLocation + fileName);
+                /*uploadFileToQiniuYun(fileLocation + fileName);*/
             }
         }
         return imgUrl.toString();
     }
 
-    private boolean uploadFileToQiniuYun(String fileUrl) {
+    private boolean uploadFileToQiniuYun(MultipartFile file) {
         //构造一个带指定Zone对象的配置类
         Configuration cfg = new Configuration(Zone.zone2());
         //...其他参数参考类注释
@@ -166,13 +167,16 @@ public class ActivityController {
         String secretKey = "jNyuMXq-MN3WI4yTbWQG3HQF9wiGjBXFZjDwO3Ss";
         String bucket = "cjyong";
         //如果是Windows情况下，格式是 D:\\qiniu\\test.png
-        String localFilePath = "/home/qiniu/test.png";
+        //String localFilePath = "/home/qiniu/test.png";
+        /*String localFilePath = "C:\\Users\\cjyong\\Desktop\\23146a42-6c33-4346-b282-26aaf9ccff4f.jpg";*/
+
         //默认不指定key的情况下，以文件内容的hash值作为文件名
         String key = null;
         Auth auth = Auth.create(accessKey, secretKey);
         String upToken = auth.uploadToken(bucket);
         try {
-            Response response = uploadManager.put(localFilePath, key, upToken);
+            byte[] uploadBytes = file.getBytes();
+            Response response = uploadManager.put(uploadBytes, key, upToken);
             //解析上传成功的结果
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
             System.out.println(putRet.key);
@@ -185,6 +189,8 @@ public class ActivityController {
             } catch (QiniuException ex2) {
                 //ignore
             }
+        } catch (IOException e) {
+
         }
         return true;
     }

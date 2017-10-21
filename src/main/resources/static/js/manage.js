@@ -25,16 +25,16 @@
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
 	//如果没有登录则跳转到登录页
-	if(!userInfo){
+	if(!userInfo || userInfo.userType == 4){
 		window.location.href = "login.html";
 	}
 
-
-	var oChart = echarts.init(document.getElementById('chart')); 
-		var oBarChart = echarts.init(document.getElementById('bar-chart'));
-		var aNames = [];
-		var aPassNum = [];
-		
+	var oChartWrapper = document.getElementById('chart');
+	var oChart = echarts.init(oChartWrapper); 
+	var oBarChartWrapper = document.getElementById('bar-chart');
+	var oBarChart = echarts.init(oBarChartWrapper);
+	var aNames = [];
+	var aPassNum = [];	
 		
  	var oMenu = document.getElementById("menu"),
 		aMenuLi = oMenu.getElementsByTagName("li"),
@@ -143,6 +143,7 @@
 						 					aNames.push(data[i].account);
 						 					aPassNum.push(data[i].numPass);
 						 				}
+						 				oBarChartWrapper.style.height = aNames.length*5 + "rem";
 						 				var option2 = {
 										    title : {
 										        text: '二级团委组织活动发布量',
@@ -179,14 +180,16 @@
 										            data:aPassNum,
 										            itemStyle : {
 										            	normal : {
-										            		color : "#5dB431"
+										            		color : "#5dB431",
+										            		barBorderRadius : [0,2,2,0]
 										            	}
 										            },
 										            markLine : {
 										                data : [
 										                    {type : 'average', name: '平均值'}
 										                ]
-										            }
+										            },
+										            barWidth : "12"
 										        },
 										    ]
 										};

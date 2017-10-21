@@ -61,11 +61,16 @@
 	 			contentTypeNeed : false,
 	 			jointData : false,
 	 			success : function(data){
-	 				if(data.state == 1){
-		 				oTip.innerText = "提交成功，等待审核";
-		 			}else{
-		 				oTip.innerText = "提交成功";
-		 			}
+	 				if(data.id > 0){
+		 				if(data.state == 1){
+			 				oTip.innerText = "提交成功，等待审核";
+			 			}else{
+			 				oTip.innerText = "提交成功";
+			 			}
+			 		}else{
+			 			oTip.style.color = "#DD4E42";
+ 	 					oTip.innerText = "输入数据有误";
+			 		}
 	 			},
 	 			error : uploadFail
 	 		});

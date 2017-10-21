@@ -30,12 +30,13 @@
 .menu-content #chart{
 	margin:5rem auto;
 	width:90%;
-	height:30rem;
+	height:45rem;
 }
 .menu-content #bar-chart{
-	margin:5rem auto;
+	margin:auto;
 	width:90%;
-	height:30rem;
+	height:0rem;
+	padding:10rem 0;
 }
 .menu-content .activity-box{
 	position:relative;

@@ -56,7 +56,6 @@ window.onload = function(){
 		var kind = ["","区县","城市","城市"]
 		function askInfoSuccess(data){
 			if(data.id > 0){
-				console.log(data)
 				oActivityTitle.innerText = data.title;
 				aActivityInfo[0].innerText = data.userName;
 				aActivityInfo[1].innerText = type[data.userType];

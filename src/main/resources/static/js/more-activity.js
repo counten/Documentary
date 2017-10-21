@@ -39,24 +39,30 @@
 				kind = 3;
 				oActivityType.innerText = "更多学校活动";
 			}break;
+			default : {
+				kind = 1;
+				oActivityType.innerText = "更多区县活动";
+			}break;
 		}
 		ajax({
 			url : ASKURL + "/activity/byKindId/"+kind,
 			success:askInfoSuccess
 		});
 		function askInfoSuccess(data){
-			var html = "";
-			for(var i=0;i<data.length;i++){
-				html += '<div class="activity-box">';
-		    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-		    	html += 		'<div class="img-box">'
-		    	html +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
-		    	html +=			'</div>';
-		    	html +=			'<div class="title">'+data[i].title+'</div>';
-		    	html +=		'</a>';
-		    	html +='</div>';
-	    	}
-	    	oActivityWrapper.innerHTML = html;
+			if(data && data[0].id > 0){
+				var html = "";
+				for(var i=0;i<data.length;i++){
+					html += '<div class="activity-box">';
+			    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
+			    	html += 		'<div class="img-box">'
+			    	html +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
+			    	html +=			'</div>';
+			    	html +=			'<div class="title">'+data[i].title+'</div>';
+			    	html +=		'</a>';
+			    	html +='</div>';
+		    	}
+		    	oActivityWrapper.innerHTML = html;
+		    }
 		}
 	}
 

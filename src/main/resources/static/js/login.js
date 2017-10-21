@@ -33,7 +33,7 @@
 
 	 function login(data){
 	 	console.log(data)
-	 	if(data && data.id != -1){
+	 	if(data && data.id > 0){
 		 	setCookie("userInfo",JSON.stringify(data),12*3600*1000);
 		 	window.location.href = "index.html";
 		 }else{

@@ -30,9 +30,6 @@ import java.util.UUID;
 @RequestMapping("/activity")
 public class ActivityController {
 
-    @Value("${fileupload.storelocation}")
-    private String fileLocation;
-
     @Autowired
     private ActivityService activityService;
 

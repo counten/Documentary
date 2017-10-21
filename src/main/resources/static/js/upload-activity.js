@@ -94,7 +94,7 @@
 
  	 function uploadFail(){
  	 	oTip.style.color = "#DD4E42";
- 	 	oTip.innerText = "发表失败";
+ 	 	oTip.innerText = "连接服务器失败，请稍后重试";
  	 }
  	 function check(){
  	 	if(trim(oActivityTitle.value).length < 6 || trim(oActivityTitle.value).length > 36){

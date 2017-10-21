@@ -77,7 +77,9 @@ window.onload = function(){
 
 				//图片
 				var html = "";
+				data.img=data.img.substring(0,data.img.length-1);
 				var imgUrl = data.img.split(";");
+
 				for(var i=0;i<imgUrl.length;i++){
 					html += '<div class="img-box">';
 					html +=		'<img src="'+IMGURL+imgUrl[i]+'" alt="">';

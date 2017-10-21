@@ -143,7 +143,12 @@ public class ActivityController {
                     e.printStackTrace();
                 }
             }
+
+            //将本地图片上传到七牛云
+
         }
         return imgUrl.toString();
     }
+
+
 }

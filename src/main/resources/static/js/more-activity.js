@@ -41,7 +41,7 @@
 			}break;
 			default : {
 				kind = 1;
-				oActivityType.innerText = "更多区县活动";
+				oActivityType.innerText += "更多区县活动";
 			}break;
 		}
 		ajax({

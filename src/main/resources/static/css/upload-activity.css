@@ -109,12 +109,22 @@
 	width:90%;
 }
  .uploadbox ul li #img-box .img-preview-box{
+ 	position:relative;
  	margin:1%;
  	float:left;
 	width:18%;
  }
  .uploadbox ul li #img-box .img-preview-box img{
  	width:100%;
+ }
+ .uploadbox ul li #img-box .img-preview-box .img-delete{
+ 	margin:auto;
+ 	width:20%;
+ 	font-size:1.4rem;
+ 	color:#DD4E42;
+ 	text-align:center;
+ 	line-height:2.4rem;
+ 	cursor:pointer;
  }
  .uploadbox ul li .tip{
 	height:4rem;

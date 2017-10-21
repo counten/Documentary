@@ -73,7 +73,8 @@ window.onload = function(){
 				aActivityInfo[5].innerText = data.location;
 				aActivityInfo[6].innerText = data.participants;
 				aActivityInfo[7].innerText = kind[data.userKind];
-				aActivityInfo[8].innerText = data.createTime;
+				var createTime = new Date(data.createTime);
+				aActivityInfo[8].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
 
 				//图片
 				var html = "";

@@ -42,8 +42,6 @@
 		}
 		return arr;
 	}
-
-
 	/*
 		class name: ajax
 		description: 

@@ -36,7 +36,12 @@
  	 obtnUpload = document.getElementById("btn-upload"),
  	 oActivityImg = document.getElementById("activity-img"),
  	 oTip = document.getElementById("tip"),
- 	 oImgBox = document.getElementById("img-box");
+ 	 oImgBox = document.getElementById("img-box"),
+ 	 aImgUpload = [],
+ 	 imgNum = 0,
+ 	 aImgUploadNeed = [],
+ 	 aImgPreviewBox = [],
+ 	 aImgDelete = [];
  	 obtnUpload.onclick = function(){
  	 	if(check()){
  	 		var data = new FormData();
@@ -49,8 +54,10 @@
  	 		data.append("location",trim(oActivityLocation.value));
  	 		data.append("participants",trim(oActivityMember.value));
  	 		data.append("content",oActivityContent.value);
- 	 		for(var i=0;i<oActivityImg.files.length;i++){
-	 	 		data.append("files",oActivityImg.files[i]);
+ 	 		for(var i=0;i<aImgUpload.length;i++){
+ 	 			if(aImgUploadNeed[i]){
+		 	 		data.append("files",aImgUpload[i]);
+		 	 	}
 	 	 	}
  	 		oTip.style.color = "#5dB431";
  	 		oTip.innerText = "正在上传图片....";
@@ -82,14 +89,46 @@
  	 	var windowURL = window.URL || window.webkitURL;
 		if(oActivityImg.files){
 			for(var i=0;i<oActivityImg.files.length;i++){
-				html += '<div class="img-preview-box">';
-				html += '<img src="'+ windowURL.createObjectURL(oActivityImg.files[i])+'"/>'
-				html += '</div>';
+				aImgUpload.push(oActivityImg.files[i]);
+				aImgUploadNeed.push(true);
+				imgNum++;
+			}
+			for(var i=0;i<aImgUploadNeed.length;i++){
+				if(aImgUploadNeed[i]){
+					html += '<div class="img-preview-box">';
+					html += '<img src="'+ windowURL.createObjectURL(aImgUpload[i])+'"/>'
+					html += '<div class="img-delete">删除</div>';
+					html += '</div>';
+				}
 			}
 		}else{
 			html += '<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + oMessageImg.value + '\');"></div>';
 		}
 		oImgBox.innerHTML = html;
+		aImgPreviewBox = getElementsByClass("img-preview-box",oImgBox);
+		aImgDelete = getElementsByClass("img-delete",oImgBox);
+		setImgDeleteEvent();
+ 	 }
+
+ 	 function setImgDeleteEvent(){
+ 	 	for(var i=0;i<aImgDelete.length;i++){
+ 	 		aImgDelete[i].index = i;
+ 	 		aImgDelete[i].onclick = function(){
+ 	 			var count = 0;
+ 	 			for(var i=0;i<aImgUploadNeed.length;i++){
+ 	 				if(aImgUploadNeed[i]){
+ 	 					if(count == this.index){
+ 	 						aImgUploadNeed[i] = false;
+ 	 						oImgBox.removeChild(aImgPreviewBox[this.index]);
+ 	 						imgNum--;
+ 	 						setImgDeleteEvent();
+ 	 						break;
+ 	 					}
+ 	 					count++;
+ 	 				}
+ 	 			}
+ 	 		}
+ 	 	}
  	 }
 
  	 function uploadFail(){
@@ -121,15 +160,19 @@
  	 		oTip.innerText = "至少添加1张图片";
  	 		return false;
  	 	}
- 	 	if(oActivityImg.files.length > 5){
+ 	 	if(imgNum > 5){
  	 		oTip.innerText = "最多添加5张图片";
  	 		return false;
  	 	}
- 	 	for(var i=0;i<oActivityImg.files.length;i++){
- 	 		if(oActivityImg.files[i].size > 10*1024*1024){
- 	 			oTip.innerText = "第"+(i+1)+"张图片大小超过10M";
- 	 			return false;
- 	 		}
+ 	 	var count = 0;
+ 	 	for(var i=0;i<aImgUploadNeed.length;i++){
+ 	 		if(aImgUploadNeed[i]){
+	 	 		if(aImgUpload[i].size > 4*1024*1024){
+	 	 			oTip.innerText = "第"+(count+1)+"张图片大小超过4M";
+	 	 			return false;
+	 	 		}
+	 	 		count++;
+	 	 	}
  	 	}
  	 	return true;
  	 }

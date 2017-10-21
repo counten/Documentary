@@ -4,6 +4,8 @@ import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.BriefUser;
 import com.swu.cjyong.main.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService{
 
+    private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -25,12 +29,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User updateUser(User user) {
-        User user_new = new User();
+        User user_new = null;
         try {
             user_new = userRepository.save(user);
         } catch (Exception e) {
             user_new = User.empty();
-            System.out.println("Exception: updateUser UserServiceImpl");
+            logger.error("Exception: updateUser UserServiceImpl");
         } finally {
             return user_new;
         }
@@ -45,22 +49,24 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User createUser(Long selfId, User user) {
-        User user_new = new User();
+        User user_new = null;
         try {
             User pUser = userRepository.findOne(selfId);
             // 默认属性处理
             user.setUserKind(pUser.getUserKind());
+            user.setParentId(selfId);
             if (user.getUserType() == User.THIRD_USER && pUser.getUserType() == User.SECOND_USER) {
-                user.setName(null == user.getName() ? "***团委" : user.getName());
+                user.setName(null == user.getName() ? "未填写团委" : user.getName());
             } else {
                 user.setUserType(User.FORTH_USER);
-                user.setName(null == user.getName() ? "***团支部" : user.getName());
+                user.setName(null == user.getName() ? "未填写团支部" : user.getName());
+                if (pUser.getParentId() != null) {
+                    user.setPparentId(pUser.getParentId());
+                }
             }
             user.setId(null);
-            user.setSecretaryName("***书记");
-            user.setSecretaryTel(null);
+            user.setSecretaryName(user.getSecretaryName() == null ? "未填写书记" : user.getSecretaryName());
 
-            System.out.println("final User"+user);
             user_new = userRepository.saveAndFlush(user);
         } catch (Exception e){
             user_new = User.empty();
@@ -113,5 +119,9 @@ public class UserServiceImpl implements UserService{
         userRepository.delete(userId);
 
         return 0;
+    }
+
+    public User findFirstByAccount(String account) {
+        return userRepository.findFirstByAccount(account);
     }
 }

@@ -18,10 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-
     @ApiOperation(value = "用户登录")
     @GetMapping("/login")
     public ResponseEntity<User> getUserByAccountAndPasswd(@RequestParam String account, @RequestParam String passwd) {
@@ -42,12 +38,12 @@ public class UserController {
     @PutMapping("/createUser")
     public ResponseEntity<User> createUser(@RequestParam Long selfId, @RequestBody User user){
         // 校验是否已经存在
-        if(null != userRepository.findFirstByAccount(user.getAccount())) {
+        if(null != userService.findFirstByAccount(user.getAccount())) {
             return new ResponseEntity<>(User.empty(-2), HttpStatus.OK);
         }
 
         // 校验是否符合要求
-        if (null == user || null == selfId || user.getUserType()<3 || user.getUserType()>4
+        if (null == selfId || user.getUserType() < 3 || user.getUserType() > 4
                 || user.getAccount() == null || user.getPasswd() == null) {
             return new ResponseEntity<>(User.empty(), HttpStatus.OK);
         }

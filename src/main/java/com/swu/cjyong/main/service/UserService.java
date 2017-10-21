@@ -19,7 +19,7 @@ public interface UserService {
     /**
      * 更新用户信息
      *
-     * @param User
+     * @param user
      * @return User
      */
     User updateUser(User user);
@@ -34,7 +34,7 @@ public interface UserService {
     /**
      * 创建不同用户
      * @param selfId
-     * @param User
+     * @param user
      * @return User
      */
     User createUser(Long selfId, User user);
@@ -54,4 +54,12 @@ public interface UserService {
      */
 
     List<BriefUser> getNumPassBelongs(Long selfId);
+
+    /**
+     * 根据用户名获取用户
+     *
+     * @param account
+     * @return
+     */
+    User findFirstByAccount(String account);
 }

@@ -138,16 +138,19 @@ public class ActivityController {
                 }
                 try {
                     file.transferTo(dest);
-                    imgUrl.append(fileLocation + fileName + ";");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                imgUrl.append(fileLocation + fileName + ";");
+                uploadFileToQiniuYun(fileLocation + fileName);
             }
-
-            //将本地图片上传到七牛云
-
         }
         return imgUrl.toString();
+    }
+
+    private boolean uploadFileToQiniuYun(String fileUrl) {
+        
+        return true;
     }
 
 

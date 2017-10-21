@@ -14,7 +14,7 @@
 			window.onresize =run;
 			function run(){
 				var w = window.innerWidth//浏览器窗口大小
-				var font = w/100;
+				var font = w/60;
 				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
 				font = Math.max(6,font);//取最大值,限定最小值
 				oHtml.style.fontSize = font + 'px';
@@ -25,7 +25,6 @@
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
 	//如果没有登录则跳转到登录页
-	console.log(userInfo)
 	if(!userInfo){
 		window.location.href = "login.html";
 	}
@@ -174,13 +173,13 @@
 						success : function(data){
 							for(var i=0;i<aInfoInput.length-1;i++){
 								aInfoInput[i].setAttribute("disabled",true);
-								aInfoInput[i].style.backgroundColor = "#f6f6f6";
+								aInfoInput[i].style.backgroundColor = "#f8f8f8";
 							}
 							aInfoLi[aInfoLi.length-2].style.display = "none";
 							aInfoLi[3].style.display = "none";
 							oTip.innerText = "";
 							userInfo = dataJson;
-							setCookie(JSON.stringify(userInfo));
+							setCookie("userInfo",JSON.stringify(userInfo));
 							alert("修改信息成功");
 						},
 						fail : function(){
@@ -251,13 +250,14 @@
 			success : askUploadedSuccess
 		});
 		function askUploadedSuccess(data){
-			console.log(data)
 			for(var i=0;i<data.length;i++){
-				if(data[i].state == 1){
+				if(data[i].state == 2){
 					htmlPass +='<div class="activity-box clearfix">';
             		htmlPass +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-              		htmlPass +=			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
-              		htmlPass +=				'<div class="title">'+data[i].title+'</div>';
+              		htmlPass += 		'<div class="img-box">'
+              		htmlPass +=				'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+              		htmlPass +=			'</div>';
+              		htmlPass +=			'<div class="title">'+data[i].title+'</div>';
             		htmlPass +=		'</a>';
            			htmlPass += 	'<div class="operation">';
              		htmlPass +=  	  	'<div class="state">审核通过</div>';
@@ -268,11 +268,13 @@
 				}else if(data[i].state != 4){ 
 					htmlChecking +='<div class="activity-box clearfix">';
             		htmlChecking +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-              		htmlChecking +=			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+              		htmlChecking += 		'<div class="img-box">'
+              		htmlChecking +=				'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+              		htmlChecking +=			'</div>';
               		htmlChecking +=				'<div class="title">'+data[i].title+'</div>';
             		htmlChecking +=		'</a>';
            			htmlChecking += 	'<div class="operation">';
-           			if(data[i].state == 2){
+           			if(data[i].state == 1){
 	             		htmlChecking +=  	  	'<div class="state">正在审核</div>';
 	             	}else{
 	             		htmlChecking +=  	  	'<div class="state" style="color:#DD4E42">审核失败</div>';
@@ -332,6 +334,8 @@
 				success : function(data){
 					if(data.state == 4){
 						deleteSuccess(data,index,state);
+					}else{
+						alert("操作失败");
 					}
 				}
 			});

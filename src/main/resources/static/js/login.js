@@ -11,7 +11,8 @@
 
 	 oBtnLogin.onclick = function(){
 	 	if(check()){
-	 		oTip.innerText = "";
+	 		oTip.style.color = "#5dB431";
+	 		oTip.innerText = "正在登录...";
 	 		ajax({
 	 			type:"get",
 	 			url : "http://cqgqt.xenoeye.org:443/users/login/",
@@ -26,10 +27,12 @@
 	 } 
 
 	 function loginFail(json){
+	 	oTip.style.color = "#DD4E42";
 	 	oTip.innerText = "访问服务器失败";
 	 }
 
 	 function login(data){
+	 	console.log(data)
 	 	if(data && data.id != -1){
 		 	setCookie("userInfo",JSON.stringify(data),12*3600*1000);
 		 	window.location.href = "index.html";

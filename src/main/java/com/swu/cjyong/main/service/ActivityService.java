@@ -4,6 +4,7 @@ import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.entity.dto.BriefUser;
 
+import javax.validation.constraints.Digits;
 import java.util.List;
 
 public interface ActivityService {
@@ -66,9 +67,16 @@ public interface ActivityService {
     List<Activity> getActivityByState(Integer state);
 
     /**
-     * 获取主页的活动信息
+     * 获取首页活动列表
      *
      * @return
      */
     ActivityIndex getIndexActivity();
+
+    /**
+     * 获取用户的待审核活动信息
+     * @Param selfId
+     * @return List<Activity>
+     */
+    List<Activity> getCheckingActivity(Long selfId);
 }

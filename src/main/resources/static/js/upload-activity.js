@@ -4,6 +4,22 @@
  * @date    2017-10-18 08:26:46
  * @version 1.0
  */
+ 	window.onload = function(){
+		
+		var html = document.getElementsByTagName('html')[0];
+
+			//通过标签名('')
+			run();//先执行一次abc函数
+			window.onresize =run;
+			function run(){
+				var w = window.innerWidth//浏览器窗口大小
+				var font = w/100;
+				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
+				font = Math.max(6,font);//取最大值,限定最小值
+				html.style.fontSize = font + 'px';
+			}
+	
+	}
 	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
@@ -11,6 +27,7 @@
 	if(!userInfo){
 		window.location.href = "login.html";
 	}
+
  var oActivityTitle = document.getElementById("activity-title"),
  	 oActivityMember = document.getElementById("activity-member"),
  	 oActivityDate = document.getElementById("activity-date"),
@@ -44,7 +61,11 @@
 	 			contentTypeNeed : false,
 	 			jointData : false,
 	 			success : function(data){
-	 				oTip.innerText = "发表成功";
+	 				if(data.state == 1){
+		 				oTip.innerText = "提交成功，等待审核";
+		 			}else{
+		 				oTip.innerText = "提交成功";
+		 			}
 	 			},
 	 			error : uploadFail
 	 		});
@@ -57,7 +78,7 @@
 		if(oActivityImg.files){
 			for(var i=0;i<oActivityImg.files.length;i++){
 				html += '<div class="img-preview-box">';
-				html += '<img src="'+ windowURL.createObjectURL(oActivityImg.files[i])+'" width="160" height="90"/>'
+				html += '<img src="'+ windowURL.createObjectURL(oActivityImg.files[i])+'"/>'
 				html += '</div>';
 			}
 		}else{
@@ -67,7 +88,7 @@
  	 }
 
  	 function uploadFail(){
- 	 	oTip.style.style = "#DD4E42";
+ 	 	oTip.style.color = "#DD4E42";
  	 	oTip.innerText = "发表失败";
  	 }
  	 function check(){
@@ -108,21 +129,5 @@
  	 	return true;
  	 }
 
- 	 window.onload = function(){
-		
-		var html = document.getElementsByTagName('html')[0];
-
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/100;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				html.style.fontSize = font + 'px';
-				console.log(11111)
-			}
-	
-	}
+ 	 
 

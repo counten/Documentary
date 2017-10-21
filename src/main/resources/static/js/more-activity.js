@@ -12,7 +12,7 @@
 			window.onresize =run;
 			function run(){
 				var w = window.innerWidth//浏览器窗口大小
-				var font = w/100;
+				var font = w/60;
 				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
 				font = Math.max(6,font);//取最大值,限定最小值
 				oHtml.style.fontSize = font + 'px';
@@ -22,23 +22,23 @@
 		oActivityWrapper = document.getElementById("activity-wrapper");
 
 		var params = getURIParams();
-		var type ="district";
+		var kind =2;
 		switch(params.type){
-			case "DISTRICT_ACTIVITY" : {
-				type = 1;
-				oActivityType.innerText = "区县活动";
+			case "CITY_ACTIVITY" : {
+				kind = 2;
+				oActivityType.innerText = "更多城市活动";
 			}break;
-			case "COMPANY_ACTIVITY" : {
-				type = 2;
-				oActivityType.innerText = "企业活动";
+			case "DISTRICT_ACTIVITY" : {
+				kind = 1;
+				oActivityType.innerText = "更多区县活动";
 			}break;
 			case "SCHOOL_ACTIVITY" : {
-				type = 3;
-				oActivityType.innerText = "学校活动";
+				kind = 3;
+				oActivityType.innerText = "更多学校活动";
 			}break;
 		}
 		ajax({
-			url : "http://cqgqt.xenoeye.org:443/activity/byKindId/"+type,
+			url : "http://cqgqt.xenoeye.org:443/activity/byKindId/"+kind,
 			success:askInfoSuccess
 		});
 		function askInfoSuccess(data){
@@ -46,7 +46,9 @@
 			for(var i=0;i<data.length;i++){
 				html += '<div class="activity-box">';
 		    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-		    	html +=			'<img src="'+data[i].img.split(";")[0]+'" alt="">';
+		    	html += 		'<div class="img-box">'
+		    	html +=				'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+		    	html +=			'</div>';
 		    	html +=			'<div class="title">'+data[i].title+'</div>';
 		    	html +=		'</a>';
 		    	html +='</div>';

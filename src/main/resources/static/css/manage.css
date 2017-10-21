@@ -15,7 +15,7 @@
 }
 .menu ul li{
 	float:left;
-	width:25%;
+	width:33.33%;
 	cursor:pointer;
 }
 .menu ul li:hover{
@@ -24,7 +24,7 @@
 
 .menu-content{
 	display:none;
-	background-color:#f6f6f6;
+	/* background-color:#f6f6f6; */
 }
 
 .menu-content #chart{
@@ -35,7 +35,7 @@
 .menu-content .activity-box{
 	position:relative;
 	padding:3%;
-	background-color:#f6f6f6;
+	/* background-color:#f6f6f6; */
 	border-bottom:1px solid #ccc;
 }
 .menu-content .activity-box a{
@@ -81,16 +81,16 @@
 .menu-content .activity-box .stop:hover{
 	text-decoration:underline;
 }
-.menu-content .activity-box .operation .delete{
-	color:#DD4E42;
-	cursor:pointer;
-	line-height:3rem;
-}
-.menu-content .activity-box .delete:hover{
-	text-decoration:underline;
-}
+ /* .menu-content .activity-box .operation .delete{
+ 	color:#DD4E42;
+ 	cursor:pointer;
+ 	line-height:3rem;
+ }
+ .menu-content .activity-box .delete:hover{
+ 	text-decoration:underline;
+ }  */
 
-.menu-content .search-box{
+/* .menu-content .search-box{
 	margin:auto;
 	padding:5% 0 0;
 	width:50%;
@@ -130,7 +130,7 @@
 	color:#DD4E42;
 	line-height:2rem;
 	text-align:center;
-}
+} */
 .menu-content .addAccount a{
 	display:block;
 	padding:3% 5% 4%;
@@ -170,5 +170,19 @@
 	text-align:center;
 }
 .menu-content .sub-account-box .sub-account .delete-account:hover{
+	text-decoration:underline;
+}
+
+.bottom{
+	padding:4rem;
+}
+.bottom a{
+	display:block;
+	font-size:1.8rem;
+	color:#565758;
+	line-height:4rem;
+	text-align:center;
+}
+.bottom a:hover{
 	text-decoration:underline;
 }

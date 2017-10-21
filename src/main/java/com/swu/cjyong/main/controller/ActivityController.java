@@ -102,6 +102,12 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getIndexActivity(), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "获取下属待审核活动")
+    @GetMapping("bySelfId/{selfId}")
+    public ResponseEntity<List<Activity>> getCheckingAct(@PathVariable Long selfId){
+        return new ResponseEntity<>(activityService.getCheckingActivity(selfId), HttpStatus.OK);
+    }
+
 /*    @ApiOperation(value = "获取自己和下属对应状态的活动信息")
     @GetMapping("actIndex")
     public ResponseEntity<ActivityIndex> getActIndex(){

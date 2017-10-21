@@ -12,6 +12,7 @@ import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.service.ActivityService;
+import com.swu.cjyong.main.util.FileUploadUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -116,19 +117,8 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getCheckingActivity(selfId), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "尝试上传图片到七牛云")
-    @PostMapping("uploadFileToQiniu")
-    public Long uploadFileToQiniu(@RequestParam(value = "file") MultipartFile file){
-        uploadFileToQiniuYun(file);
-        return 1L;
-    }
-
-
-
-
-
     /**
-     * 上传图片获取链接
+     * 上传图片到七牛云
      *
      * @param files
      * @return
@@ -137,63 +127,9 @@ public class ActivityController {
         StringBuilder imgUrl = new StringBuilder();
         for (MultipartFile file : files) {
             if (file != null) {
-                String fileName = file.getOriginalFilename();
-                String suffixName = fileName.substring(fileName.lastIndexOf("."));
-                //处理中文乱码问题
-                fileName = UUID.randomUUID() + suffixName;
-                File dest = new File(fileLocation + fileName);
-                if (!dest.getParentFile().exists()) {
-                    dest.getParentFile().mkdirs();
-                }
-                try {
-                    file.transferTo(dest);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                imgUrl.append(fileLocation + fileName + ";");
-                /*uploadFileToQiniuYun(fileLocation + fileName);*/
+                imgUrl.append(FileUploadUtil.uploadFileToQiniuYun(file) + ";");
             }
         }
         return imgUrl.toString();
     }
-
-    private boolean uploadFileToQiniuYun(MultipartFile file) {
-        //构造一个带指定Zone对象的配置类
-        Configuration cfg = new Configuration(Zone.zone2());
-        //...其他参数参考类注释
-        UploadManager uploadManager = new UploadManager(cfg);
-        //...生成上传凭证，然后准备上传
-        String accessKey = "sJzCRaqeVgt8BtJ1mTW1PnRb4nbRTrj-asSv1AGi";
-        String secretKey = "jNyuMXq-MN3WI4yTbWQG3HQF9wiGjBXFZjDwO3Ss";
-        String bucket = "cjyong";
-        //如果是Windows情况下，格式是 D:\\qiniu\\test.png
-        //String localFilePath = "/home/qiniu/test.png";
-        /*String localFilePath = "C:\\Users\\cjyong\\Desktop\\23146a42-6c33-4346-b282-26aaf9ccff4f.jpg";*/
-
-        //默认不指定key的情况下，以文件内容的hash值作为文件名
-        String key = null;
-        Auth auth = Auth.create(accessKey, secretKey);
-        String upToken = auth.uploadToken(bucket);
-        try {
-            byte[] uploadBytes = file.getBytes();
-            Response response = uploadManager.put(uploadBytes, key, upToken);
-            //解析上传成功的结果
-            DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-            System.out.println(putRet.key);
-            System.out.println(putRet.hash);
-        } catch (QiniuException ex) {
-            Response r = ex.response;
-            System.err.println(r.toString());
-            try {
-                System.err.println(r.bodyString());
-            } catch (QiniuException ex2) {
-                //ignore
-            }
-        } catch (IOException e) {
-
-        }
-        return true;
-    }
-
-
 }

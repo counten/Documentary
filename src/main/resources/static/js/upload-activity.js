@@ -56,7 +56,7 @@
  	 		oTip.innerText = "正在上传图片....";
  	 		ajax({
 	 			type : "post",
-	 			url : "http://cqgqt.xenoeye.org:443/activity/uploadActivity",
+	 			url : ASKURL + "/activity/uploadActivity",
 	 			data : data,
 	 			contentTypeNeed : false,
 	 			jointData : false,

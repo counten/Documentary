@@ -25,7 +25,7 @@
           </li>
           <li>
             <span>时间:</span>
-            <input type="date" id="activity-date">
+            <input  type="text"  id="activity-date" size="10" maxlength="10" onclick="new Calendar().show(this);" readonly="readonly" />
           </li>
           <li>
             <span>地点:</span>
@@ -51,6 +51,7 @@
     		</ul>
     	</div>
     </div>
+    <script type="text/javascript" src="js/Calendar3.js"></script>
     <script src="js/util.js"></script>
     <script src="js/upload-activity.js"></script>
 </body>

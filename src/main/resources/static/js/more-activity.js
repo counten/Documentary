@@ -23,6 +23,9 @@
 
 		var params = getURIParams();
 		var kind =2;
+		if(!params){
+			window.location.href = "index.html";
+		}
 		switch(params.type){
 			case "CITY_ACTIVITY" : {
 				kind = 2;
@@ -38,7 +41,7 @@
 			}break;
 		}
 		ajax({
-			url : "http://cqgqt.xenoeye.org:443/activity/byKindId/"+kind,
+			url : ASKURL + "/activity/byKindId/"+kind,
 			success:askInfoSuccess
 		});
 		function askInfoSuccess(data){
@@ -47,7 +50,7 @@
 				html += '<div class="activity-box">';
 		    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
 		    	html += 		'<div class="img-box">'
-		    	html +=				'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+		    	html +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
 		    	html +=			'</div>';
 		    	html +=			'<div class="title">'+data[i].title+'</div>';
 		    	html +=		'</a>';

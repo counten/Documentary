@@ -8,6 +8,7 @@ import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.entity.dto.BriefActivity;
 import com.swu.cjyong.main.entity.dto.BriefUser;
 import com.swu.cjyong.main.service.ActivityService;
+import org.jboss.jandex.PrimitiveType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -97,7 +98,6 @@ public class ActivityServiceImpl implements ActivityService {
             currentActivity.setState(checkResult.equals(1L) ? Activity.ACT_PASS : Activity.ACT_NOTPASS);
             return activityRepository.saveAndFlush(currentActivity);
         }
-
         return null;
     }
 
@@ -117,37 +117,17 @@ public class ActivityServiceImpl implements ActivityService {
             User currentUser = userRepository.findOne(selfId);
             currentUser.setNumDelete(currentUser.getNumDelete() + 1);
             Integer currentState = currentActivity.getState();
-            if (currentState.equals(Activity.ACT_CHECKING)) {
-                currentUser.setNumCheck(Math.max(0, currentUser.getNumCheck() - 1));
-            } else if (currentState.equals(Activity.ACT_PASS)) {
-                currentUser.setNumPass(Math.max(0, currentUser.getNumPass() - 1));
-            } else {
-                currentUser.setNumNotPass(Math.max(0, currentUser.getNumNotPass() - 1));
-            }
-            userRepository.saveAndFlush(currentUser);
+            userRepository.saveAndFlush(stateKeep(currentState, currentUser));
             if (currentUser.getParentId() != null) {
                 User parent = userRepository.findOne(currentUser.getParentId());
                 parent.setNumDelete(parent.getNumDelete() + 1);
-                if (currentState.equals(Activity.ACT_CHECKING)) {
-                    parent.setNumCheck(Math.max(0, parent.getNumCheck() - 1));
-                } else if (currentState.equals(Activity.ACT_PASS)) {
-                    parent.setNumPass(Math.max(0, parent.getNumPass() - 1));
-                } else {
-                    parent.setNumNotPass(Math.max(0, parent.getNumNotPass() - 1));
-                }
-                userRepository.saveAndFlush(parent);
+                userRepository.saveAndFlush(stateKeep(currentState, parent));
             }
             if (currentUser.getPparentId() != null) {
                 User pparent = userRepository.findOne(currentUser.getPparentId());
                 pparent.setNumDelete(pparent.getNumDelete() + 1);
-                if (currentState.equals(Activity.ACT_CHECKING)) {
-                    pparent.setNumCheck(Math.max(0, pparent.getNumCheck() - 1));
-                } else if (currentState.equals(Activity.ACT_PASS)) {
-                    pparent.setNumPass(Math.max(0, pparent.getNumPass() - 1));
-                } else {
-                    pparent.setNumNotPass(Math.max(0, pparent.getNumNotPass() - 1));
-                }
                 userRepository.saveAndFlush(pparent);
+                userRepository.saveAndFlush(stateKeep(currentState, pparent));
             }
             currentActivity.setState(Activity.ACT_DELETE);
             activityRepository.saveAndFlush(currentActivity);
@@ -155,6 +135,18 @@ public class ActivityServiceImpl implements ActivityService {
         }
 
         return null;
+    }
+
+    // 状态维护子函数
+    private static User stateKeep(Integer currentState, User user){
+        if (currentState.equals(Activity.ACT_CHECKING)) {
+            user.setNumCheck(Math.max(0, user.getNumCheck() - 1));
+        } else if (currentState.equals(Activity.ACT_PASS)) {
+            user.setNumPass(Math.max(0, user.getNumPass() - 1));
+        } else {
+            user.setNumNotPass(Math.max(0, user.getNumNotPass() - 1));
+        }
+        return user;
     }
 
     public Activity getActivityById(Long actId) {

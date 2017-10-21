@@ -15,7 +15,7 @@
 	 		oTip.innerText = "正在登录...";
 	 		ajax({
 	 			type:"get",
-	 			url : "http://cqgqt.xenoeye.org:443/users/login/",
+	 			url : ASKURL + "/users/login/",
 	 			data : {
 	 				account : trim(oUsernameInput.value),
 	 				passwd : trim(oPasswordInput.value)

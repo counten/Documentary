@@ -28,7 +28,6 @@
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
 		//向topbar中插入元素
-		console.log(userInfo)
 	var html = '<ul class="clearfix">';
 	if(userInfo){
 		html += '<li><a href="">欢迎！'+userInfo.account+'</a></li>';
@@ -45,6 +44,7 @@
 			html += '<li><a href="upload-activity.html">发表活动</a></li>';
 			html += '<li><a href="user-center.html">个人中心</a></li>';
 		}
+		html += '<li><a href="javascript:void(0);" onclick="loginout()">退出登录</a></li>'
 		html += '</ul>';
 		oTopBar.innerHTML += html;
 	}else{
@@ -55,8 +55,7 @@
 	
 	//请求数据
 	ajax({
-		url : "http://cqgqt.xenoeye.org:443/activity/actIndex",
-		data : {},
+		url : ASKURL + "/activity/actIndex",
 		success : askInfoSuccess
 	});
 
@@ -68,7 +67,7 @@
 			html1 += '<div class="activity-box">';
 	    	html1 +=	'<a href="detail-activity.html?ID='+data.district[i].id+'" class="clearfix">';
 	    	html1 += 		'<div class="img-box">'
-	    	html1 +=			'<img src="http://cqgqt.xenoeye.org:9192'+data.district[i].img.split(";")[0]+'" alt="">';
+	    	html1 +=			'<img src="'+IMGURL+data.district[i].img.split(";")[0]+'" alt="">';
 	    	html1 +=		'</div>'
 	    	html1 +=		'<div class="title">'+data.district[i].title+'</div>';
 	    	html1 +=	'</a>'; 
@@ -80,7 +79,7 @@
 			html2 += '<div class="activity-box">';
 	    	html2 +=	'<a href="detail-activity.html?ID='+data.city[i].id+'" class="clearfix">';
 	    	html2 += 		'<div class="img-box">'
-	    	html2 +=			'<img src="http://cqgqt.xenoeye.org:9192'+data.city[i].img.split(";")[0]+'" alt="">';
+	    	html2 +=			'<img src="'+IMGURL+data.city[i].img.split(";")[0]+'" alt="">';
 	    	html2 +=		'</div>';
 	    	html2 +=		'<div class="title">'+data.city[i].title+'</div>';
 	    	html2 +=	'</a>';
@@ -92,7 +91,7 @@
 			html3 += '<div class="activity-box">';
 	    	html3 +=	'<a href="detail-activity.html?ID='+data.school[i].id+'" class="clearfix">';
 	    	html3 += 		'<div class="img-box">'
-	    	html3 +=			'<img src="http://cqgqt.xenoeye.org:9192'+data.school[i].img.split(";")[0]+'" alt="">';
+	    	html3 +=			'<img src="'+IMGURL+data.school[i].img.split(";")[0]+'" alt="">';
 	    	html3 +=		'</div>';
 	    	html3 +=		'<div class="title">'+data.school[i].title+'</div>';
 	    	html3 +=	'</a>';
@@ -100,6 +99,11 @@
 		}
 		oSchoolActivity.innerHTML = html3;
 
+	}
+
+	function loginout(){
+		delCookie("userInfo");
+		window.location.href = "index.html";
 	}
 
 

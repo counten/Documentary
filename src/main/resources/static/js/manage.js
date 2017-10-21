@@ -18,6 +18,7 @@
 				font = Math.max(6,font);//取最大值,限定最小值
 				oHtml.style.fontSize = font + 'px';
 				oChart.resize();
+				oBarChart.resize();
 			}
 	}
  	//获取用户信息cookie
@@ -30,64 +31,11 @@
 
 
 	var oChart = echarts.init(document.getElementById('chart')); 
-		option = {
-		title : {
-		    text: '发表活动统计',
-		    x:'center',
-		    fontSize:"2rem"
-		},
-		tooltip : {
-		    trigger: 'item',
-		    formatter: "{a} <br/>{b} : {c} ({d}%)"
-		},
-		legend: {
-		    orient : 'vertical',
-		    x : 'left',
-		    data:['已发表','已删除','正在审核','审核失败']
-		},
-		lable:{
-	        normal:{
-	            textStyle:{
-	                fontsize:'1.6rem'
-	            }
-	        }
-	    },
-		toolbox: {
-		    show : true,
-		    feature : {
-		        mark : {show: true},
-		        magicType : {
-		            show: true, 
-		            type: ['pie', 'funnel'],
-		            option: {
-		                funnel: {
-		                    x: '25%',
-		                    width: '50%',
-		                    funnelAlign: 'left',
-		                    max: 10000
-		                }
-		            }
-		        }
-		    }
-		},
-		calculable : true,
-		series : [
-		    {
-		        name:'访问来源',
-		        type:'pie',
-		        radius : '55%',
-		        center: ['50%', '60%'],
-		        data:[
-		            {value:userInfo.numNotPass, name:'审核失败'},
-		            {value:userInfo.numCheck, name:'正在审核'},
-		            {value:userInfo.numDelete, name:'已删除'},
-		            {value:userInfo.numPass, name:'已发表'}
-		        ]
-		    }
-		]
-		};
-
-
+		var oBarChart = echarts.init(document.getElementById('bar-chart'));
+		var aNames = [];
+		var aPassNum = [];
+		
+		
  	var oMenu = document.getElementById("menu"),
 		aMenuLi = oMenu.getElementsByTagName("li"),
 		aMenuContent = getElementsByClass("menu-content"),
@@ -110,24 +58,146 @@
 				aMenuContent[index].style.display = "block";
 				aMenuContent[currentLiIndex].style.display = "none";
 				currentLiIndex = index;
-
 				switch(currentLiIndex){
 					case 0:{
 						ajax({
-				 			type:"get",
-				 			url : "http://cqgqt.xenoeye.org:443/users/login/",
+				 			url : ASKURL + "/users/login/",
 				 			data : {
 				 				account : userInfo.account,
 				 				passwd : userInfo.passwd
 				 			},
 				 			success : function(data){
-				 				userInfo = data;
-				 				// 使用刚指定的配置项和数据显示图表。 
-								oChart.setOption(option); 
-				 				setCookie("userInfo",JSON.stringify(data),12*3600*1000);
-				 			}
+				 				if(data.id > 0){
+						 				userInfo = data;
+						 				var	option = {
+											title : {
+											    text: '发表活动统计',
+											    x:'center',
+											    fontSize:"2rem"
+											},
+											tooltip : {
+											    trigger: 'item',
+											    formatter: "{a} <br/>{b} : {c} ({d}%)"
+											},
+											toolbox: {
+										        show : true,
+										        feature : {
+										            dataView : {show: true, readOnly: false},
+										            saveAsImage : {show: true}
+										        }
+									    		},
+											calculable : true,
+											series : [
+												    {
+												        name:'活动量',
+												        type:'pie',
+												        radius : '55%',
+												        center: ['50%', '60%'],
+												        data:[
+												        	 {
+												            	value:userInfo.numPass, 
+												            	name:'已发表 ' + userInfo.numPass ,
+												            	itemStyle : {
+												            		normal : {color : "rgba(0,255,0,0.8)"}
+												            	}
+												            },
+												            {
+												            	value:userInfo.numCheck, 
+												            	name:'正在审核 ' + userInfo.numCheck,
+												            	itemStyle : {
+												            		normal : {color : "rgba(255,255,0,0.8)"}
+												            	}
+												            },
+												            {
+												            	value:userInfo.numNotPass, 
+												            	name:'审核失败 ' + userInfo.numNotPass,
+												            	itemStyle : {
+												            		normal : {color : "rgba(255,0,0,0.5)"}
+												            	}
+												            },
+												            {
+												            	value:userInfo.numDelete, 
+												            	name:'已删除 ' + userInfo.numDelete,
+												            	itemStyle : {
+												            		normal : {color : "rgba(255,0,0,0.8)"}
+												            	}
+												            }
+												        ]
+												    }
+												]
+											};
+						 				// 使用刚指定的配置项和数据显示图表。 
+										oChart.setOption(option); 
+						 				setCookie("userInfo",JSON.stringify(data),12*3600*1000);
+						 			}
+					 			}
+					 		});
+					 		if(userInfo.id > 0 && userInfo.userType == 1){
+						 		ajax({
+						 			url : ASKURL + "/users/getBelongsNumPass?selfId="+userInfo.id,
+						 			success : function(data){
+						 				aNames = [];
+						 				aPassNum = [];
 
-				 		});
+						 				for(var i=0;i<data.length;i++){
+						 					aNames.push(data[i].account);
+						 					aPassNum.push(data[i].numPass);
+						 				}
+						 				var option2 = {
+										    title : {
+										        text: '二级团委组织活动发布量',
+										        x : "center"
+										    },
+										    tooltip : {
+										        trigger: 'axis'
+										    },
+										    toolbox: {
+										        show : true,
+										        feature : {
+										            dataView : {show: true, readOnly: false},
+										            saveAsImage : {show: true}
+										        }
+
+										    },
+										    calculable : true,
+										    xAxis : [
+										        {
+										            type : 'value',
+										            boundaryGap : [0, 0.01]
+										        }
+										    ],
+										    yAxis : [
+										        {
+										            type : 'category',
+										            data : aNames
+										        }
+										    ],
+										    series : [
+										        {
+										            name:'活动发布量',
+										            type:'bar',
+										            data:aPassNum,
+										            itemStyle : {
+										            	normal : {
+										            		color : "#5dB431"
+										            	}
+										            },
+										            markLine : {
+										                data : [
+										                    {type : 'average', name: '平均值'}
+										                ]
+										            }
+										        },
+										    ]
+										};
+						 				oBarChart.setOption(option2);
+						 			},
+						 			error : function(){
+						 				oBarChart.setOption(option2);
+						 			}
+						 		});
+						 	}
+						 
 						
 					}break;
 					case 1:{
@@ -160,17 +230,20 @@
 
 		function getSubAccountData(){
 			ajax({
-				url : "http://cqgqt.xenoeye.org:443/users/getUserByParentId?parentId="+userInfo.id,
+				url : ASKURL + "/users/getUserByParentId?parentId="+userInfo.id,
 				success : function(data){
 					var html = "";
 					for(var i=0;i<data.length;i++){
 						html += '<div class="sub-account clearfix">';
                  		html += 	'<ul class="clearfix">';
-                    	html +=			'<li>';
+                    	/*html +=			'<li>';
                     	html += 			'<span>ID:</span><span class="info">'+data[i].id+'</span>';
-                    	html +=			'</li>';
+                    	html +=			'</li>';*/
                    		html += 		'<li>';
-                   		html +=  			 '<span>名称:</span><span class="info">'+data[i].account+'</span>';
+                   		html +=  			 '<span>账户名 : </span><span class="info">'+data[i].account+'</span>';
+                   		html += 		'</li>';
+                   		html += 		'<li>';
+                   		html +=  			 '<span>组织名 : </span><span class="info">'+data[i].name+'</span>';
                    		html += 		'</li>';
                 		html +=  	'</ul>';
                   		html +=		'<div class="delete-account">删除</div>';
@@ -193,7 +266,7 @@
 					if(confirm('是否删除 "'+aDeleteSubData[index].account+'" 下属账号')){
 						ajax({
 							type:"post",
-							url : "http://cqgqt.xenoeye.org:443/users/deleteUser?selfId="+userInfo.id+"&userId="+aDeleteSubData[this.index].id+"&_method=delete",
+							url : ASKURL + "/users/deleteUser?selfId="+userInfo.id+"&userId="+aDeleteSubData[this.index].id+"&_method=delete",
 							success : function(data){
 								console.log(data)
 								if(data == 0){
@@ -239,14 +312,14 @@
 		//请求待审核数据
 		function getCheckingData(){
 			ajax({
-				url : "http://cqgqt.xenoeye.org:443/activity/bySelfId/"+userInfo.id,
+				url : ASKURL + "/activity/bySelfId/"+userInfo.id,
 				success : function(data){
 					var html = "";
 					for(var i=0;i<data.length;i++){
 						html += '<div class="activity-box clearfix">'
           				html += 	'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
           				html += 		'<div class="img-box">'
-            			html += 			'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+            			html += 			'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
             			html += 		'</div>';
            				html += 		'<div class="title">'+data[i].title+'</div>';
           				html += 	'</a>';
@@ -290,7 +363,7 @@
 		function checkPass(sign,index){
 			ajax({
 				type:"post",
-				url : "http://cqgqt.xenoeye.org:443/activity/checkPass/byId/"+userInfo.id+"/"+aData[this.index].id+"?_method=put",
+				url : ASKURL + "/activity/checkPass/byId/"+userInfo.id+"/"+aData[index].id+"/"+sign+"?_method=put",
 				success : function(){
 					aMenuContent[2].removeChild(aActivityBox[index]);
 				},
@@ -304,13 +377,13 @@
 
 
 	//删除活动-----------
-	var oActivityWrapper = document.getElementById("activity-wrapper"),
+	/*var oActivityWrapper = document.getElementById("activity-wrapper"),
 		//oActivityIdInput = document.getElementById("activity-id-input",aMenuContent[3]),
 		//oSearchActivity = document.getElementById("search-activity"),
 		//oSearchActivityTip = document.getElementById("search-activity-tip"),
 		aOperationDelete = [],
 		aActivityDeleteBox = [],
-		aDeleteData = [];
+		aDeleteData = [];*/
 
 
 

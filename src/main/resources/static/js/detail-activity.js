@@ -32,7 +32,7 @@ window.onload = function(){
 			window.location.href = "index.html";
 		}else{
 			ajax({
-				url : "http://cqgqt.xenoeye.org:443/activity/byActId/"+params.ID,
+				url : ASKURL + "/activity/byActId/"+params.ID,
 				success : askInfoSuccess
 			});
 		}
@@ -52,37 +52,44 @@ window.onload = function(){
 			  "userType": "学校"
 
 		});*/
+		var type = ["","管理员","二级团委","三级团委","团支部"];
+		var kind = ["","区县","城市","城市"]
 		function askInfoSuccess(data){
-			oActivityTitle.innerText = data.title;
-			aActivityInfo[0].innerText = data.userName;
-			aActivityInfo[1].innerText = data.userType;
-			aActivityInfo[2].innerText = data.id;
-			var state = "";
-			if(data.state == 2){
-				state = "审核通过";
-			}else if(data.state == 1){
-				state = "正在审核";
-			}else{
-				state = "审核失败";
-			}
-			aActivityInfo[3].innerText = state;
-			aActivityInfo[4].innerText = data.time;
-			aActivityInfo[5].innerText = data.location;
-			aActivityInfo[6].innerText = data.participants;
-			aActivityInfo[7].innerText = data.userKind;
-			aActivityInfo[8].innerText = data.createTime;
+			if(data.id > 0){
+				console.log(data)
+				oActivityTitle.innerText = data.title;
+				aActivityInfo[0].innerText = data.userName;
+				aActivityInfo[1].innerText = type[data.userType];
+				aActivityInfo[2].innerText = data.id;
+				var state = "";
+				if(data.state == 2){
+					state = "审核通过";
+				}else if(data.state == 1){
+					state = "正在审核";
+				}else{
+					state = "审核失败";
+				}
+				aActivityInfo[3].innerText = state;
+				aActivityInfo[4].innerText = data.time;
+				aActivityInfo[5].innerText = data.location;
+				aActivityInfo[6].innerText = data.participants;
+				aActivityInfo[7].innerText = kind[data.userKind];
+				aActivityInfo[8].innerText = data.createTime;
 
-			//图片
-			var html = "";
-			var imgUrl = data.img.split(";");
-			for(var i=0;i<imgUrl.length;i++){
-				html += '<div class="img-box">';
-				html +=		'<img src="http://cqgqt.xenoeye.org:9192'+imgUrl[i]+'" alt="">';
-				html += '</div>';
+				//图片
+				var html = "";
+				var imgUrl = data.img.split(";");
+				for(var i=0;i<imgUrl.length;i++){
+					html += '<div class="img-box">';
+					html +=		'<img src="'+IMGURL+imgUrl[i]+'" alt="">';
+					html += '</div>';
+				}
+				oActivityImg.innerHTML = html;
+				//内容
+				oActivityContent.innerText = data.content;
+			}else{
+				oActivityTitle.innerText = "访问数据有误";
 			}
-			oActivityImg.innerHTML = html;
-			//内容
-			oActivityContent.innerText = data.content;
 		}
 
 		

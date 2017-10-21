@@ -167,7 +167,7 @@
 					}
 					ajax({
 						type : "post",
-						url :"http://cqgqt.xenoeye.org:443/users/updateUser?_method=put",
+						url : ASKURL + "/users/updateUser?_method=put",
 						data :dataJson,
 						jsonType:true,
 						success : function(data){
@@ -246,7 +246,7 @@
 			htmlChecking = "";
 
 		ajax({
-			url : "http://cqgqt.xenoeye.org:443/activity/byUserId/"+userInfo.id,
+			url : ASKURL + "/activity/byUserId/"+userInfo.id,
 			success : askUploadedSuccess
 		});
 		function askUploadedSuccess(data){
@@ -255,7 +255,7 @@
 					htmlPass +='<div class="activity-box clearfix">';
             		htmlPass +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
               		htmlPass += 		'<div class="img-box">'
-              		htmlPass +=				'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+              		htmlPass +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
               		htmlPass +=			'</div>';
               		htmlPass +=			'<div class="title">'+data[i].title+'</div>';
             		htmlPass +=		'</a>';
@@ -269,7 +269,7 @@
 					htmlChecking +='<div class="activity-box clearfix">';
             		htmlChecking +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
               		htmlChecking += 		'<div class="img-box">'
-              		htmlChecking +=				'<img src="http://cqgqt.xenoeye.org:9192'+data[i].img.split(";")[0]+'" alt="">';
+              		htmlChecking +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
               		htmlChecking +=			'</div>';
               		htmlChecking +=				'<div class="title">'+data[i].title+'</div>';
             		htmlChecking +=		'</a>';
@@ -330,7 +330,7 @@
 			}
 			ajax({
 				type:"post",
-				url : "http://cqgqt.xenoeye.org:443/activity/byId/"+userInfo.id+"/"+tempData.id+"?_method=delete",
+				url : ASKURL + "/activity/byId/"+userInfo.id+"/"+tempData.id+"?_method=delete",
 				success : function(data){
 					if(data.state == 4){
 						deleteSuccess(data,index,state);

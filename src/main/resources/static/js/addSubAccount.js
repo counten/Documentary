@@ -23,7 +23,7 @@ var oUsernameInput = document.getElementById("username"),
 	 		oTip.innerText = "";
 	 		ajax({
 	 			type:"post",
-	 			url : "http://cqgqt.xenoeye.org:443/users/createUser?selfId="+userInfo.id+"&_method=put",
+	 			url : ASKURL + "/users/createUser?selfId="+userInfo.id+"&_method=put",
 	 			data : {
 	 			  	  account : trim(oUsernameInput.value),
 		 			  passwd : trim(oPasswordInput.value),

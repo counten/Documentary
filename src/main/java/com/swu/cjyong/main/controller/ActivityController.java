@@ -158,13 +158,13 @@ public class ActivityController {
 
     private boolean uploadFileToQiniuYun(String fileUrl) {
         //构造一个带指定Zone对象的配置类
-        Configuration cfg = new Configuration(Zone.zone0());
+        Configuration cfg = new Configuration(Zone.zone2());
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
         //...生成上传凭证，然后准备上传
-        String accessKey = "your access key";
-        String secretKey = "your secret key";
-        String bucket = "your bucket name";
+        String accessKey = "sJzCRaqeVgt8BtJ1mTW1PnRb4nbRTrj-asSv1AGi";
+        String secretKey = "jNyuMXq-MN3WI4yTbWQG3HQF9wiGjBXFZjDwO3Ss";
+        String bucket = "cjyong";
         //如果是Windows情况下，格式是 D:\\qiniu\\test.png
         String localFilePath = "/home/qiniu/test.png";
         //默认不指定key的情况下，以文件内容的hash值作为文件名

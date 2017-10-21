@@ -26,18 +26,32 @@
 	display:none;
 	/* background-color:#f6f6f6; */
 }
-
 .menu-content #chart{
 	margin:5rem auto;
 	width:90%;
 	height:45rem;
 }
-.menu-content #bar-chart{
+.menu-content #divide-page{
+	padding-top:2rem;
+}
+.menu-content #divide-page ul li{
+	float:left;
+	width:20%;
+	font-size:1.6rem;
+	color:#565758;
+	line-height:4rem;
+	text-align:center;
+	cursor:pointer;
+}
+.menu-content #divide-page ul li.selected{
+	color:#5dB431;
+}
+/* .menu-content #bar-chart{
 	margin:auto;
 	width:90%;
 	height:0rem;
 	padding:10rem 0;
-}
+} */
 .menu-content .activity-box{
 	position:relative;
 	padding:3%;

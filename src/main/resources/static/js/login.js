@@ -57,8 +57,8 @@
 			oTip.innerText = "密码不能为空";
 			return false;
 		}
-		if(password.length <6 || password.length > 16 ){
-			oTip.innerText = "密码长度在6~16之间";
+		if(password.length <6 || password.length > 20 ){
+			oTip.innerText = "密码长度在6~20之间";
 			return false;
 		}
 		return true;

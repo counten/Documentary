@@ -1,6 +1,6 @@
 
 	//全局变量
-	var IMGURL = "http://cqgqt.xenoeye.org:9192";
+	var IMGURL = "http://oy5ic3yhc.bkt.clouddn.com/";
 	var ASKURL = "http://cqgqt.xenoeye.org:443";
 	/*
 		util class document

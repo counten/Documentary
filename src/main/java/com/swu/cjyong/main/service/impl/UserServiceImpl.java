@@ -3,6 +3,7 @@ package com.swu.cjyong.main.service.impl;
 import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.BriefUser;
+import com.swu.cjyong.main.entity.dto.MemberCount;
 import com.swu.cjyong.main.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,5 +124,40 @@ public class UserServiceImpl implements UserService{
 
     public User findFirstByAccount(String account) {
         return userRepository.findFirstByAccount(account);
+    }
+
+    public MemberCount getAllMeberNumAndAccout4() {
+        MemberCount memberCount = new MemberCount();
+        //统计学校的团员数量
+        List<User> school = userRepository.findByUserKindAAndUserType(User.SCHOOL, User.FORTH_USER);
+        memberCount.setAccount4_school(school.size());
+        int memberNums = 0;
+        for(User user : school) {
+            if (user.getMemberNum() != null) {
+                memberNums += user.getMemberNum();
+            }
+        }
+        memberCount.setMember_school(memberNums);
+        //统计区县的数量
+        List<User> ditrict = userRepository.findByUserKindAAndUserType(User.DISTRICT, User.FORTH_USER);
+        memberCount.setAccount4_school(ditrict.size());
+        memberNums = 0;
+        for(User user : ditrict) {
+            if (user.getMemberNum() != null) {
+                memberNums += user.getMemberNum();
+            }
+        }
+        memberCount.setMember_district(memberNums);
+        //统计城市的数量
+        List<User> city = userRepository.findByUserKindAAndUserType(User.CITY, User.FORTH_USER);
+        memberCount.setAccount4_school(city.size());
+        memberNums = 0;
+        for(User user : city) {
+            if (user.getMemberNum() != null) {
+                memberNums += user.getMemberNum();
+            }
+        }
+        memberCount.setMember_city(memberNums);
+        return memberCount;
     }
 }

@@ -11,6 +11,7 @@ import com.qiniu.util.Auth;
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
+import com.swu.cjyong.main.entity.dto.MemberCount;
 import com.swu.cjyong.main.service.ActivityService;
 import com.swu.cjyong.main.util.FileUploadUtil;
 import io.swagger.annotations.ApiOperation;
@@ -117,6 +118,7 @@ public class ActivityController {
     public ResponseEntity<List<Activity>> getCheckingAct(@PathVariable Long selfId){
         return new ResponseEntity<>(activityService.getCheckingActivity(selfId), HttpStatus.OK);
     }
+
 
     /**
      * 上传图片到七牛云

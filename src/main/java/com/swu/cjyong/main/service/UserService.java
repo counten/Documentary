@@ -2,6 +2,7 @@ package com.swu.cjyong.main.service;
 
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.BriefUser;
+import com.swu.cjyong.main.entity.dto.MemberCount;
 
 import java.util.List;
 
@@ -62,4 +63,11 @@ public interface UserService {
      * @return
      */
     User findFirstByAccount(String account);
+
+    /**
+     *  获取所有的四级账户数量和团员数量
+     *
+     * @return
+     */
+    MemberCount getAllMeberNumAndAccout4();
 }

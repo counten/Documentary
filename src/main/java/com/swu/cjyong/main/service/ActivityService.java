@@ -3,6 +3,7 @@ package com.swu.cjyong.main.service;
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.entity.dto.BriefUser;
+import com.swu.cjyong.main.entity.dto.MemberCount;
 
 import javax.validation.constraints.Digits;
 import java.util.List;

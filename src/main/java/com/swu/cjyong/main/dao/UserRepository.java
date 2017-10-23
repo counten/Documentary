@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     List<User> findByUserTypeAndParentId(int userType, Long parentId);
 
+    List<User> findByUserKindAAndUserType(int userKind, int userType);
+
     User findFirstByAccount(String name);
 
     void deleteByParentId(Long parentId);

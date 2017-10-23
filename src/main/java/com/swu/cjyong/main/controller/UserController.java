@@ -3,6 +3,7 @@ package com.swu.cjyong.main.controller;
 import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.BriefUser;
+import com.swu.cjyong.main.entity.dto.MemberCount;
 import com.swu.cjyong.main.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,11 @@ public class UserController {
     @GetMapping("/getBelongsNumPass")
     public ResponseEntity<List<BriefUser>> getBelongsNumPass(@RequestParam Long selfId) {
         return new ResponseEntity<>(userService.getNumPassBelongs(selfId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取所有的四级账户数量和团员数量")
+    @GetMapping("getAllMeberNumAndAccout4")
+    public ResponseEntity<MemberCount> getAllMeberNumAndAccout4(){
+        return new ResponseEntity<>(userService.getAllMeberNumAndAccout4(), HttpStatus.OK);
     }
 }

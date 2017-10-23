@@ -7,6 +7,7 @@ import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.entity.dto.BriefActivity;
 import com.swu.cjyong.main.entity.dto.BriefUser;
+import com.swu.cjyong.main.entity.dto.MemberCount;
 import com.swu.cjyong.main.service.ActivityService;
 import org.jboss.jandex.PrimitiveType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,4 +216,5 @@ public class ActivityServiceImpl implements ActivityService {
                 .map(BriefActivity::Act2BriefAct)
                 .collect(toList());
     }
+
 }

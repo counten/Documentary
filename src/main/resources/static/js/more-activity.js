@@ -38,16 +38,20 @@
 		function askInfoSuccess(data){
 			if(data && data[0].id > 0){
 				var html = "";
-				for(var i=0;i<data.length;i++){
-					html += '<div class="activity-box clearfix">';
-			    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
-			    	html += 		'<div class="img-box">'
-			    	html +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
-			    	html +=			'</div>';
-			    	html +=			'<div class="title">'+data[i].title+'</div>';
-			    	html +=		'</a>';
-			    	html +='</div>';
-		    	}
+				if(data.length == 0){
+					html += '<p class="null">暂无活动</p>';
+				}else{
+					for(var i=0;i<data.length;i++){
+						html += '<div class="activity-box clearfix">';
+				    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
+				    	html += 		'<div class="img-box">'
+				    	html +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
+				    	html +=			'</div>';
+				    	html +=			'<div class="title">'+data[i].title+'</div>';
+				    	html +=		'</a>';
+				    	html +='</div>';
+			    	}
+			    }
 		    	oActivityWrapper.innerHTML = html;
 		    }
 		}

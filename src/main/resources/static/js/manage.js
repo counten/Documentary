@@ -196,23 +196,23 @@
                    		html +=  			 '<span>账户名 : </span><span class="info">'+data[i].account+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
-                   		html +=  			 '<span>机构名 : </span><span class="info">'+data[i].name+'</span>';
+                   		html +=  			 '<span>团委（支部）名称 : </span><span class="info">'+data[i].name+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
-                   		html +=  			 '<span>账户级别 : </span><span class="info">'+type[data[i].userType]+'</span>';
-                   		html += 		'</li>';
-                   		if(data[i].userType == 4){
-	                   		html += 		'<li>';
-	                   		html +=  			 '<span>团员总数 : </span><span class="info">'+data[i].memberNum+'</span>';
-	                   		html += 		'</li>';
-                   		}
-                   		html += 		'<li>';
-                   		html +=  			 '<span>团委名称 : </span><span class="info">'+data[i].secretaryName+'</span>';
+                   		html +=  			 '<span>团委书记 : </span><span class="info">'+data[i].secretaryName+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
-                   		html +=  			 '<span>团委联系方式 : </span><span class="info">'+data[i].secretaryTel+'</span>';
-                   		html += 		'</li>';
-                		html +=  	'</ul>';
+                   		html +=  			 '<span>联系方式 : </span><span class="info">'+data[i].secretaryTel+'</span>';
+						html += 		'</li>';
+						html += 		'<li>';
+						html +=  			 '<span>账户级别 : </span><span class="info">'+type[data[i].userType]+'</span>';
+						html += 		'</li>';
+						html +=  	'</ul>';						
+						if(data[i].userType == 4){
+							html += 		'<li>';
+							html +=  			 '<span>团员总数 : </span><span class="info">'+data[i].memberNum+'</span>';
+							html += 		'</li>';
+						}
                   		html +=		'<div class="delete-account">删除</div>';
              			html += '</div>';
 					}

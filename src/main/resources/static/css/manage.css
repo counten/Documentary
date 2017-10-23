@@ -10,7 +10,7 @@
 	color:#fff;
 	font-size:0.75rem;
 	line-height:1.8rem;
-	background-color:#999;
+	background-color:#aaa;
 	text-align:center;
 }
 .menu ul li{
@@ -19,7 +19,7 @@
 	cursor:pointer;
 }
 .menu ul li:hover{
-	background-color:#5CA451;
+	background-color:#DD4E42;
 }
 
 .menu-content{
@@ -31,6 +31,10 @@
 	width:90%;
 	height:20rem;
 }
+
+.menu-content #list-chart{
+	padding-top:1rem;
+}
 .menu-content #list-chart .total{
 	line-height:2rem;
 	font-size:0.75rem;
@@ -38,18 +42,42 @@
 	text-indent:2em;
 	border-bottom:1px solid #eee;
 }
-
-
-.menu-content #list-chart ul li{
-	padding:0 0.4rem;
+/* .menu-content #list-chart .menu-bar{
+	padding:0.2rem 0;
 	font-size:0.6rem;
+	line-height:1.2rem;
+}
+.menu-content #list-chart .menu-bar h4{
+	float:left;
+	width:20%;
+	text-align: center;
+}
+.menu-content #list-chart .menu-bar ul{
+	float:left;
+	width:80%;
+}
+.menu-content #list-chart .menu-bar ul li{
+	float:left;
+	width:25%;
+	text-align:center;
+	cursor:pointer;
+}*/
+.menu-content #list-chart ul{
+	margin-top:2rem;
+}
+.menu-content #list-chart ul li{
+	padding:0 1.5rem;
+	font-size:0.75rem;
 	color:#454647;
 	line-height:1.2rem;
 	border-bottom:1px solid #eee;
-	text-indent:2em;
 }
-
-.menu-content #list-chart ul li span{
+ .menu-content #list-chart  ul li span{
+ 	text-align:left;
+ }
+.menu-content #list-chart  ul li span.org-name{
+	display:block;
+	font-weight:bold;
 }
 .menu-content #list-chart ul li span.info{
 	padding:0 1rem;

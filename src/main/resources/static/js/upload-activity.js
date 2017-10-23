@@ -13,8 +13,8 @@
 	}
 
  var oActivityTitle = document.getElementById("activity-title"),
- 	 oActivityMember = document.getElementById("activity-member"),
-	 oParticipantsNum = document.getElementById("activity-participants");
+	  oActivityMember = document.getElementById("activity-member"),
+	  oactivityParticipantsNum = document.getElementById("activity-participantsNum"),	  
  	 oActivityDate = document.getElementById("activity-date"),
  	 oActivityLocation = document.getElementById("activity-location"),
  	 oActivityContent = document.getElementById("activity-content"),
@@ -38,8 +38,9 @@
  	 		data.append("title",trim(oActivityTitle.value));
  	 		data.append("time",trim(oActivityDate.value));
  	 		data.append("location",trim(oActivityLocation.value));
- 	 		data.append("participants",trim(oActivityMember.value));
-            data.append("participantsNum",trim(oParticipantsNum.value));
+			data.append("participants",trim(oActivityMember.value));
+			data.append("participantsNum",trim(oactivityParticipantsNum.value)); 
+			  
  	 		data.append("content",oActivityContent.value);
  	 		for(var i=0;i<aImgUpload.length;i++){
  	 			if(aImgUploadNeed[i]){

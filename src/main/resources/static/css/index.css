@@ -9,7 +9,7 @@
 .page-title{
 	padding:4%;
 	font-size:1rem;
-	color:#5dB431;
+	color:#DD4E42;
 	text-align:center;
 }
 /* .page-title .icon-fire{
@@ -66,7 +66,7 @@
 	float:left;
 	font-size:0.667rem;
 	text-indent:1em;
-	border-left:0.3rem solid #5dB431;
+	border-left:0.3rem solid #DD4E42;
 }
 .content .section .title-bar .more{
 	display:block;

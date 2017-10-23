@@ -154,7 +154,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public List<Activity> getActivityByKindId(Integer kind) {
-        return activityRepository.findByUserKindAndState(kind, Activity.ACT_PASS);
+        return activityRepository.findByUserKindAndStateOrderByCreateTimeDesc(kind, Activity.ACT_PASS);
     }
 
     public List<Activity> getActivityByState(Integer state) {

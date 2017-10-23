@@ -48,10 +48,12 @@ public class ActivityServiceImpl implements ActivityService {
         } else {
             User actOwner = userRepository.findOne(activity.getUserId());
             actOwner.setNumPass(actOwner.getNumPass() + 1);
+            actOwner.setParticipantsNum(actOwner.getParticipantsNum() + activity.getParticipantsNum());
             userRepository.saveAndFlush(actOwner);
             if (actOwner.getParentId() != null) {
                 User parent = userRepository.findOne(actOwner.getParentId());
                 parent.setNumPass(parent.getNumPass() + 1);
+                parent.setParticipantsNum(parent.getParticipantsNum() + activity.getParticipantsNum());
                 userRepository.saveAndFlush(parent);
             }
         }
@@ -70,6 +72,7 @@ public class ActivityServiceImpl implements ActivityService {
             actOwner.setNumCheck(Math.max(0, actOwner.getNumCheck() - 1));
             if (checkResult.equals(1L)) {
                 actOwner.setNumPass(actOwner.getNumPass() + 1);
+                actOwner.setParticipantsNum(actOwner.getParticipantsNum() + currentActivity.getParticipantsNum());
             } else {
                 actOwner.setNumNotPass(actOwner.getNumNotPass() + 1);
             }
@@ -79,6 +82,7 @@ public class ActivityServiceImpl implements ActivityService {
                 parent.setNumCheck(Math.max(0, parent.getNumCheck() - 1));
                 if (checkResult.equals(1L)) {
                     parent.setNumPass(parent.getNumPass() + 1);
+                    parent.setParticipantsNum(parent.getParticipantsNum() + currentActivity.getParticipantsNum());
                 } else {
                     parent.setNumNotPass(parent.getNumNotPass() + 1);
                 }
@@ -89,6 +93,7 @@ public class ActivityServiceImpl implements ActivityService {
                 pparent.setNumCheck(Math.max(0, pparent.getNumCheck() - 1));
                 if (checkResult.equals(1L)) {
                     pparent.setNumPass(pparent.getNumPass() + 1);
+                    pparent.setParticipantsNum(pparent.getParticipantsNum() + currentActivity.getParticipantsNum());
                 } else {
                     pparent.setNumNotPass(pparent.getNumNotPass() + 1);
                 }
@@ -117,17 +122,17 @@ public class ActivityServiceImpl implements ActivityService {
             User currentUser = userRepository.findOne(selfId);
             currentUser.setNumDelete(currentUser.getNumDelete() + 1);
             Integer currentState = currentActivity.getState();
-            userRepository.saveAndFlush(stateKeep(currentState, currentUser));
+            userRepository.saveAndFlush(stateKeep(currentState, currentUser, currentActivity));
             if (currentUser.getParentId() != null) {
                 User parent = userRepository.findOne(currentUser.getParentId());
                 parent.setNumDelete(parent.getNumDelete() + 1);
-                userRepository.saveAndFlush(stateKeep(currentState, parent));
+                userRepository.saveAndFlush(stateKeep(currentState, parent, currentActivity));
             }
             if (currentUser.getPparentId() != null) {
                 User pparent = userRepository.findOne(currentUser.getPparentId());
                 pparent.setNumDelete(pparent.getNumDelete() + 1);
                 userRepository.saveAndFlush(pparent);
-                userRepository.saveAndFlush(stateKeep(currentState, pparent));
+                userRepository.saveAndFlush(stateKeep(currentState, pparent, currentActivity));
             }
             currentActivity.setState(Activity.ACT_DELETE);
             activityRepository.saveAndFlush(currentActivity);
@@ -138,11 +143,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     // 状态维护子函数
-    private static User stateKeep(Integer currentState, User user){
+    private User stateKeep(Integer currentState, User user, Activity activity){
         if (currentState.equals(Activity.ACT_CHECKING)) {
             user.setNumCheck(Math.max(0, user.getNumCheck() - 1));
         } else if (currentState.equals(Activity.ACT_PASS)) {
             user.setNumPass(Math.max(0, user.getNumPass() - 1));
+            user.setParticipantsNum(user.getParticipantsNum() + activity.getParticipantsNum());
         } else {
             user.setNumNotPass(Math.max(0, user.getNumNotPass() - 1));
         }

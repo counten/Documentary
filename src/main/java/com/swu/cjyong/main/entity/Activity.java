@@ -51,6 +51,9 @@ public class Activity {
     @NonNull
     private String location;
 
+    @NonNull
+    private Long participantsNum;
+
     private String participants;
 
     @NonNull

@@ -158,6 +158,7 @@ public class UserServiceImpl implements UserService{
             }
         }
         memberCount.setMember_city(memberNums);
+        memberCount.addAll();
         return memberCount;
     }
 }

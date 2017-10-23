@@ -12,4 +12,9 @@ public class MemberCount {
     private int account4_city = 0;
     private int member_district = 0;
     private int account4_district = 0;
+
+    public void addAll() {
+        memberCount = member_city + member_school + member_district;
+        account4Count = account4_city + account4_district + account4_school;
+    }
 }

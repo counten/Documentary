@@ -6,12 +6,12 @@
  * @version $Id$
  */
 .activity-title{
-	padding:1rem;
-	font-size:2rem;
+	padding:0.333rem;
+	font-size:0.75rem;
 	color:#fff;
 	font-weight:normal;
-	background-color:#666;
-	line-height:3rem;
+	background-color:#5CA451;
+	line-height:0.75rem;
 	text-align:center;
 }
 .activity-detail{
@@ -20,9 +20,9 @@
 .activity-detail .activity-info ul li{
 	margin:auto;
 	width:80%;
-	font-size:1.6rem;
+	font-size:0.5rem;
 	color:454647;
-	line-height:4rem;
+	line-height:1rem;
 }
 .activity-detail .activity-info ul li:after{
 	content: '';
@@ -46,10 +46,10 @@
 	text-align:left;
 }
 .activity-detail .activity-img{
-	margin-top:4rem;
+	margin-top:0.667rem;
 }
 .activity-detail .activity-img .img-box{
-	margin:4rem auto;
+	margin:0.667rem auto;
 	width:80%;
 	text-align:center;
 }
@@ -58,24 +58,10 @@
 }
 .activity-detail .activity-content{
 	margin:auto;
-	padding-bottom:10rem;
+	padding-bottom:1.667rem;
 	width:80%;
-	font-size:1.6rem;
+	font-size:0.6rem;
 	color:#454647;
-	line-height:3rem;
-	text-indent:2em;
+	line-height:1.5;
 }
 
-.bottom{
-	padding:4rem;
-}
-.bottom a{
-	display:block;
-	font-size:1.8rem;
-	color:#565758;
-	line-height:4rem;
-	text-align:center;
-}
-.bottom a:hover{
-	text-decoration:underline;
-}

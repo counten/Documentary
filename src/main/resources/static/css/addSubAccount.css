@@ -12,17 +12,18 @@
 }
  .register-box{
  	margin:6% auto;
- 	padding:2rem 0; 
- 	max-width:48rem;
- 	max-height:48rem;
+ 	padding:0.333rem 0; 
+ 	max-width:8rem;
+ 	max-height:8rem;
  	background-color:#f6f6f6;
  }
  .register-box ul li{
+ 	position:relative;
  	margin:2% auto;
- 	max-width:33rem;
- 	min-width:20rem;
-	font-size:1.6rem;
-	line-height:4rem;
+ 	max-width:5.5rem;
+ 	min-width:3.33rem;
+	font-size:0.267rem;
+	line-height:0.5rem;
 	text-align:center;
  }
  .register-box ul li:after{
@@ -35,9 +36,9 @@
  }
  .register-box ul li h3{
  	margin:5% 0 8%;
- 	font-size:3rem;
+ 	font-size:0.5rem;
  	color:#888;
- 	line-height:4rem;
+ 	line-height:0.667rem;
  	
  }
  .register-box ul li span{
@@ -52,10 +53,10 @@
  	float:left;
  	margin-left:5%;
 	width:60%;
-	height:3.2rem;
+	height:0.533rem;
 	color:#565656;
-	font-size:1.6rem;
-	line-height:3.2rem;
+	font-size:0.267rem;
+	line-height:0.533rem;
 	text-indent:1em;
 	border:none;
 	outline:none;
@@ -66,21 +67,36 @@
  	float:left;
  	margin-left:5%;
  	width:60%;
- 	height:3.2rem;
+ 	height:0.533rem;
  	color:#565758;
- 	font-size:1.6rem;
- 	line-height:3.2rem;
+ 	font-size:0.267rem;
+ 	line-height:0.533rem;
  	text-align:center;
+ 	appearance:none;
+ 	-moz-appearance:none;
+ 	-webkit-appearance:none;
  	border:none;
  	outline:none;
+ 	cursor:pointer;
+ }
+ .register-box ul li select option{
+ 	padding:6px;
+ }
+ .register-box ul li .arrow{
+ 	position:absolute;
+ 	top:10px;
+ 	right:50px;
+ 	border-top:10px solid #5dB431;
+ 	border-right:6px solid transparent;
+ 	border-left:6px solid transparent;
  }
  .register-box ul li button{
  	margin:5% auto;
  	width:80%;
- 	height:3.4rem;
+ 	height:0.567rem;
  	color:#fff;
- 	font-size:1.6rem;
-	line-height:3.4rem;
+ 	font-size:0.267rem;
+	line-height:0.567rem;
 	background-color:#5dB431;
  	border:none;
 	outline:none;
@@ -91,19 +107,19 @@
 	background-color:#5CB451;
 }
 .register-box ul li .tip{
-	height:4rem;
-	font-size:1.6rem;
+	height:0.667rem;
+	font-size:0.267rem;
 	color:#DD4E42;
 }
 
 .register-box ul li .bottom{
-	padding:3rem;
+	padding:0.5rem;
 }
 .register-box ul li .bottom a{
 	display:block;
-	font-size:1.8rem;
+	font-size:0.3rem;
 	color:#565758;
-	line-height:3rem;
+	line-height:0.5rem;
 	text-align:center;
 }
 .register-box ul li .bottom a:hover{

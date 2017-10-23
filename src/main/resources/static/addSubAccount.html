@@ -10,33 +10,41 @@
   <link rel="stylesheet" href="css/addSubAccount.css">
 </head>
 <body>
-    <div class="register-box">
-    	<ul>
-    		<li>
-    			<h3>添加下属账户</h3>
-    		</li>
-    		<li>
-    			<span>账号:</span>
-    			<input type="text" id="username"> 
-    		</li>
-    		<li>
-    			<span>密码:</span>
-    			<input type="password" id="password">
-    		</li>
-    		<li>
-    			<span>确认密码:</span>
-    			<input type="password" id="sure-password">
-    		</li>
-    		<li>
-    			<button id="btn-submit">提交</button>
-    		</li>
-    		<li>
-    			<p id="tip" class="tip"></p>
-    		</li>
-        <li>
-             <div class="bottom"><a href="index.html">返回首页</a></div>
-        </li>
-    	</ul>
+    <div class="container">
+      <div class="register-box">
+      	<ul>
+      		<li>
+      			<h3>添加下属账户</h3>
+      		</li>
+      		<li>
+      			<span>账号:</span>
+      			<input type="text" id="username"> 
+      		</li>
+         
+      		<li>
+      			<span>密码:</span>
+      			<input type="password" id="password">
+      		</li>
+      		<li>
+      			<span>确认密码:</span>
+      			<input type="password" id="sure-password">
+      		</li>
+           <li>
+              <span>账号级别:</span>
+              <select id="usertype"></select>
+              <div class="arrow"></div>
+          </li>
+      		<li>
+      			<button id="btn-submit">提交</button>
+      		</li>
+      		<li>
+      			<p id="tip" class="tip"></p>
+      		</li>
+          <li>
+               <div class="bottom"><a href="manage.html">返回上一页</a></div>
+          </li>
+      	</ul>
+      </div>
     </div>
     <script src="js/util.js"></script>
     <script src="js/addSubAccount.js"></script>

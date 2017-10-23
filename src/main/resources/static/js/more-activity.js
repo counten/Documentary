@@ -5,19 +5,6 @@
  * @version $Id$
  */
 
- 	window.onload = function(){
-		var oHtml = document.getElementsByTagName('html')[0];
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/60;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				oHtml.style.fontSize = font + 'px';
-			}
-
 		var oActivityType  = document.getElementById("activity-type"),
 		oActivityWrapper = document.getElementById("activity-wrapper");
 
@@ -52,7 +39,7 @@
 			if(data && data[0].id > 0){
 				var html = "";
 				for(var i=0;i<data.length;i++){
-					html += '<div class="activity-box">';
+					html += '<div class="activity-box clearfix">';
 			    	html +=		'<a href="detail-activity.html?ID='+data[i].id+'" class="clearfix">';
 			    	html += 		'<div class="img-box">'
 			    	html +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
@@ -64,6 +51,6 @@
 		    	oActivityWrapper.innerHTML = html;
 		    }
 		}
-	}
+		resize();
 
 	

@@ -7,21 +7,20 @@
  */
 .page-title{
 	padding:4%;
-	font-size:3.2rem;
+	font-size:1rem;
 	color:#5dB431;
 	text-align:center;
 }
-.page-title .icon-fire{
-	font-size:3.2rem;
+/* .page-title .icon-fire{
+	font-size:1rem;
 	color:#FD8813;
-}
+} */
 .topbar{
-	height:4rem;
 	min-width:320px;
-	/* background-color:#eee; */
+	background-color:#f6f6f6;
+
 }
 .topbar ul{
-	margin-right:5%;
 	float:right;
 }
 .topbar ul li{
@@ -30,59 +29,48 @@
 
 .topbar ul li a{
 	display:block;
-	padding:0 1.5rem;
-	font-size:1.6rem;
+	padding:0.4rem 0.3rem;
+	font-size:0.6rem;
 	color:#454647;
 }
 .topbar ul li a:hover{
 	color:#666;
 	text-decoration:underline;
 }
+.adv{
+	margin:0.3rem auto;
+	width:96%;
+	font-size:100rem;
+	line-height:0;
+}
+.adv img{
+	margin:0;
+	padding:0;
+	width:0.192em;
+	height:0.11em;
+	vertical-align:top;
+}
 .content{
-	padding-bottom:10rem;
+	padding-bottom:1.667rem;
 }
 .content .section .title-bar{
-	padding:1.5% 2%;
-	font-size:2rem;
-	color:#fff;
-	background-color:#666;
+	padding:3% 2%;
+	font-size:0.45rem;
+	color:#444;
+	line-height:0.75rem;
+	border-top:0.2rem solid #ccc;
+	border-bottom:1px solid #eee;
 }
 .content .section .title-bar h3{
 	float:left;
-	font-weight:normal;
+	font-size:0.667rem;
+	text-indent:1em;
+	border-left:0.3rem solid #5dB431;
 }
 .content .section .title-bar .more{
 	display:block;
 	float:right;
-	width:10rem;
-	text-align:right;
-}
-.content .section .activity-box{
-	padding:1rem;
-	/* background-color:#f6f6f6; */
-	border-bottom:1px solid #ccc;
-}
-.content .section .activity-box a{
-	display:block;
-}
-.content .section .activity-box a .img-box{
-	float:left;
-	width:26%;
-	min-height:4rem;
-}
-.content .section .activity-box a .img-box img{
-	width:100%;
-	max-height:12rem;
-}
-.content .section .activity-box a .title{
-	float:left;
-	padding:1% 0 1% 2%;
-	width:70%;
-	font-size:1.8rem;
-	color:#565758;
-	line-height:3rem;
-}
-.bottom{
-	height:8rem;
-	background-color:#666;
+	width:3rem;
+	font-size:0.6rem;
+	text-align:center;
 }

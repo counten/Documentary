@@ -5,21 +5,6 @@
  * @version $Id$
  */
 
-	window.onload = function(){
-		
-		var oHtml = document.getElementsByTagName('html')[0];
-
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/60;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				oHtml.style.fontSize = font + 'px';
-			}
-	}
 
 	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
@@ -52,8 +37,8 @@
 		//选中
 		function selected(index){
 			if(index != currentLiIndex){
-				aMenuLi[index].style.backgroundColor = "#444";
-				aMenuLi[currentLiIndex].style.backgroundColor = "#666";
+				aMenuLi[index].style.backgroundColor = "#5CB451";
+				aMenuLi[currentLiIndex].style.backgroundColor = "#999";
 				aMenuContent[index].style.display = "block";
 				aMenuContent[currentLiIndex].style.display = "none";
 				currentLiIndex = index;
@@ -77,7 +62,7 @@
 			html += '<li><span>用户名:</span><input type="text" value="'+userInfo.account+'"disabled></li>';
 			html += '<li><span>密码:</span><input type="password" disabled value="'+userInfo.passwd+'"></li>'
 			html += '<li style="display:none"><span>确认密码:</span><input type="password" disabled></li>';
-			if(userInfo.userType == 3){
+			if(userInfo.userType == 2 || userInfo.userType == 3){
 				html += '<li><span>团委书记:</span><input type="text" disabled value="'+userInfo.secretaryName+'"></li>';
 				html += '<li><span>团委书记电话:</span><input type="text" disabled value="'+userInfo.secretaryTel+'"></li>';
 			}else if(userInfo.userType == 4){
@@ -124,7 +109,7 @@
 					passwordChanged = false;
 				}
 			}
-			if(userInfo.userType == 3){
+			if(userInfo.userType == 2 || userInfo.userType == 3){
 				aInfoInput[4].onkeyup = limitNum;
 			}else{
 				aInfoInput[4].onkeyup = limitNum;
@@ -258,11 +243,12 @@
               		htmlPass +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
               		htmlPass +=			'</div>';
               		htmlPass +=			'<div class="title">'+data[i].title+'</div>';
-            		htmlPass +=		'</a>';
-           			htmlPass += 	'<div class="operation">';
-             		htmlPass +=  	  	'<div class="state">审核通过</div>';
-                  	htmlPass +=			'<div class="delete">删除</div>';
-             		htmlPass +=		'</div>';
+              		htmlPass +=		'</a>';
+              		htmlPass += 		'<div class="operation">';
+             		htmlPass +=  	  		'<div class="state">审核通过</div>';
+                  	htmlPass +=				'<div class="delete">删除</div>';
+             		htmlPass +=			'</div>';
+            		
           			htmlPass +='</div>';
           			dataPass.push(data[i]);
 				}else if(data[i].state != 4){ 
@@ -271,16 +257,17 @@
               		htmlChecking += 		'<div class="img-box">'
               		htmlChecking +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
               		htmlChecking +=			'</div>';
-              		htmlChecking +=				'<div class="title">'+data[i].title+'</div>';
-            		htmlChecking +=		'</a>';
-           			htmlChecking += 	'<div class="operation">';
+              		htmlChecking +=			'<div class="title">'+data[i].title+'</div>';
+            		
+           			htmlChecking += 		'<div class="operation">';
            			if(data[i].state == 1){
 	             		htmlChecking +=  	  	'<div class="state">正在审核</div>';
 	             	}else{
 	             		htmlChecking +=  	  	'<div class="state" style="color:#DD4E42">审核失败</div>';
 	             	}
-                  	htmlChecking +=			'<div class="delete">删除</div>';
-             		htmlChecking +=		'</div>';
+                  	htmlChecking +=				'<div class="delete">删除</div>';
+             		htmlChecking +=			'</div>';
+             		htmlChecking +=		'</a>';
           			htmlChecking +='</div>';
           			dataChecking.push(data[i]);
 				}
@@ -348,3 +335,4 @@
 				aMenuContent[2].removeChild(aCheckingActivity[index]);
 			}
 		}
+		resize();

@@ -4,22 +4,6 @@
  * @date    2017-10-18 08:26:46
  * @version 1.0
  */
- 	window.onload = function(){
-		
-		var html = document.getElementsByTagName('html')[0];
-
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/100;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				html.style.fontSize = font + 'px';
-			}
-	
-	}
 	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
@@ -30,6 +14,7 @@
 
  var oActivityTitle = document.getElementById("activity-title"),
  	 oActivityMember = document.getElementById("activity-member"),
+     oActivityMemNum = document.getElementById("activity-memNum"),
  	 oActivityDate = document.getElementById("activity-date"),
  	 oActivityLocation = document.getElementById("activity-location"),
  	 oActivityContent = document.getElementById("activity-content"),
@@ -46,10 +31,12 @@
  	 	if(check()){
  	 		var data = new FormData();
  	 		data.append("userId",userInfo.id);
- 	 		data.append("userName",userInfo.account);
+ 	 		data.append("userName",userInfo.name);
+ 	 		data.append("userAccount",userInfo.account);
  	 		data.append("userType",userInfo.userType);
  	 		data.append("userKind",userInfo.userKind);
  	 		data.append("title",trim(oActivityTitle.value));
+            data.append("participantsNum", trim(oActivityMemNum.value));
  	 		data.append("time",trim(oActivityDate.value));
  	 		data.append("location",trim(oActivityLocation.value));
  	 		data.append("participants",trim(oActivityMember.value));
@@ -70,9 +57,11 @@
 	 			success : function(data){
 	 				if(data.id > 0){
 		 				if(data.state == 1){
+		 					alert("提交成功，等待审核");
 			 				oTip.innerText = "提交成功，等待审核";
 			 			}else{
-			 				oTip.innerText = "提交成功";
+			 				alert("发表成功");
+			 				oTip.innerText = "发表成功";
 			 			}
 			 		}else{
 			 			oTip.style.color = "#DD4E42";
@@ -176,6 +165,6 @@
  	 	}
  	 	return true;
  	 }
-
+ 	 resize();
  	 
 

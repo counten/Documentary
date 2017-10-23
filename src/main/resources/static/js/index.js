@@ -5,20 +5,6 @@
  * @version $Id$
  */
 
- window.onload = function(){
-		var oHtml = document.getElementsByTagName('html')[0];
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/60;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				oHtml.style.fontSize = font + 'px';
-			}
-	}
-
 	var oTopBar = document.getElementById("topbar"),
 		oDistrictActivity = document.getElementById("district-activity"),
 		oCompanyActivity = document.getElementById("company-activity"),
@@ -27,16 +13,18 @@
 		//获取用户信息
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
+	console.log(userInfo)
 		//向topbar中插入元素
 	var html = '<ul class="clearfix">';
 	if(userInfo){
-		html += '<li><a href="">欢迎！'+userInfo.account+'</a></li>';
+		var name = userInfo.name.length > 10?userInfo.name.substring(0,9) + "...":userInfo.name;
+		html += '<li><a href="" title="'+userInfo.name+'">欢迎！'+name+'</a></li>';
 		if(userInfo.userType == 1){
 			html += '<li><a href="manage.html">管理页</a></li>';
-		}else if(userInfo.userType == 2){
-			html += '<li><a href="upload-activity.html">发表活动</a></li>';
+		}else if(userInfo.userType == 2 || userInfo.userType == 3){
+			/*html += '<li><a href="upload-activity.html">发表活动</a></li>';
 			html += '<li><a href="manage.html">管理页</a></li>';
-		}else if( userInfo.userType == 3){
+		}else if( userInfo.userType == 3){*/
 			html += '<li><a href="upload-activity.html">发表活动</a></li>';
 			html += '<li><a href="user-center.html">个人中心</a></li>';
 			html += '<li><a href="manage.html">管理页</a></li>';
@@ -64,7 +52,7 @@
 		//区县活动
 		var html1 = "" ,html2 = "" ,html3 = "";
 		for(var i=0;i<data.district.length;i++){
-			html1 += '<div class="activity-box">';
+			html1 += '<div class="activity-box clearfix">';
 	    	html1 +=	'<a href="detail-activity.html?ID='+data.district[i].id+'" class="clearfix">';
 	    	html1 += 		'<div class="img-box">'
 	    	html1 +=			'<img src="'+IMGURL+data.district[i].img.split(";")[0]+'" alt="">';
@@ -76,7 +64,7 @@
 		oDistrictActivity.innerHTML = html1;
 		//城市活动
 		for(var i=0;i<data.city.length;i++){
-			html2 += '<div class="activity-box">';
+			html2 += '<div class="activity-box clearfix">';
 	    	html2 +=	'<a href="detail-activity.html?ID='+data.city[i].id+'" class="clearfix">';
 	    	html2 += 		'<div class="img-box">'
 	    	html2 +=			'<img src="'+IMGURL+data.city[i].img.split(";")[0]+'" alt="">';
@@ -88,7 +76,7 @@
 		oCompanyActivity.innerHTML = html2;
 		//学校活动
 		for(var i=0;i<data.school.length;i++){
-			html3 += '<div class="activity-box">';
+			html3 += '<div class="activity-box clearfix">';
 	    	html3 +=	'<a href="detail-activity.html?ID='+data.school[i].id+'" class="clearfix">';
 	    	html3 += 		'<div class="img-box">'
 	    	html3 +=			'<img src="'+IMGURL+data.school[i].img.split(";")[0]+'" alt="">';
@@ -101,11 +89,8 @@
 
 	}
 
-	function loginout(){
-		delCookie("userInfo");
-		window.location.href = "index.html";
-	}
-
+	
+	resize();
 
 
 

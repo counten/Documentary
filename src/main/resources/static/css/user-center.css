@@ -11,11 +11,11 @@
 	}
 }
 .menu{
-	height:4rem;
+	height:1.8rem;
 	color:#fff;
-	font-size:1.6rem;
-	line-height:4rem;
-	background-color:#666;
+	font-size:0.75rem;
+	line-height:1.8rem;
+	background-color:#999;
 	text-align:center;
 }
 .menu ul li{
@@ -24,7 +24,7 @@
 	cursor:pointer;
 }
 .menu ul li:hover{
-	background-color:#444;
+	background-color:#5CB451;
 }
 
 .menu-content{
@@ -32,50 +32,6 @@
 	background-color:#f8f8f8;
 }
 
-.menu-content .activity-box{
-	position:relative;
-	padding:1rem;
-	background-color:#f8f8f8;
-	border-bottom:1px solid #ccc;
-}
- .menu-content .activity-box a{
-	display:block;
-	float:left;
-	width:85%;
-}
-.menu-content .activity-box a .img-box{
-	float:left;
-	width:26%;
-	min-height:4rem;
-}
-.menu-content .activity-box a .img-box img{
-	width:100%;
-	max-height:12rem;
-}
-/* .menu-content .activity-box a img{
-	display:block;
-	float:left;
-	width:30%;
-	min-height:4rem;
-} */
-.menu-content .activity-box a .title{
-	float:left;
-	padding:1% 0 1% 2%;
-	width:66%;
-	font-size:1.6rem;
-	color:#454647;
-	line-height:3rem;
-	max-height:6rem;
-	overflow:hidden;
-}
-.menu-content .activity-box .operation{
-	float:left;
-	padding:1% 0;
-	width:15%;
-	font-size:1.6rem;
-	line-height:3rem;
-	text-align:center;
-}
 .menu-content .activity-box .operation .state{
 	color:#5dB431;
 }
@@ -87,7 +43,7 @@
 	text-decoration:underline;
 }
 .menu-content ul li{
-	padding:1rem;
+	padding:0.3rem;
 }
 .menu-content ul li:after{
 	content: '';
@@ -100,9 +56,9 @@
 .menu-content ul li #modify{
 	float:right;
 	width:20%;
-	font-size:1.6rem;
+	font-size:0.6rem;
 	color:#5dB431;
-	line-height:3.2rem;
+	line-height:1.2rem;
 	text-align:center;
 	cursor:pointer;
 }
@@ -113,11 +69,11 @@
 	display:block;
 	float:left;
 	width:20%;
-	height:3.2rem;
-	font-size:1.6rem;
+	height:1.2rem;
+	font-size:0.6rem;
 	color:#454647;
 	font-weight:bold;
-	line-height:3.2rem;
+	line-height:1.2rem;
 	text-align:right;
 }
 .menu-content ul li input{
@@ -125,10 +81,10 @@
 	float:left;
 	margin-left:2%;
 	width:70%;
-	height:3.2rem;
-	font-size:1.6rem;
+	height:1.2rem;
+	font-size:0.6rem;
 	color:#454647;
-	line-height:3.2rem;
+	line-height:1.2rem;
 	text-indent:1em;
 	background-color:#f8f8f8;
 	border:none;
@@ -137,36 +93,24 @@
 .menu-content ul li button{
 	display:block;
 	margin:auto;
-	width:20rem;
-	height:4rem;
-	font-size:1.6rem;
+	width:8rem;
+	height:1.2rem;
+	font-size:0.6rem;
 	color:#fff;
 	background-color:#5dB431;
 	border:none;
 	outline:none;
+	border-radius:2px;
+	cursor:pointer;
 }
 .menu-content ul li button:hover{
 	background-color:#5CB451;
 }
 
 .menu-content ul li #tip{
-	height:4rem;
-	font-size:1.6rem;
+	height:2rem;
+	font-size:0.6rem;
 	color:#DD4E42;
 	text-align:center;
-	line-height:4rem;
-}
-
-.bottom{
-	padding:4rem;
-}
-.bottom a{
-	display:block;
-	font-size:1.8rem;
-	color:#565758;
-	line-height:4rem;
-	text-align:center;
-}
-.bottom a:hover{
-	text-decoration:underline;
+	line-height:2rem;
 }

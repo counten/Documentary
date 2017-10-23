@@ -5,22 +5,6 @@
  * @version $Id$
  */
 
-window.onload = function(){
-		
-		var html = document.getElementsByTagName('html')[0];
-
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/60;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				html.style.fontSize = font + 'px';
-			}
-	
-	}
 
 	var oActivityTitle = document.getElementById("activity-title"),
 		oActivityImg = document.getElementById("activity-img"),
@@ -59,7 +43,6 @@ window.onload = function(){
 				oActivityTitle.innerText = data.title;
 				aActivityInfo[0].innerText = data.userName;
 				aActivityInfo[1].innerText = type[data.userType];
-				aActivityInfo[2].innerText = data.id;
 				var state = "";
 				if(data.state == 2){
 					state = "审核通过";
@@ -68,13 +51,13 @@ window.onload = function(){
 				}else{
 					state = "审核失败";
 				}
-				aActivityInfo[3].innerText = state;
-				aActivityInfo[4].innerText = data.time;
-				aActivityInfo[5].innerText = data.location;
-				aActivityInfo[6].innerText = data.participants;
-				aActivityInfo[7].innerText = kind[data.userKind];
+				aActivityInfo[2].innerText = state;
+				aActivityInfo[3].innerText = data.time;
+				aActivityInfo[4].innerText = data.location;
+				aActivityInfo[5].innerText = data.participants;
+				aActivityInfo[6].innerText = kind[data.userKind];
 				var createTime = new Date(data.createTime);
-				aActivityInfo[8].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
+				aActivityInfo[7].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
 
 				//图片
 				var html = "";
@@ -94,4 +77,4 @@ window.onload = function(){
 			}
 		}
 
-		
+		resize();

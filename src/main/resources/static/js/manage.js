@@ -4,23 +4,6 @@
  * @date    2017-10-18 21:24:26
  * @version $Id$
  */
-
- 	window.onload = function(){
-		var oHtml = document.getElementsByTagName('html')[0];
-
-			//通过标签名('')
-			run();//先执行一次abc函数
-			window.onresize =run;
-			function run(){
-				var w = window.innerWidth//浏览器窗口大小
-				var font = w/60;
-				font = Math.min(10,font);//取最小值，限定最大值(10以下就OK)
-				font = Math.max(6,font);//取最大值,限定最小值
-				oHtml.style.fontSize = font + 'px';
-				oChart.resize();
-				
-			}
-	}
  	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
@@ -57,8 +40,8 @@
 		}
 		function selected(index){
 			if(index != currentLiIndex){
-				aMenuLi[index].style.backgroundColor = "#444";
-				aMenuLi[currentLiIndex].style.backgroundColor = "#666";
+				aMenuLi[index].style.backgroundColor = "#5CB451";
+				aMenuLi[currentLiIndex].style.backgroundColor = "#999";
 				aMenuContent[index].style.display = "block";
 				aMenuContent[currentLiIndex].style.display = "none";
 				currentLiIndex = index;
@@ -179,8 +162,7 @@
 							 				var	option = {
 												title : {
 												    text: '发表活动统计',
-												    x:'center',
-												    fontSize:"2rem"
+												    x:'center'
 												},
 												tooltip : {
 												    trigger: 'item',
@@ -274,7 +256,9 @@
 			ajax({
 				url : ASKURL + "/users/getUserByParentId?parentId="+userInfo.id,
 				success : function(data){
+					var type = ["","一级","二级","三级","四级"];
 					var html = "";
+					html += '<div class="sub-total">下属账号总数:  '+data.length+'</div>';
 					for(var i=0;i<data.length;i++){
 						html += '<div class="sub-account clearfix">';
                  		html += 	'<ul class="clearfix">';
@@ -285,7 +269,21 @@
                    		html +=  			 '<span>账户名 : </span><span class="info">'+data[i].account+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
-                   		html +=  			 '<span>组织名 : </span><span class="info">'+data[i].name+'</span>';
+                   		html +=  			 '<span>机构名 : </span><span class="info">'+data[i].name+'</span>';
+                   		html += 		'</li>';
+                   		html += 		'<li>';
+                   		html +=  			 '<span>账户级别 : </span><span class="info">'+type[data[i].userType]+'</span>';
+                   		html += 		'</li>';
+                   		if(data[i].userType == 4){
+	                   		html += 		'<li>';
+	                   		html +=  			 '<span>团员总数 : </span><span class="info">'+data[i].memberNum+'</span>';
+	                   		html += 		'</li>';
+                   		}
+                   		html += 		'<li>';
+                   		html +=  			 '<span>团委名称 : </span><span class="info">'+data[i].secretaryName+'</span>';
+                   		html += 		'</li>';
+                   		html += 		'<li>';
+                   		html +=  			 '<span>团委联系方式 : </span><span class="info">'+data[i].secretaryTel+'</span>';
                    		html += 		'</li>';
                 		html +=  	'</ul>';
                   		html +=		'<div class="delete-account">删除</div>';
@@ -325,26 +323,7 @@
 				}
 			}
 		}
-		/*oSearchSub.onclick = function(){
-			if(checkSubId()){
-				
-			}
-		}
 		
-		function checkSubId(){
-			if(oSearchSubInput.value.length == 0){
-				oSearchActivityTip.innerText = "id不能为空";
-				return false;
-			}
-			if(oSearchSubInput.value.length > 11){
-				oSearchActivityTip.innerText = "id过大";
-				return false;
-			}
-			return true;
-		}
-
-		
-*/
 	//---审核-----
 	var aActivityBox = [],
 		aPass = [],
@@ -415,71 +394,11 @@
 			});
 		}
 
+		resize(function(){
+			oChart.resize();
+		});
 
 
-
-	//删除活动-----------
-	/*var oActivityWrapper = document.getElementById("activity-wrapper"),
-		//oActivityIdInput = document.getElementById("activity-id-input",aMenuContent[3]),
-		//oSearchActivity = document.getElementById("search-activity"),
-		//oSearchActivityTip = document.getElementById("search-activity-tip"),
-		aOperationDelete = [],
-		aActivityDeleteBox = [],
-		aDeleteData = [];*/
-
-
-
-
-		//搜索事件
-		/*oSearchActivity.onclick = function(){
-			if(checkActivityId()){
-
-			}
-		}
-		function checkActivityId(){
-			if(oActivityIdInput.value.length == 0){
-				oSearchActivityTip.innerText = "id不能为空";
-				return false;
-			}
-			if(oActivityIdInput.value.length > 11){
-				oSearchActivityTip.innerText = "id过大";
-				return false;
-			}
-
-			return true;
-		}
-		//只允许输入数字
-		oActivityIdInput.onkeyup = function(){
-			if(this.value.length = 1 && this.value == "0"){
-				this.value = "";
-			}
-			this.value=this.value.replace(/\D/g,'');
-		}
-		
-
-		aOperationDelete = getElementsByClass("delete",oActivityWrapper);
-		setDeleteEvent();
-		function setDeleteEvent(){
-			for(var i=0;i<aOperationDelete.length;i++){
-				aOperationDelete[i].index = i;
-				aOperationDelete[i].onclick = function(){
-					var index = this.index;
-					if(confirm('是否删除"'+dataPass[index].title+'"活动')){
-						ajax({
-							type:"post",
-							url : "http://cqgqt.xenoeye.org:443/activity/byId/"+userInfo.id+"/"+tempData.id+"?_method=delete",
-							success : function(data){
-								if(data.state == 4){
-									oActivityWrapper.removeChild(aActivityDeleteBox[index]);
-								}
-							},
-							fail : function(){
-								alert("删除失败");
-							}
-						});
-					}
-				}
-			}
-		}*/
+	
 	
 	

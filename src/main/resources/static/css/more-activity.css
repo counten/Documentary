@@ -7,10 +7,10 @@
  */
 .section .title-bar{
 	position:relative;
-	padding:1rem 0;
-	font-size:2rem;
+	padding:0.267rem 0;
+	font-size:0.667rem;
 	color:#fff;
-	background-color:#666;
+	background-color:#5CA451;
 }
 .section .title-bar h3{
 	font-weight:normal;
@@ -20,35 +20,11 @@
 	position:absolute;
 	top:0;
 	left:2%;
-	padding:1rem;
-	font-size:2rem;
+	padding:0.267rem;
+	font-size:0.667rem;
 	color:#fff;
 }
 .section .title-bar .back-to-index a{
 	display:block;
-}
-.section .activity-box{
-	padding:1rem;
-	border-bottom:1px solid #ccc;
-}
-.section .activity-box a{
-	display:block;
-}
-.section .activity-box a .img-box{
-	float:left;
-	width:26%;
-	min-height:4rem;
-}
-.section .activity-box a .img-box img{
-	width:100%;
-	max-height:12rem;
-}
-.section .activity-box a .title{
-	float:left;
-	padding:1%;
-	width:70%;
-	font-size:1.6rem;
-	color:#454647;
-	line-height:3rem;
 }
 

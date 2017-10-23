@@ -6,11 +6,11 @@
  * @version $Id$
  */
 .menu{
-	height:4rem;
+	height:1.8rem;
 	color:#fff;
-	font-size:1.6rem;
-	line-height:4rem;
-	background-color:#666;
+	font-size:0.75rem;
+	line-height:1.8rem;
+	background-color:#999;
 	text-align:center;
 }
 .menu ul li{
@@ -19,7 +19,7 @@
 	cursor:pointer;
 }
 .menu ul li:hover{
-	background-color:#444;
+	background-color:#5CA451;
 }
 
 .menu-content{
@@ -27,9 +27,9 @@
 	/* background-color:#f6f6f6; */
 }
 .menu-content #chart{
-	margin:5rem auto;
+	margin:2rem auto;
 	width:90%;
-	height:45rem;
+	height:20rem;
 }
 .menu-content #divide-page{
 	padding-top:2rem;
@@ -46,47 +46,7 @@
 .menu-content #divide-page ul li.selected{
 	color:#5dB431;
 }
-/* .menu-content #bar-chart{
-	margin:auto;
-	width:90%;
-	height:0rem;
-	padding:10rem 0;
-} */
-.menu-content .activity-box{
-	position:relative;
-	padding:3%;
-	/* background-color:#f6f6f6; */
-	border-bottom:1px solid #ccc;
-}
-.menu-content .activity-box a{
-	display:block;
-	float:left;
-	width:73%;
-}
-.menu-content .activity-box a img{
-	display:block;
-	float:left;
-	width:30%;
-	min-height:4rem;
-}
-.menu-content .activity-box a .title{
-	float:left;
-	padding:1.2% 0 1% 1%;
-	width:66%;
-	font-size:1.6rem;
-	color:#454647;
-	line-height:2.4rem;
-	max-height:4.8rem;
-	overflow:hidden;
-}
-.menu-content .activity-box .operation{
-	float:left;
-	padding:1% 0;
-	width:17%;
-	font-size:1.6rem;
-	line-height:2.4rem;
-	text-align:center;
-}
+
 .menu-content .activity-box .operation .pass{
 	color:#5dB431;
 	cursor:pointer;
@@ -101,66 +61,23 @@
 .menu-content .activity-box .stop:hover{
 	text-decoration:underline;
 }
- /* .menu-content .activity-box .operation .delete{
- 	color:#DD4E42;
- 	cursor:pointer;
- 	line-height:3rem;
- }
- .menu-content .activity-box .delete:hover{
- 	text-decoration:underline;
- }  */
-
-/* .menu-content .search-box{
-	margin:auto;
-	padding:5% 0 0;
-	width:50%;
-}
-.menu-content .search-box input{
-	display:block;
-	float:left;
-	width:70%;
-	height:3.2rem;
-	font-size:1.6rem;
-	color:#454647;
-	line-height:3.2rem;
-	text-indent:1em;
-	border:none;
-	outline:none;
-	border-radius:2px 0 0 2px;
-}
-.menu-content .search-box button{
-	display:block;
-	float:left;
-	width:30%;
-	height:3.2rem;
-	font-size:1.6rem;
-	color:#fff;
-	background-color:#5dB431;
-	border:none;
-	outline:none;
-	cursor:pointer;
-	border-radius:0 2px 2px 0;
-}
-.menu-content .search-box button:hover{
-	background-color:#5CB451;
-}
-.menu-content .tip{
-	height:2rem;
-	font-size:1.6rem;
-	color:#DD4E42;
-	line-height:2rem;
-	text-align:center;
-} */
+ 
 .menu-content .addAccount a{
 	display:block;
 	padding:3% 5% 4%;
-	font-size:1.6rem;
+	font-size:0.667rem;
 	color:#5dB431;
 	text-align:right;
 }
+.menu-content .sub-account-box .sub-total{
+	font-size:0.6rem;
+	color:#454647;
+	line-height:2rem;
+	text-indent:1em;
+	border-bottom:1px solid #eee;
+}
 .menu-content .sub-account-box .sub-account{
 	padding:0 5%;
-	border-top:1px solid #eee;
 	border-bottom:1px solid #eee;
 }
 .menu-content .sub-account-box .sub-account ul{
@@ -170,39 +87,27 @@
 .menu-content .sub-account-box .sub-account ul li{
 	float:left;
 	padding:3%;
-	font-size:1.6rem;
+	font-size:0.6rem;
 	color:#454647;
 }
 .menu-content .sub-account-box .sub-account ul li span{
 	display:inline-block;
+	font-weight:bold;
 	text-align:right;
 }
 .menu-content .sub-account-box .sub-account ul li span.info{
-	padding-left:1rem;
+	padding-left:0.3rem;
+	font-weight:normal;
 }
 .menu-content .sub-account-box .sub-account .delete-account{
 	float:left;
 	padding:3% 0;
 	width:20%;
-	font-size:1.6rem;
+	font-size:0.6rem;
 	color:#DD4E42;
 	cursor:pointer;
 	text-align:center;
 }
 .menu-content .sub-account-box .sub-account .delete-account:hover{
-	text-decoration:underline;
-}
-
-.bottom{
-	padding:4rem;
-}
-.bottom a{
-	display:block;
-	font-size:1.8rem;
-	color:#565758;
-	line-height:4rem;
-	text-align:center;
-}
-.bottom a:hover{
 	text-decoration:underline;
 }

@@ -1,8 +1,8 @@
 
 	//全局变量
 	var IMGURL = "http://oy5ic3yhc.bkt.clouddn.com/";
-	var ASKURL = "http://cqgqt.xenoeye.org:443";
-	// var ASKURL = "http://127.0.0.1:8080";
+	// var ASKURL = "http://cqgqt.xenoeye.org:443";
+    var ASKURL = "http://127.0.0.1:8080";
 	/*
 		util class document
 	*/
@@ -203,4 +203,26 @@
 		for(var key in params){
 			delCookie(key);
 		}
+	}
+
+	function resize(callback){
+	  var oHtml = document.getElementsByTagName('html')[0];
+		//通过标签名('')
+		run();//先执行一次abc函数
+		window.onresize =run;
+		function run(){
+			var w = window.innerWidth//浏览器窗口大小
+			var font = w/20;
+			font = Math.min(60,font);//取最小值，限定最大值(10以下就OK)
+			font = Math.max(16,font);//取最大值,限定最小值
+			oHtml.style.fontSize = font + 'px';
+			callback && callback();
+		}
+	}
+	function loginout(){
+		delCookie("userInfo");
+		window.location.href = "index.html";
+	}
+	function back(){
+		window.history.back();
 	}

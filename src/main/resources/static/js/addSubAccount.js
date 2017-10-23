@@ -16,8 +16,15 @@ var oUsernameInput = document.getElementById("username"),
 	 oPasswordInput = document.getElementById("password"),
 	 oSurePasswordInput = document.getElementById("sure-password"),
 	 oBtnSubmit = document.getElementById("btn-submit"),
+	 oUserTypeSelect = document.getElementById("usertype"),
 	 oTip = document.getElementById("tip");
 
+	 var html = "";
+	 if(userInfo.userType == 2){
+	 	html += '<option value="3">三级</option>';
+	 }
+	 html += '<option value="4">四级</option>';
+	 oUserTypeSelect.innerHTML = html;
 	 oBtnSubmit.onclick = function(){
 	 	if(check()){
 	 		oTip.innerText = "";
@@ -34,7 +41,7 @@ var oUsernameInput = document.getElementById("username"),
 					  secretaryName: "空",
 					  secretaryTel: "空",
 					  userKind: userInfo.userKind,
-					  userType: userInfo.userType + 1	
+					  userType: oUserTypeSelect.value	
 	 			},
 	 			jsonType : true,
 	 			success : askSuccess,
@@ -52,6 +59,7 @@ var oUsernameInput = document.getElementById("username"),
 	 		oTip.style.color = "#DD4E42";
 		 	oTip.innerText = "该账号已存在,请重新输入";
 		 }else{
+		 	alert("创建下属账户成功");
 		 	oTip.style.color = "#5dB431";
 		 	oTip.innerText = "创建下属账户成功,您可以继续添加";
 		 }

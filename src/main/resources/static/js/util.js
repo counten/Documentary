@@ -2,7 +2,7 @@
 	//全局变量
 	var IMGURL = "http://oy5ic3yhc.bkt.clouddn.com/";
 	var ASKURL = "http://cqgqt.xenoeye.org:443";
-//	var ASKURL = "http://127.0.0.1:8080";
+	// var ASKURL = "http://127.0.0.1:8080";
 	/*
 		util class document
 	*/

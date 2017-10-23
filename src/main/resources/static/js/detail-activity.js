@@ -56,7 +56,6 @@ window.onload = function(){
 		var kind = ["","区县","城市","城市"]
 		function askInfoSuccess(data){
 			if(data.id > 0){
-				console.log(data)
 				oActivityTitle.innerText = data.title;
 				aActivityInfo[0].innerText = data.userName;
 				aActivityInfo[1].innerText = type[data.userType];
@@ -74,11 +73,14 @@ window.onload = function(){
 				aActivityInfo[5].innerText = data.location;
 				aActivityInfo[6].innerText = data.participants;
 				aActivityInfo[7].innerText = kind[data.userKind];
-				aActivityInfo[8].innerText = data.createTime;
+				var createTime = new Date(data.createTime);
+				aActivityInfo[8].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
 
 				//图片
 				var html = "";
+				data.img=data.img.substring(0,data.img.length-1);
 				var imgUrl = data.img.split(";");
+
 				for(var i=0;i<imgUrl.length;i++){
 					html += '<div class="img-box">';
 					html +=		'<img src="'+IMGURL+imgUrl[i]+'" alt="">';

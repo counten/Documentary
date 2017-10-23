@@ -18,23 +18,23 @@
 				font = Math.max(6,font);//取最大值,限定最小值
 				oHtml.style.fontSize = font + 'px';
 				oChart.resize();
-				oBarChart.resize();
+				
 			}
 	}
  	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
 	//如果没有登录则跳转到登录页
-	if(!userInfo){
+	if(!userInfo || userInfo.userType == 4){
 		window.location.href = "login.html";
 	}
-
-
-	var oChart = echarts.init(document.getElementById('chart')); 
-		var oBarChart = echarts.init(document.getElementById('bar-chart'));
-		var aNames = [];
-		var aPassNum = [];
-		
+	var oChartWrapper = document.getElementById('chart');
+	var oChart = echarts.init(oChartWrapper);
+	var oDividePage = document.getElementById("divide-page");
+	var aPageLi = [];
+	var aNames = [];
+	var aPassNum = [];	
+	var isAsked = false;
 		
  	var oMenu = document.getElementById("menu"),
 		aMenuLi = oMenu.getElementsByTagName("li"),
@@ -50,7 +50,11 @@
 				selected(this.index);
 			}
 		}
-
+		if(userInfo.userType == 1){
+			aMenuLi[1].style.display = "none";
+			aMenuLi[2].style.display = "none";
+			aMenuLi[0].style.width = "100%";
+		}
 		function selected(index){
 			if(index != currentLiIndex){
 				aMenuLi[index].style.backgroundColor = "#444";
@@ -60,145 +64,183 @@
 				currentLiIndex = index;
 				switch(currentLiIndex){
 					case 0:{
-						ajax({
-				 			url : ASKURL + "/users/login/",
-				 			data : {
-				 				account : userInfo.account,
-				 				passwd : userInfo.passwd
-				 			},
-				 			success : function(data){
-				 				if(data.id > 0){
-						 				userInfo = data;
-						 				var	option = {
-											title : {
-											    text: '发表活动统计',
-											    x:'center',
-											    fontSize:"2rem"
-											},
-											tooltip : {
-											    trigger: 'item',
-											    formatter: "{a} <br/>{b} : {c} ({d}%)"
-											},
-											toolbox: {
-										        show : true,
-										        feature : {
-										            dataView : {show: true, readOnly: false},
-										            saveAsImage : {show: true}
-										        }
-									    		},
-											calculable : true,
-											series : [
-												    {
-												        name:'活动量',
-												        type:'pie',
-												        radius : '55%',
-												        center: ['50%', '60%'],
-												        data:[
-												        	 {
-												            	value:userInfo.numPass, 
-												            	name:'已发表 ' + userInfo.numPass ,
-												            	itemStyle : {
-												            		normal : {color : "rgba(0,255,0,0.8)"}
-												            	}
-												            },
-												            {
-												            	value:userInfo.numCheck, 
-												            	name:'正在审核 ' + userInfo.numCheck,
-												            	itemStyle : {
-												            		normal : {color : "rgba(255,255,0,0.8)"}
-												            	}
-												            },
-												            {
-												            	value:userInfo.numNotPass, 
-												            	name:'审核失败 ' + userInfo.numNotPass,
-												            	itemStyle : {
-												            		normal : {color : "rgba(255,0,0,0.5)"}
-												            	}
-												            },
-												            {
-												            	value:userInfo.numDelete, 
-												            	name:'已删除 ' + userInfo.numDelete,
-												            	itemStyle : {
-												            		normal : {color : "rgba(255,0,0,0.8)"}
-												            	}
-												            }
-												        ]
-												    }
-												]
-											};
-						 				// 使用刚指定的配置项和数据显示图表。 
-										oChart.setOption(option); 
-						 				setCookie("userInfo",JSON.stringify(data),12*3600*1000);
-						 			}
-					 			}
-					 		});
-					 		if(userInfo.id > 0 && userInfo.userType == 1){
-						 		ajax({
+						if(!isAsked){
+							if(userInfo.userType == 1){
+								ajax({
 						 			url : ASKURL + "/users/getBelongsNumPass?selfId="+userInfo.id,
 						 			success : function(data){
+						 				oChartWrapper.style.height = "100rem";
+						 				var chartNum = Math.ceil(data.length/20);
+						 				var html = "";
+						 				html += "<ul class='clearfix'>";
+						 				for(var i=0;i<chartNum;i++){
+						 					html += '<li>第'+(i+1)+'部分</li>';
+						 				}
+						 				html += "</ul>";
+						 				oDividePage.innerHTML = html;
+						 				aPageLi = oDividePage.getElementsByTagName("li");
 						 				aNames = [];
 						 				aPassNum = [];
-
 						 				for(var i=0;i<data.length;i++){
-						 					aNames.push(data[i].account);
+						 					aNames.push(data[i].name);
 						 					aPassNum.push(data[i].numPass);
 						 				}
-						 				var option2 = {
-										    title : {
-										        text: '二级团委组织活动发布量',
-										        x : "center"
-										    },
-										    tooltip : {
-										        trigger: 'axis'
-										    },
-										    toolbox: {
-										        show : true,
-										        feature : {
-										            dataView : {show: true, readOnly: false},
-										            saveAsImage : {show: true}
-										        }
+						 				var currentIndex = 0;
+						 				for(var i=0;i<aPageLi.length;i++){
+						 					aPageLi[i].index = i;
+						 					aPageLi[i].onclick = function(){
+						 						aPageLi[this.index].className = "selected";
+						 						aPageLi[currentIndex].className = "";
+						 						currentIndex = this.index;
+						 						draw(this.index);		
+						 					}
+						 				}
+						 				aPageLi[0].className = "selected";
+						 				draw(0);
+						 				oChart.resize();
+						 				function draw(index){
+						 					var dataName = aNames.slice(index*20,(index+1)*20);
+						 					var dataPassNum = aPassNum.slice(index*20,(index+1)*20);
+						 					console.log(aNames)
+						 					var option2 = {
+											    title : {
+											        text: '二级团委组织活动发布量',
+											        x : "center"
+											    },
+											    tooltip : {
+											        trigger: 'axis'
+											    },
+											    toolbox: {
+											        show : true,
+											        feature : {
+											            dataView : {show: true, readOnly: false},
+											            saveAsImage : {show: true}
+											        }
 
-										    },
-										    calculable : true,
-										    xAxis : [
-										        {
-										            type : 'value',
-										            boundaryGap : [0, 0.01]
-										        }
-										    ],
-										    yAxis : [
-										        {
-										            type : 'category',
-										            data : aNames
-										        }
-										    ],
-										    series : [
-										        {
-										            name:'活动发布量',
-										            type:'bar',
-										            data:aPassNum,
-										            itemStyle : {
-										            	normal : {
-										            		color : "#5dB431"
-										            	}
-										            },
-										            markLine : {
-										                data : [
-										                    {type : 'average', name: '平均值'}
-										                ]
-										            }
-										        },
-										    ]
-										};
-						 				oBarChart.setOption(option2);
+											    },
+											    calculable : true,
+											    grid : {
+											    	x:60
+											    },
+											    xAxis : [
+											        {
+											            type : 'value',
+											            boundaryGap : [0, 0.01]
+											        }
+											    ],
+											    yAxis : [
+											        {
+											            type : 'category',
+											            data : dataName
+											        }
+											    ],
+											    series : [
+											        {
+											            name:'活动发布量',
+											            type:'bar',
+											            data:dataPassNum,
+											            itemStyle : {
+											            	normal : {
+											            		color : "#5dB431",
+											            		barBorderRadius : [0,2,2,0]
+											            	}
+											            },
+											            markLine : {
+											                data : [
+											                    {type : 'average', name: '平均值'}
+											                ]
+											            },
+											            barWidth : "12"
+											        },
+											    ]
+											};
+											oChart.setOption(option2);
+						 				}
+										
+						 								 				
+
+						 				
 						 			},
 						 			error : function(){
-						 				oBarChart.setOption(option2);
+						 				//oChart.setOption(option2);
 						 			}
 						 		});
-						 	}
-						 
-						
+							}else{
+								ajax({
+					 			url : ASKURL + "/users/login/",
+					 			data : {
+					 				account : userInfo.account,
+					 				passwd : userInfo.passwd
+					 			},
+					 			success : function(data){
+					 				if(data.id > 0){
+
+							 				userInfo = data;
+							 				var	option = {
+												title : {
+												    text: '发表活动统计',
+												    x:'center',
+												    fontSize:"2rem"
+												},
+												tooltip : {
+												    trigger: 'item',
+												    formatter: "{a} <br/>{b} : {c} ({d}%)"
+												},
+												toolbox: {
+											        show : true,
+											        feature : {
+											            dataView : {show: true, readOnly: false},
+											            saveAsImage : {show: true}
+											        }
+										    		},
+												calculable : true,
+												series : [
+													    {
+													        name:'活动量',
+													        type:'pie',
+													        radius : '55%',
+													        center: ['50%', '60%'],
+													        data:[
+													        	 {
+													            	value:userInfo.numPass, 
+													            	name:'已发表 ' + userInfo.numPass ,
+													            	itemStyle : {
+													            		normal : {color : "rgba(0,255,0,0.8)"}
+													            	}
+													            },
+													            {
+													            	value:userInfo.numCheck, 
+													            	name:'正在审核 ' + userInfo.numCheck,
+													            	itemStyle : {
+													            		normal : {color : "rgba(255,255,0,0.8)"}
+													            	}
+													            },
+													            {
+													            	value:userInfo.numNotPass, 
+													            	name:'审核失败 ' + userInfo.numNotPass,
+													            	itemStyle : {
+													            		normal : {color : "rgba(255,0,0,0.5)"}
+													            	}
+													            },
+													            {
+													            	value:userInfo.numDelete, 
+													            	name:'已删除 ' + userInfo.numDelete,
+													            	itemStyle : {
+													            		normal : {color : "rgba(255,0,0,0.8)"}
+													            	}
+													            }
+													        ]
+													    }
+													]
+												};
+							 				// 使用刚指定的配置项和数据显示图表。 
+											oChart.setOption(option); 
+							 				setCookie("userInfo",JSON.stringify(data),12*3600*1000);
+							 			}
+						 			}
+						 		});
+							}
+						}
 					}break;
 					case 1:{
 						getSubAccountData();

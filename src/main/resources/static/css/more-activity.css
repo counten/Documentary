@@ -6,19 +6,29 @@
  * @version $Id$
  */
 .section .title-bar{
+	position:relative;
 	padding:1rem 0;
 	font-size:2rem;
 	color:#fff;
 	background-color:#666;
 }
 .section .title-bar h3{
-	float:left;
 	font-weight:normal;
-	text-indent:1em;
+	text-align: center;
+}
+.section .title-bar .back-to-index{
+	position:absolute;
+	top:0;
+	left:2%;
+	padding:1rem;
+	font-size:2rem;
+	color:#fff;
+}
+.section .title-bar .back-to-index a{
+	display:block;
 }
 .section .activity-box{
 	padding:1rem;
-	background-color:#f6f6f6;
 	border-bottom:1px solid #ccc;
 }
 .section .activity-box a{
@@ -41,3 +51,4 @@
 	color:#454647;
 	line-height:3rem;
 }
+

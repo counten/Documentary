@@ -16,9 +16,10 @@
 }
 .activity-detail{
 	padding-top:3%;
-	background-color:#f6f6f6;
 }
 .activity-detail .activity-info ul li{
+	margin:auto;
+	width:80%;
 	font-size:1.6rem;
 	color:454647;
 	line-height:4rem;

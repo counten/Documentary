@@ -1,9 +1,18 @@
 package com.swu.cjyong.main.controller;
 
+import com.google.gson.Gson;
+import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
 import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.ActivityIndex;
 import com.swu.cjyong.main.service.ActivityService;
+import com.swu.cjyong.main.util.FileUploadUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,9 +29,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {
-
-    @Value("${fileupload.storelocation}")
-    private String fileLocation;
 
     @Autowired
     private ActivityService activityService;
@@ -108,18 +114,8 @@ public class ActivityController {
         return new ResponseEntity<>(activityService.getCheckingActivity(selfId), HttpStatus.OK);
     }
 
-/*    @ApiOperation(value = "获取自己和下属对应状态的活动信息")
-    @GetMapping("actIndex")
-    public ResponseEntity<ActivityIndex> getActIndex(){
-        return new ResponseEntity<>(activityService.getIndexActivity(), HttpStatus.OK);
-    }*/
-
-
-
-
-
     /**
-     * 上传图片获取链接
+     * 上传图片到七牛云
      *
      * @param files
      * @return
@@ -128,20 +124,7 @@ public class ActivityController {
         StringBuilder imgUrl = new StringBuilder();
         for (MultipartFile file : files) {
             if (file != null) {
-                String fileName = file.getOriginalFilename();
-                String suffixName = fileName.substring(fileName.lastIndexOf("."));
-                //处理中文乱码问题
-                fileName = UUID.randomUUID() + suffixName;
-                File dest = new File(fileLocation + fileName);
-                if (!dest.getParentFile().exists()) {
-                    dest.getParentFile().mkdirs();
-                }
-                try {
-                    file.transferTo(dest);
-                    imgUrl.append(fileLocation + fileName + ";");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                imgUrl.append(FileUploadUtil.uploadFileToQiniuYun(file) + ";");
             }
         }
         return imgUrl.toString();

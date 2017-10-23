@@ -95,3 +95,17 @@
 	font-size:1.6rem;
 	color:#DD4E42;
 }
+
+.register-box ul li .bottom{
+	padding:3rem;
+}
+.register-box ul li .bottom a{
+	display:block;
+	font-size:1.8rem;
+	color:#565758;
+	line-height:3rem;
+	text-align:center;
+}
+.register-box ul li .bottom a:hover{
+	text-decoration:underline;
+}

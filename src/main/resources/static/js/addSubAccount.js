@@ -53,7 +53,7 @@ var oUsernameInput = document.getElementById("username"),
 		 	oTip.innerText = "该账号已存在,请重新输入";
 		 }else{
 		 	oTip.style.color = "#5dB431";
-		 	oTip.innerText = "创建下属账户成功";
+		 	oTip.innerText = "创建下属账户成功,您可以继续添加";
 		 }
 	 }
 

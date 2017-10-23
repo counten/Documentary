@@ -37,6 +37,7 @@ public class ActivityController {
     @PostMapping("/uploadActivity")
     public ResponseEntity<Activity> uploadActivity(@RequestParam(value = "userId") Long userId,
                                                    @RequestParam(value = "userName") String userName,
+                                                   @RequestParam(value = "userAccount") String userAccount,
                                                    @RequestParam(value = "userType") Integer userType,
                                                    @RequestParam(value = "userKind") Integer userKind,
                                                    @RequestParam(value = "title") String title,
@@ -50,6 +51,7 @@ public class ActivityController {
                 .setImg(imgFileupload(files))
                 .setUserId(userId)
                 .setUserName(userName)
+                .setUserAccount(userAccount)
                 .setUserType(userType)
                 .setUserKind(userKind)
                 .setTime(time)

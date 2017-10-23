@@ -10,14 +10,14 @@ import java.util.List;
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByUserIdAndStateNot(Long userId, Integer userState);
-    List<Activity> findByUserKindAndState(Integer userKind, Integer userState);
+    List<Activity> findByUserKindAndStateOrderByCreateTimeDesc(Integer userKind, Integer userState);
     List<Activity> findByStateAndUserId(Integer state, Long userId);
     List<Activity> findByState(Integer state);
-    Activity findFirstByUserKindAndUserTypeAndStateOrderByCreateTime(
+    Activity findFirstByUserKindAndUserTypeAndStateOrderByCreateTimeDesc(
             Integer userKind,
             Integer userType,
             Integer userState);
-    List<Activity> findByUserKindAndStateAndUserTypeNot(
+    List<Activity> findByUserKindAndStateAndUserTypeNotOrderByCreateTimeDesc(
             Pageable pageable,
             Integer userState,
             Integer userKind,

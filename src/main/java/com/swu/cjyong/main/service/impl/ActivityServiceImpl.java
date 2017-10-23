@@ -160,7 +160,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public List<Activity> getActivityByKindId(Integer kind) {
-        return activityRepository.findByUserKindAndState(kind, Activity.ACT_PASS);
+        return activityRepository.findByUserKindAndStateOrderByCreateTimeDesc(kind, Activity.ACT_PASS);
     }
 
     public List<Activity> getActivityByState(Integer state) {
@@ -199,7 +199,7 @@ public class ActivityServiceImpl implements ActivityService {
     private List<BriefActivity> getTopThreeBriefActivitysByKind(Integer kind) {
         List<Activity> result = new ArrayList<Activity>();
         //先获取一条二级用户的活动信息
-        Activity firstOne = activityRepository.findFirstByUserKindAndUserTypeAndStateOrderByCreateTime(
+        Activity firstOne = activityRepository.findFirstByUserKindAndUserTypeAndStateOrderByCreateTimeDesc(
                 kind, User.SECOND_USER, Activity.ACT_PASS);
         int size = 3;
         if (firstOne != null) {
@@ -208,7 +208,7 @@ public class ActivityServiceImpl implements ActivityService {
         }
 
         PageRequest pr = new PageRequest(0, size);
-        result.addAll(activityRepository.findByUserKindAndStateAndUserTypeNot(
+        result.addAll(activityRepository.findByUserKindAndStateAndUserTypeNotOrderByCreateTimeDesc(
                 pr, kind, Activity.ACT_PASS, User.SECOND_USER
                 ));
         return result.stream()

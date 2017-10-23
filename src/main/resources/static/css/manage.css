@@ -31,6 +31,21 @@
 	width:90%;
 	height:20rem;
 }
+.menu-content #list-chart .total{
+	line-height:2rem;
+	font-size:0.75rem;
+	color:#454647;
+	text-indent:2em;
+	border-bottom:1px solid #eee;
+}
+.menu-content #list-chart ul li{
+	padding:0 0.4rem;
+	font-size:0.6rem;
+	color:#454647;
+	line-height:1.2rem;
+	border-bottom:1px solid #eee;
+	text-indent:2em;
+}
 .menu-content #divide-page{
 	padding-top:2rem;
 }

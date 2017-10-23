@@ -13,6 +13,7 @@
 	}
 	var oChartWrapper = document.getElementById('chart');
 	var oChart = echarts.init(oChartWrapper);
+	var oListChart = document.getElementById("list-chart");
 	var oDividePage = document.getElementById("divide-page");
 	var aPageLi = [];
 	var aNames = [];
@@ -52,97 +53,18 @@
 								ajax({
 						 			url : ASKURL + "/users/getBelongsNumPass?selfId="+userInfo.id,
 						 			success : function(data){
-						 				oChartWrapper.style.height = "100rem";
-						 				var chartNum = Math.ceil(data.length/20);
 						 				var html = "";
-						 				html += "<ul class='clearfix'>";
-						 				for(var i=0;i<chartNum;i++){
-						 					html += '<li>第'+(i+1)+'部分</li>';
-						 				}
-						 				html += "</ul>";
-						 				oDividePage.innerHTML = html;
-						 				aPageLi = oDividePage.getElementsByTagName("li");
-						 				aNames = [];
-						 				aPassNum = [];
+						 				var total = 0;
+						 				html += "<ul>"
 						 				for(var i=0;i<data.length;i++){
-						 					aNames.push(data[i].name);
-						 					aPassNum.push(data[i].numPass);
+						 					total += data[i].numPass;
+						 					html += "<li>";
+						 					html += '<span>'+data[i].name+':    </span>';
+						 					html += '<span>'+data[i].numPass+'</span>';
 						 				}
-						 				var currentIndex = 0;
-						 				for(var i=0;i<aPageLi.length;i++){
-						 					aPageLi[i].index = i;
-						 					aPageLi[i].onclick = function(){
-						 						aPageLi[this.index].className = "selected";
-						 						aPageLi[currentIndex].className = "";
-						 						currentIndex = this.index;
-						 						draw(this.index);		
-						 					}
-						 				}
-						 				aPageLi[0].className = "selected";
-						 				draw(0);
-						 				oChart.resize();
-						 				function draw(index){
-						 					var dataName = aNames.slice(index*20,(index+1)*20);
-						 					var dataPassNum = aPassNum.slice(index*20,(index+1)*20);
-						 					console.log(aNames)
-						 					var option2 = {
-											    title : {
-											        text: '二级团委组织活动发布量',
-											        x : "center"
-											    },
-											    tooltip : {
-											        trigger: 'axis'
-											    },
-											    toolbox: {
-											        show : true,
-											        feature : {
-											            dataView : {show: true, readOnly: false},
-											            saveAsImage : {show: true}
-											        }
-
-											    },
-											    calculable : true,
-											    grid : {
-											    	x:60
-											    },
-											    xAxis : [
-											        {
-											            type : 'value',
-											            boundaryGap : [0, 0.01]
-											        }
-											    ],
-											    yAxis : [
-											        {
-											            type : 'category',
-											            data : dataName
-											        }
-											    ],
-											    series : [
-											        {
-											            name:'活动发布量',
-											            type:'bar',
-											            data:dataPassNum,
-											            itemStyle : {
-											            	normal : {
-											            		color : "#5dB431",
-											            		barBorderRadius : [0,2,2,0]
-											            	}
-											            },
-											            markLine : {
-											                data : [
-											                    {type : 'average', name: '平均值'}
-											                ]
-											            },
-											            barWidth : "12"
-											        },
-											    ]
-											};
-											oChart.setOption(option2);
-						 				}
-										
-						 								 				
-
-						 				
+						 				html += "</ul>"
+						 				var tempHtml = '<div class="total">活动参与人次:'+total+'</div>' + html;
+						 				oListChart.innerHTML = tempHtml;	
 						 			},
 						 			error : function(){
 						 				//oChart.setOption(option2);

@@ -14,7 +14,6 @@
 
  var oActivityTitle = document.getElementById("activity-title"),
  	 oActivityMember = document.getElementById("activity-member"),
-     oActivityMemNum = document.getElementById("activity-memNum"),
  	 oActivityDate = document.getElementById("activity-date"),
  	 oActivityLocation = document.getElementById("activity-location"),
  	 oActivityContent = document.getElementById("activity-content"),
@@ -36,7 +35,6 @@
  	 		data.append("userType",userInfo.userType);
  	 		data.append("userKind",userInfo.userKind);
  	 		data.append("title",trim(oActivityTitle.value));
-            data.append("participantsNum", trim(oActivityMemNum.value));
  	 		data.append("time",trim(oActivityDate.value));
  	 		data.append("location",trim(oActivityLocation.value));
  	 		data.append("participants",trim(oActivityMember.value));
@@ -149,8 +147,8 @@
  	 		oTip.innerText = "至少添加1张图片";
  	 		return false;
  	 	}
- 	 	if(imgNum > 5){
- 	 		oTip.innerText = "最多添加5张图片";
+ 	 	if(imgNum > 3){
+ 	 		oTip.innerText = "最多添加3张图片";
  	 		return false;
  	 	}
  	 	var count = 0;

@@ -11,6 +11,7 @@
 	if(!userInfo || userInfo.userType == 4){
 		window.location.href = "login.html";
 	}
+
 	var oChartWrapper = document.getElementById('chart');
 	var oChart = echarts.init(oChartWrapper);
 	var oListChart = document.getElementById("list-chart");
@@ -50,6 +51,7 @@
 					case 0:{
 						if(!isAsked){
 							if(userInfo.userType == 1){
+								oChartWrapper.style.display = "none";
 								ajax({
 						 			url : ASKURL + "/users/getBelongsNumPass?selfId="+userInfo.id,
 						 			success : function(data){
@@ -57,10 +59,13 @@
 						 				var total = 0;
 						 				html += "<ul>"
 						 				for(var i=0;i<data.length;i++){
-						 					total += data[i].numPass;
+						 					total += data[i].participantsNum;
+						 					var name = data[i].name.length > 10 ? data[i].name.substring(0,10) + "...":data[i].name;
 						 					html += "<li>";
-						 					html += '<span>'+data[i].name+':    </span>';
-						 					html += '<span>'+data[i].numPass+'</span>';
+						 					html += '<span>'+name+':</span>';
+						 					html += '<span class="info">'+data[i].numPass+'</span>';
+						 					html += '<span>活动参与人次:   </span>';
+						 					html += '<span class="info">'+data[i].participantsNum+'</span>';
 						 				}
 						 				html += "</ul>"
 						 				var tempHtml = '<div class="total">活动参与人次:'+total+'</div>' + html;

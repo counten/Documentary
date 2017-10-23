@@ -63,13 +63,13 @@
 			html += '<li><span>密码:</span><input type="password" disabled value="'+userInfo.passwd+'"></li>'
 			html += '<li style="display:none"><span>确认密码:</span><input type="password" disabled></li>';
 			if(userInfo.userType == 2 || userInfo.userType == 3){
-				html += '<li><span>团委书记:</span><input type="text" disabled value="'+userInfo.secretaryName+'"></li>';
-				html += '<li><span>团委书记电话:</span><input type="text" disabled value="'+userInfo.secretaryTel+'"></li>';
+				html += '<li><span>团委书记:</span><input type="text" disabled value="'+(userInfo.secretaryName || "空") +'"></li>';
+				html += '<li><span>团委书记电话:</span><input type="text" disabled value="'+(userInfo.secretaryTel || "空") +'"></li>';
 			}else if(userInfo.userType == 4){
-				html += '<li><span>团支部书记:</span><input type="text" disabled value="'+userInfo.secretaryName+'"></li>';
-				html += '<li><span>团支部书记电话:</span><input type="text" disabled value="'+userInfo.secretaryTel+'"></li>';
-				html += '<li><span>团委支部名称:</span><input type="text" disabled value="'+userInfo.name+'"></li>';
-				html += '<li><span>团员总数:</span><input type="text" disabled value="'+userInfo.memberNum+'"></li>';
+				html += '<li><span>团支部书记:</span><input type="text" disabled value="'+(userInfo.secretaryName || "空") +'"></li>';
+				html += '<li><span>团支部书记电话:</span><input type="text" disabled value="'+(userInfo.secretaryTel || "空") +'"></li>';
+				html += '<li><span>团委支部名称:</span><input type="text" disabled value="'+(userInfo.name || "空") +'"></li>';
+				html += '<li><span>团员总数:</span><input type="text" disabled value="'+(userInfo.memberNum || "空") +'"></li>';
 			}
 			html += '<li><span>用户类型:</span><input type="text" disabled value="'+userInfo.userType+'"></li>';
 			html += '<li style="display:none"><button id="btn-submit">提交</button></li>';

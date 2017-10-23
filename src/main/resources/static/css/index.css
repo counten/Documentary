@@ -5,6 +5,7 @@
  * @date    2017-10-18 08:26:46
  * @version 1.0
  */
+
 .page-title{
 	padding:4%;
 	font-size:1rem;
@@ -49,7 +50,7 @@
 	width:0.192em;
 	height:0.11em;
 	vertical-align:top;
-}container
+}
 .content{
 	padding-bottom:1.667rem;
 }

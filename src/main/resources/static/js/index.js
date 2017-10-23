@@ -13,7 +13,6 @@
 		//获取用户信息
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
-	console.log(userInfo)
 		//向topbar中插入元素
 	var html = '<ul class="clearfix">';
 	if(userInfo){

@@ -38,6 +38,8 @@
 	text-indent:2em;
 	border-bottom:1px solid #eee;
 }
+
+
 .menu-content #list-chart ul li{
 	padding:0 0.4rem;
 	font-size:0.6rem;
@@ -45,6 +47,12 @@
 	line-height:1.2rem;
 	border-bottom:1px solid #eee;
 	text-indent:2em;
+}
+
+.menu-content #list-chart ul li span{
+}
+.menu-content #list-chart ul li span.info{
+	padding:0 1rem;
 }
 .menu-content #divide-page{
 	padding-top:2rem;

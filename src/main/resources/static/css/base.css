@@ -21,9 +21,11 @@ body{font:0.233rem/1.5 'Microsoft Yahei',sans-serif;color:#666;/*sans-serif æ˜¯æ
 	clear: both;
 }
 .container{
-	margin:auto;
+	margin:0 auto;
+	padding:0;
 	min-width:320px;
 	max-width:1200px;
+	
 }
 .activity-box{
 	padding:0.3rem;
@@ -34,15 +36,9 @@ body{font:0.233rem/1.5 'Microsoft Yahei',sans-serif;color:#666;/*sans-serif æ˜¯æ
 	display:block;
 	float:left;
 	width:85%;
+	height:3.6rem;
 }
-.activity-box a:after{
-	content: '';
-	display: block;
-	height: 0;
-	line-height: 0;
-	visibility: hidden;
-	clear: both;
-}
+
 .activity-box a .img-box{
 	float:left;
 	width:40%;

@@ -14,6 +14,7 @@
 
  var oActivityTitle = document.getElementById("activity-title"),
  	 oActivityMember = document.getElementById("activity-member"),
+	 oParticipantsNum = document.getElementById("activity-participants");
  	 oActivityDate = document.getElementById("activity-date"),
  	 oActivityLocation = document.getElementById("activity-location"),
  	 oActivityContent = document.getElementById("activity-content"),
@@ -38,6 +39,7 @@
  	 		data.append("time",trim(oActivityDate.value));
  	 		data.append("location",trim(oActivityLocation.value));
  	 		data.append("participants",trim(oActivityMember.value));
+            data.append("participantsNum",trim(oParticipantsNum.value));
  	 		data.append("content",oActivityContent.value);
  	 		for(var i=0;i<aImgUpload.length;i++){
  	 			if(aImgUploadNeed[i]){
@@ -72,29 +74,37 @@
  	 }
 
  	 oActivityImg.onchange = function(){
- 	 	var html = "";
- 	 	var windowURL = window.URL || window.webkitURL;
-		if(oActivityImg.files){
-			for(var i=0;i<oActivityImg.files.length;i++){
-				aImgUpload.push(oActivityImg.files[i]);
-				aImgUploadNeed.push(true);
-				imgNum++;
-			}
-			for(var i=0;i<aImgUploadNeed.length;i++){
-				if(aImgUploadNeed[i]){
-					html += '<div class="img-preview-box">';
-					html += '<img src="'+ windowURL.createObjectURL(aImgUpload[i])+'"/>'
-					html += '<div class="img-delete">删除</div>';
-					html += '</div>';
+ 	 	if(imgNum < 3){
+	 	 	var html = "";
+	 	 	var windowURL = window.URL || window.webkitURL;
+			if(oActivityImg.files){
+				for(var i=0;i<oActivityImg.files.length;i++){
+					if(imgNum < 3){
+						aImgUpload.push(oActivityImg.files[i]);
+						aImgUploadNeed.push(true);
+						imgNum++;
+					}else{
+						alert("最多添加3张图片");
+					}
 				}
+				for(var i=0;i<aImgUploadNeed.length;i++){
+					if(aImgUploadNeed[i]){
+						html += '<div class="img-preview-box">';
+						html += '<img src="'+ windowURL.createObjectURL(aImgUpload[i])+'"/>'
+						html += '<div class="img-delete">删除</div>';
+						html += '</div>';
+					}
+				}
+			}else{
+				html += '<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + oMessageImg.value + '\');"></div>';
 			}
+			oImgBox.innerHTML = html;
+			aImgPreviewBox = getElementsByClass("img-preview-box",oImgBox);
+			aImgDelete = getElementsByClass("img-delete",oImgBox);
+			setImgDeleteEvent();
 		}else{
-			html += '<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + oMessageImg.value + '\');"></div>';
+			alert("最多添加3张图片");
 		}
-		oImgBox.innerHTML = html;
-		aImgPreviewBox = getElementsByClass("img-preview-box",oImgBox);
-		aImgDelete = getElementsByClass("img-delete",oImgBox);
-		setImgDeleteEvent();
  	 }
 
  	 function setImgDeleteEvent(){

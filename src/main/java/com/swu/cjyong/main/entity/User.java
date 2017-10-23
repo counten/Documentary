@@ -46,6 +46,8 @@ public class User {
 
     private Long pparentId;
 
+    private Long participantsNum = 0L;
+
     private String secretaryName;
 
     private String secretaryTel;

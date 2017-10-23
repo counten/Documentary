@@ -44,6 +44,7 @@ public class ActivityController {
                                                    @RequestParam(value = "time") String time,
                                                    @RequestParam(value = "location") String location,
                                                    @RequestParam(value = "participants") String participants,
+                                                   @RequestParam(value = "participantsNum") Long participantsNum,
                                                    @RequestParam(value = "content") String content,
                                                    @RequestParam(value = "files") MultipartFile[] files) {
         Activity activity = new Activity()
@@ -58,6 +59,7 @@ public class ActivityController {
                 .setLocation(location)
                 .setParticipants(participants)
                 .setContent(content)
+                .setParticipantsNum(participantsNum)
                 .setState(userType.equals(User.FORTH_USER) ? Activity.ACT_CHECKING : Activity.ACT_PASS);
         Activity result = activityService.uploadActivity(activity);
         return new ResponseEntity<>(result == null ? Activity.empty() : result, HttpStatus.OK);

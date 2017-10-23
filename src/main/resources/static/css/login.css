@@ -81,15 +81,13 @@
  	color:#fff;
  	font-size:0.267rem;
 	line-height:0.567rem;
-	background-color:#5dB431;
+	background-color:#DD4E42;
  	border:none;
 	outline:none;
 	cursor:pointer;
 	border-radius:2px;
  }
-.login-box ul li button:hover{
-	background-color:#5CB451;
-}
+
 .login-box ul li .tip{
 	height:0.667rem;
 	font-size:0.267rem;

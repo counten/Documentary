@@ -37,8 +37,8 @@
 		//选中
 		function selected(index){
 			if(index != currentLiIndex){
-				aMenuLi[index].style.backgroundColor = "#5CB451";
-				aMenuLi[currentLiIndex].style.backgroundColor = "#999";
+				aMenuLi[index].style.backgroundColor = "#DD4E42";
+				aMenuLi[currentLiIndex].style.backgroundColor = "#aaa";
 				aMenuContent[index].style.display = "block";
 				aMenuContent[currentLiIndex].style.display = "none";
 				currentLiIndex = index;
@@ -57,7 +57,7 @@
 
 		if(userInfo){
 			var html = '';
-			var type = ["","一级","二级","三级","四级"];			
+			var type = ["","一级","二级","三级","四级"];
 			html += '<ul>';
 			html += '<li><div id="modify">修改</div></li>';
 			html += '<li><span>用户名:</span><input type="text" value="'+userInfo.account+'"disabled></li>';
@@ -72,7 +72,7 @@
 				html += '<li><span>联系电话:</span><input type="text" disabled value="'+(userInfo.secretaryTel || "空") +'"></li>';
 				html += '<li><span>团员总数:</span><input type="text" disabled value="'+(userInfo.memberNum || "空") +'"></li>';
 			}
-			html += '<li><span>账户级别:</span><input type="text" disabled value="'+type[userInfo.userType]+'"></li>';
+			html += '<li><span>账户级别:</span><input type="text" disabled value="'+ type[userInfo.userType] +'"></li>';
 			html += '<li style="display:none"><button id="btn-submit">提交</button></li>';
 			html += '<li><p id="tip"></p></li>';
 			html += '</ul>';
@@ -273,10 +273,16 @@
           			dataChecking.push(data[i]);
 				}
 			}
+			if(htmlPass == ""){
+				htmlPass = '<p class="null">暂无活动</p>';
+			}
 			aMenuContent[1].innerHTML = htmlPass;
 			aPassDelete = getElementsByClass("delete",aMenuContent[1]);
 			aPassActivity = getElementsByClass("activity-box",aMenuContent[1]);
 			if(userInfo.userType == 4){
+				if(htmlChecking == ""){
+					htmlChecking = '<p class="null">暂无活动</p>';
+				}
 				aMenuContent[2].innerHTML = htmlChecking;
 				aCheckingDelete = getElementsByClass("delete",aMenuContent[2]);
 				aCheckingActivity = getElementsByClass("activity-box",aMenuContent[2]);

@@ -97,15 +97,13 @@
 	height:1.2rem;
 	font-size:0.6rem;
 	color:#fff;
-	background-color:#5dB431;
+	background-color:#DD4E42;
 	border:none;
 	outline:none;
 	border-radius:2px;
 	cursor:pointer;
 }
-.menu-content ul li button:hover{
-	background-color:#5CB451;
-}
+
 
 .menu-content ul li #tip{
 	height:2rem;

@@ -14,7 +14,7 @@
 
  var oActivityTitle = document.getElementById("activity-title"),
 	  oActivityMember = document.getElementById("activity-member"),
-	  oactivityParticipantsNum = document.getElementById("activity-participantsNum"),	  
+	  oactivityParticipantsNum = document.getElementById("activity-participantsNum"),
  	 oActivityDate = document.getElementById("activity-date"),
  	 oActivityLocation = document.getElementById("activity-location"),
  	 oActivityContent = document.getElementById("activity-content"),
@@ -40,7 +40,6 @@
  	 		data.append("location",trim(oActivityLocation.value));
 			data.append("participants",trim(oActivityMember.value));
 			data.append("participantsNum",trim(oactivityParticipantsNum.value)); 
-			  
  	 		data.append("content",oActivityContent.value);
  	 		for(var i=0;i<aImgUpload.length;i++){
  	 			if(aImgUploadNeed[i]){

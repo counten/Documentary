@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService{
     public MemberCount getAllMeberNumAndAccout4() {
         MemberCount memberCount = new MemberCount();
         //统计学校的团员数量
-        List<User> school = userRepository.findByUserKindAAndUserType(User.SCHOOL, User.FORTH_USER);
+        List<User> school = userRepository.findByUserKindAndUserType(User.SCHOOL, User.FORTH_USER);
         memberCount.setAccount4_school(school.size());
         int memberNums = 0;
         for(User user : school) {
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService{
         }
         memberCount.setMember_school(memberNums);
         //统计区县的数量
-        List<User> ditrict = userRepository.findByUserKindAAndUserType(User.DISTRICT, User.FORTH_USER);
+        List<User> ditrict = userRepository.findByUserKindAndUserType(User.DISTRICT, User.FORTH_USER);
         memberCount.setAccount4_school(ditrict.size());
         memberNums = 0;
         for(User user : ditrict) {
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService{
         }
         memberCount.setMember_district(memberNums);
         //统计城市的数量
-        List<User> city = userRepository.findByUserKindAAndUserType(User.CITY, User.FORTH_USER);
+        List<User> city = userRepository.findByUserKindAndUserType(User.CITY, User.FORTH_USER);
         memberCount.setAccount4_school(city.size());
         memberNums = 0;
         for(User user : city) {

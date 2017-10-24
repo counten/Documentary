@@ -4,6 +4,10 @@
  * @date    2017-10-18 09:41:04
  * @version 1.0
  */
+ 	var oHtml = document.getElementsByTagName('html')[0];
+ 	window.onresize = null;
+ 	oHtml.style.fontSize = '60px';
+
  var oUsernameInput = document.getElementById("username"),
 	 oPasswordInput = document.getElementById("password"),
 	 oBtnLogin = document.getElementById("btn-login"),

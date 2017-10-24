@@ -4,7 +4,9 @@
  * @date    2017-10-19 22:38:17
  * @version $Id$
  */
-
+ 	var oHtml = document.getElementsByTagName('html')[0];
+ 	window.onresize = null;
+ 	oHtml.style.fontSize = '60px';
  //获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);

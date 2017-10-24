@@ -63,7 +63,11 @@
 			html += '<li><span>用户名:</span><input type="text" value="'+userInfo.account+'"disabled></li>';
 			html += '<li><span>密码:</span><input type="password" disabled value="'+userInfo.passwd+'"></li>'
 			html += '<li style="display:none"><span>确认密码:</span><input type="password" disabled></li>';
-			if(userInfo.userType == 2 || userInfo.userType == 3){
+			if(userInfo.userType == 2){
+				html += '<li><span>团委书记:</span><input type="text" disabled value="'+(userInfo.secretaryName || "空") +'"></li>';
+				html += '<li><span>联系电话:</span><input type="text" disabled value="'+(userInfo.secretaryTel || "空") +'"></li>';
+			}else if(userInfo.userType == 3){
+				html += '<li><span>团委名称:</span><input type="text" disabled value="'+(userInfo.name || "空") +'"></li>';					
 				html += '<li><span>团委书记:</span><input type="text" disabled value="'+(userInfo.secretaryName || "空") +'"></li>';
 				html += '<li><span>联系电话:</span><input type="text" disabled value="'+(userInfo.secretaryTel || "空") +'"></li>';
 			}else if(userInfo.userType == 4){
@@ -110,10 +114,10 @@
 					passwordChanged = false;
 				}
 			}
-			if(userInfo.userType == 2 || userInfo.userType == 3){
+			if(userInfo.userType == 2){
 				aInfoInput[4].onkeyup = limitNum;
 			}else{
-				aInfoInput[4].onkeyup = limitNum;
+				//aInfoInput[4].onkeyup = limitNum;
 				aInfoInput[6].onkeyup = limitNum;
 			}
 			function limitNum(){
@@ -122,17 +126,31 @@
 			oBtnSubmit.onclick = function(){
 				if(check()){
 					var dataJson;
-					if(userInfo.userType == 3){
+					if(userInfo.userType == 2){
+						dataJson = {
+							"account": trim(aInfoInput[0].value),
+							"id": userInfo.id,
+							"memberNum": userInfo.memberNum,
+							"name": userInfo.name,
+							"parentId": userInfo.parentId,
+							"passwd": trim(aInfoInput[1].value),
+							"pparentId": userInfo.pparentId,
+							"secretaryName": aInfoInput[3].value,
+							"secretaryTel": aInfoInput[4].value,
+							"userKind": userInfo.userKind,
+							"userType": userInfo.userType
+						  }
+					}else if(userInfo.userType == 3){
 						dataJson = {
 						  "account": trim(aInfoInput[0].value),
 						  "id": userInfo.id,
 						  "memberNum": userInfo.memberNum,
-						  "name": userInfo.name,
+						  "name": trim(aInfoInput[3].value),
 						  "parentId": userInfo.parentId,
 						  "passwd": trim(aInfoInput[1].value),
 						  "pparentId": userInfo.pparentId,
-						  "secretaryName": aInfoInput[3].value,
-						  "secretaryTel": aInfoInput[4].value,
+						  "secretaryName": aInfoInput[4].value,
+						  "secretaryTel": aInfoInput[5].value,
 						  "userKind": userInfo.userKind,
 						  "userType": userInfo.userType
 						}
@@ -141,12 +159,12 @@
 						  "account": trim(aInfoInput[0].value),
 						  "id": userInfo.id,
 						  "memberNum": aInfoInput[6].value,
-						  "name": trim(aInfoInput[5].value),
+						  "name": trim(aInfoInput[3].value),
 						  "parentId": userInfo.parentId,
 						  "passwd": trim(aInfoInput[1].value),
 						  "pparentId": userInfo.pparentId,
-						  "secretaryName": aInfoInput[3].value,
-						  "secretaryTel": aInfoInput[4].value,
+						  "secretaryName": aInfoInput[4].value,
+						  "secretaryTel": aInfoInput[5].value,
 						  "userKind": userInfo.userKind,
 						  "userType": userInfo.userType
 						}
@@ -191,22 +209,34 @@
 					return false;
 				}
 			}
-			if(trim(aInfoInput[4].value).length < 6 || trim(aInfoInput[4].value).length > 11){
-				oTip.innerText = "电话有误";
-				return false;
-			}
-			
-			if(trim(aInfoInput[3].value).length == 0){
-				if(userInfo.userType == 3){
+			if(userInfo.userType == 2){
+				if(trim(aInfoInput[3].value).length == 0){
 					oTip.innerText = "团委书记不能为空";
-				}else{
-					oTip.innerText = "团支部书记不能为空";
 				}
-				return false;
-			}
-			if(userInfo.userType == 4){
-				if(trim(aInfoInput[5].value).length == 0){
+				if(trim(aInfoInput[4].value).length < 6 || trim(aInfoInput[4].value).length > 11){
+					oTip.innerText = "电话有误";
+					return false;
+				}
+
+			} else if(userInfo.userType == 3) {
+				if(trim(aInfoInput[4].value).length == 0){
+					oTip.innerText = "团委书记不能为空";
+				}
+				if(trim(aInfoInput[5].value).length < 6 || trim(aInfoInput[5].value).length > 11){
+					oTip.innerText = "电话有误";
+					return false;
+				}
+				if(trim(aInfoInput[4].value).length == 0){
 					oTip.innerText = "团支部名称不能为空";
+					return false;
+				}
+			}else if(userInfo.userType == 4){
+				if(trim(aInfoInput[4].value).length == 0){
+					oTip.innerText = "团支部名称不能为空";
+					return false;
+				}
+				if(trim(aInfoInput[5].value).length < 6 || trim(aInfoInput[5].value).length > 11){
+					oTip.innerText = "电话有误";
 					return false;
 				}
 				if(trim(aInfoInput[6].value).length == 0){

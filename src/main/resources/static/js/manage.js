@@ -287,7 +287,7 @@
                    		html +=  			 '<span>团委（支部）名称 : </span><span class="info">'+data[i].name+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
-                   		html +=  			 '<span>团委书记 : </span><span class="info">'+(data[i].secretaryName || "空")+'</span>';
+                   		html +=  			 '<span>团委（支部）书记 : </span><span class="info">'+(data[i].secretaryName || "空")+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
                    		html +=  			 '<span>联系方式 : </span><span class="info">'+(data[i].secretaryTel || "空")+'</span>';

@@ -162,3 +162,15 @@
 .menu-content .sub-account-box .sub-account .delete-account:hover{
 	text-decoration:underline;
 }
+.menu-content .sub-account-box .sub-account .update-passwd{
+	float:left;
+	padding:3% 0;
+	width:20%;
+	font-size:0.6rem;
+	color:rgb(66, 115, 221);
+	cursor:pointer;
+	text-align:center;
+}
+.menu-content .sub-account-box .sub-account .update-passwd:hover{
+	text-decoration:underline;
+}

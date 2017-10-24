@@ -256,6 +256,7 @@
 	//搜索事件
 	var aDeleteSubData = [],  //下属账户信息
 		aDeleteSub = [],  //删除按钮
+		aUpdatePasswdSub = [],
 		oSubAccountBox = document.getElementById("sub-account-box"),
 		aSubAccount = [];
 	//	oSearchSubInput = document.getElementById("search-sub-input",aMenuContent[1]),
@@ -295,12 +296,14 @@
 	                   		html += 		'</li>';
                    		}
                 		html +=  	'</ul>';
-                  		html +=		'<div class="delete-account">删除</div>';
+						  html +=		'<div class="delete-account">删除</div>';
+						  html +=		'<div class="update-passwd">重置密码</div>';
              			html += '</div>';
 					}
 					oSubAccountBox.innerHTML = html;
 					aDeleteSubData = data;
 					aSubAccount = getElementsByClass("sub-account",oSubAccountBox);
+					aUpdatePasswdSub = getElementsByClass("update-passwd",oSubAccountBox);					
 					aDeleteSub = getElementsByClass("delete-account",oSubAccountBox);
 					setDeleteSubEvent();
 				}
@@ -308,6 +311,34 @@
 			
 		}
 		function setDeleteSubEvent(){
+	    // --- 修改密码 ---
+			for(var i=0;i<aUpdatePasswdSub.length;i++){
+				aUpdatePasswdSub[i].index = i;
+				aUpdatePasswdSub[i].onclick = function(){
+					var index = this.index;
+					var dataJson = aDeleteSubData[index];
+					dataJson.passwd = "cqtw"+aDeleteSubData[index].account;
+					if(confirm('是否重置 "'+aDeleteSubData[index].account+'" 的密码')){
+						ajax({
+							type : "post",
+							url : ASKURL + "/users/updateUser?_method=put",
+							data :dataJson,
+							jsonType:true,
+							success : function(data){
+								if(data != null){
+									alert("密码重置为："+data.passwd);
+								}else{
+									alert("操作失败");
+								}
+							},
+							error : function(){
+								alert("操作失败");
+							}
+						});
+					}
+				}
+			}	
+		// -- 删除用户
 			for(var i=0;i<aDeleteSub.length;i++){
 				aDeleteSub[i].index = i;
 				aDeleteSub[i].onclick = function(){
@@ -332,6 +363,10 @@
 				}
 			}
 		}
+
+
+
+
 		
 	//---审核-----
 	var aActivityBox = [],

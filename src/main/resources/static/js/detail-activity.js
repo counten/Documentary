@@ -42,8 +42,8 @@
 			if(data.id > 0){
 				oActivityTitle.innerText = data.title;
 				aActivityInfo[0].innerText = data.userName;
-				aActivityInfo[1].innerText = type[data.userType];
-				var state = "";
+				/*aActivityInfo[1].innerText = type[data.userType];*/
+/*				var state = "";
 				if(data.state == 2){
 					state = "审核通过";
 				}else if(data.state == 1){
@@ -51,13 +51,14 @@
 				}else{
 					state = "审核失败";
 				}
-				aActivityInfo[2].innerText = state;
-				aActivityInfo[3].innerText = data.time;
-				aActivityInfo[4].innerText = data.location;
-				aActivityInfo[5].innerText = data.participants;
-				aActivityInfo[6].innerText = kind[data.userKind];
+				aActivityInfo[2].innerText = state;*/
+				aActivityInfo[1].innerText = data.time;
+				aActivityInfo[2].innerText = data.location;
+				aActivityInfo[3].innerText = data.participants;
+                aActivityInfo[4].innerText = data.participantsNum;
+				/*aActivityInfo[6].innerText = kind[data.userKind];*/
 				var createTime = new Date(data.createTime);
-				aActivityInfo[7].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
+				aActivityInfo[5].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
 
 				//图片
 				var html = "";

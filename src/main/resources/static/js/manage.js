@@ -7,6 +7,11 @@
  	//获取用户信息cookie
 	var strUserInfo = getCookie("userInfo");
 	var userInfo = strUserInfo == "undefined"?null:JSON.parse(strUserInfo);
+	var addUserMenu = document.getElementById("addAccountOrNot");
+    if(userInfo.userType != 1) {
+		addUserMenu.innerHTML = ('<a href="addSubAccount.html">添加下属账户</a>');
+	}
+
 	//如果没有登录则跳转到登录页
 	if(!userInfo || userInfo.userType == 4){
 		window.location.href = "login.html";
@@ -36,9 +41,9 @@
 			}
 		}
 		if(userInfo.userType == 1){
-			aMenuLi[1].style.display = "none";
+			aMenuLi[1].style.width = "50%";
 			aMenuLi[2].style.display = "none";
-			aMenuLi[0].style.width = "100%";
+			aMenuLi[0].style.width = "50%";
 		}
 		function selected(index){
 			if(index != currentLiIndex){
@@ -282,10 +287,10 @@
                    		html +=  			 '<span>团委（支部）名称 : </span><span class="info">'+data[i].name+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
-                   		html +=  			 '<span>团委书记 : </span><span class="info">'+data[i].secretaryName+'</span>';
+                   		html +=  			 '<span>团委书记 : </span><span class="info">'+(data[i].secretaryName || "空")+'</span>';
                    		html += 		'</li>';
                    		html += 		'<li>';
-                   		html +=  			 '<span>联系方式 : </span><span class="info">'+data[i].secretaryTel+'</span>';
+                   		html +=  			 '<span>联系方式 : </span><span class="info">'+(data[i].secretaryTel || "空")+'</span>';
 						html += 		'</li>';
 						html += 		'<li>';
                    		html +=  			 '<span>账户级别 : </span><span class="info">'+type[data[i].userType]+'</span>';

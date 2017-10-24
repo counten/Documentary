@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService{
     public List<User> getUserByParentId(Long selfId) {
         User user = userRepository.findOne(selfId);
         return  (user== null || user.getUserType() == User.FORTH_USER) ? new ArrayList<>():
+                user.getUserType().equals(User.TOP_USER) ? userRepository.findByUserType(User.SECOND_USER) :
                 userRepository.findByParentId(selfId);
     }
 

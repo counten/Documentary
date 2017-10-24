@@ -55,10 +55,10 @@
 				aActivityInfo[1].innerText = data.time;
 				aActivityInfo[2].innerText = data.location;
 				aActivityInfo[3].innerText = data.participants;
-                aActivityInfo[4].innerText = data.participantsNum;
+                /*aActivityInfo[4].innerText = data.participantsNum;*/
 				/*aActivityInfo[6].innerText = kind[data.userKind];*/
 				var createTime = new Date(data.createTime);
-				aActivityInfo[5].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
+				aActivityInfo[4].innerText = createTime.getFullYear()+"-"+(createTime.getMonth()+1)+"-"+createTime.getDate();
 
 				//图片
 				var html = "";

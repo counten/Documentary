@@ -27,6 +27,8 @@
  	 aImgUploadNeed = [],
  	 aImgPreviewBox = [],
  	 aImgDelete = [];
+
+ 	
  	 obtnUpload.onclick = function(){
  	 	if(check()){
  	 		var data = new FormData();
@@ -48,6 +50,7 @@
 	 	 	}
  	 		oTip.style.color = "#5dB431";
  	 		oTip.innerText = "正在上传图片....";
+
  	 		ajax({
 	 			type : "post",
 	 			url : ASKURL + "/activity/uploadActivity",
@@ -79,12 +82,16 @@
 	 	 	var windowURL = window.URL || window.webkitURL;
 			if(oActivityImg.files){
 				for(var i=0;i<oActivityImg.files.length;i++){
-					if(imgNum < 3){
-						aImgUpload.push(oActivityImg.files[i]);
-						aImgUploadNeed.push(true);
-						imgNum++;
+					if(oActivityImg.files[i].size < 4*1024*1024){
+						if(imgNum < 3){
+							aImgUpload.push(oActivityImg.files[i]);
+							aImgUploadNeed.push(true);
+							imgNum++;
+						}else{
+							alert("最多添加3张图片");
+						}
 					}else{
-						alert("最多添加3张图片");
+						alert("图片大小不能超过4M");
 					}
 				}
 				for(var i=0;i<aImgUploadNeed.length;i++){
@@ -127,7 +134,10 @@
  	 		}
  	 	}
  	 }
-
+ 	 oactivityParticipantsNum.onkeyup = limitNum;
+ 	 function limitNum(){
+		this.value=this.value.replace(/\D/g,'');
+	}
  	 function uploadFail(){
  	 	oTip.style.color = "#DD4E42";
  	 	oTip.innerText = "连接服务器失败，请稍后重试";
@@ -139,6 +149,14 @@
  	 	}
  	 	if(trim(oActivityMember.value).length < 2){
  	 		oTip.innerText = "请输入参与活动的人员";
+ 	 		return false;
+ 	 	}
+ 	 	if(trim(oactivityParticipantsNum.value).length == 0){
+ 	 		oTip.innerText = "请输入参与人数";
+ 	 		return false;
+ 	 	}
+ 	 	if(trim(oactivityParticipantsNum.value).length > 9){
+ 	 		oTip.innerText = "参与人数过大";
  	 		return false;
  	 	}
  	 	if(trim(oActivityDate.value).length < 0){

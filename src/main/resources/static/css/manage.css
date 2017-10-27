@@ -1,0 +1,176 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2017-10-18 21:24:14
+ * @version $Id$
+ */
+.menu{
+	height:1.8rem;
+	color:#fff;
+	font-size:0.75rem;
+	line-height:1.8rem;
+	background-color:#aaa;
+	text-align:center;
+}
+.menu ul li{
+	float:left;
+	width:33.33%;
+	cursor:pointer;
+}
+.menu ul li:hover{
+	background-color:#DD4E42;
+}
+
+.menu-content{
+	display:none;
+	/* background-color:#f6f6f6; */
+}
+.menu-content #chart{
+	margin:2rem auto;
+	width:90%;
+	height:20rem;
+}
+
+.menu-content #list-chart{
+	padding-top:1rem;
+}
+.menu-content #list-chart .total{
+	line-height:2rem;
+	font-size:0.75rem;
+	color:#454647;
+	text-indent:2em;
+	border-bottom:1px solid #eee;
+}
+/* .menu-content #list-chart .menu-bar{
+	padding:0.2rem 0;
+	font-size:0.6rem;
+	line-height:1.2rem;
+}
+.menu-content #list-chart .menu-bar h4{
+	float:left;
+	width:20%;
+	text-align: center;
+}
+.menu-content #list-chart .menu-bar ul{
+	float:left;
+	width:80%;
+}
+.menu-content #list-chart .menu-bar ul li{
+	float:left;
+	width:25%;
+	text-align:center;
+	cursor:pointer;
+}*/
+.menu-content #list-chart ul{
+	margin-top:2rem;
+}
+.menu-content #list-chart ul li{
+	padding:0 1.5rem;
+	font-size:0.75rem;
+	color:#454647;
+	line-height:1.2rem;
+	border-bottom:1px solid #eee;
+}
+ .menu-content #list-chart  ul li span{
+ 	text-align:left;
+ }
+.menu-content #list-chart  ul li span.org-name{
+	display:block;
+	font-weight:bold;
+}
+.menu-content #list-chart ul li span.info{
+	padding:0 1rem;
+}
+.menu-content #divide-page{
+	padding-top:2rem;
+}
+.menu-content #divide-page ul li{
+	float:left;
+	width:20%;
+	font-size:1.6rem;
+	color:#565758;
+	line-height:4rem;
+	text-align:center;
+	cursor:pointer;
+}
+.menu-content #divide-page ul li.selected{
+	color:#5dB431;
+}
+
+.menu-content .activity-box .operation .pass{
+	color:#5dB431;
+	cursor:pointer;
+}
+.menu-content .activity-box .operation .pass:hover{
+	text-decoration:underline;
+}
+.menu-content .activity-box .operation .stop{
+	color:#DD4E42;
+	cursor:pointer;
+}
+.menu-content .activity-box .stop:hover{
+	text-decoration:underline;
+}
+ 
+.menu-content .addAccount a{
+	display:block;
+	padding:3% 5% 4%;
+	font-size:0.667rem;
+	color:#5dB431;
+	text-align:right;
+}
+.menu-content .sub-account-box .sub-total{
+	font-size:0.6rem;
+	color:#454647;
+	line-height:2rem;
+	text-indent:1em;
+	border-bottom:1px solid #eee;
+}
+.menu-content .sub-account-box .sub-account{
+	padding:0 5%;
+	border-bottom:1px solid #eee;
+}
+.menu-content .sub-account-box .sub-account ul{
+	width:80%;
+	float:left;
+}
+.menu-content .sub-account-box .sub-account ul li{
+	float:left;
+	padding:3%;
+	font-size:0.6rem;
+	color:#454647;
+}
+.menu-content .sub-account-box .sub-account ul li span{
+	display:inline-block;
+	font-weight:bold;
+	text-align:right;
+}
+.menu-content .sub-account-box .sub-account ul li span.info{
+	padding-left:0.3rem;
+	font-weight:normal;
+}
+.menu-content .sub-account-box .sub-account .delete-account{
+	float:left;
+	padding:3% 0;
+	width:20%;
+	font-size:0.6rem;
+	color:#DD4E42;
+	cursor:pointer;
+	text-align:center;
+}
+.menu-content .sub-account-box .sub-account .delete-account:hover{
+	text-decoration:underline;
+}
+.menu-content .sub-account-box .sub-account .update-passwd{
+	float:left;
+	padding:3% 0;
+	width:20%;
+	font-size:0.6rem;
+	color:rgb(66, 115, 221);
+	cursor:pointer;
+	text-align:center;
+}
+.menu-content .sub-account-box .sub-account .update-passwd:hover{
+	text-decoration:underline;
+}

@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2017-10-19 22:34:44
+ * @version $Id$
+ */
+@media screen and (max-width:576px){
+ 	body{
+		background-color:#f6f6f6;
+	}
+}
+ .register-box{
+ 	margin:6% auto;
+ 	padding:0.333rem 0; 
+ 	max-width:8rem;
+ 	max-height:8rem;
+ 	background-color:#f6f6f6;
+ }
+ .register-box ul li{
+ 	position:relative;
+ 	margin:2% auto;
+ 	max-width:5.5rem;
+ 	min-width:3.33rem;
+	font-size:0.267rem;
+	line-height:0.5rem;
+	text-align:center;
+ }
+ .register-box ul li:after{
+ 	content: '';
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	clear: both;
+ }
+ .register-box ul li h3{
+ 	margin:5% 0 8%;
+ 	font-size:0.5rem;
+ 	color:#888;
+ 	line-height:0.667rem;
+ 	
+ }
+ .register-box ul li span{
+ 	display:block;
+ 	float:left;
+ 	width:22%;
+ 	color:#464748;
+ 	text-align:right;
+ }
+ .register-box ul li input{
+ 	display:block;
+ 	float:left;
+ 	margin-left:5%;
+	width:60%;
+	height:0.533rem;
+	color:#565656;
+	font-size:0.267rem;
+	line-height:0.533rem;
+	text-indent:1em;
+	border:none;
+	outline:none;
+	border-radius:2px;
+ }
+ .register-box ul li select{
+ 	display:block;
+ 	float:left;
+ 	margin-left:5%;
+ 	width:60%;
+ 	height:0.533rem;
+ 	color:#565758;
+ 	font-size:0.267rem;
+ 	line-height:0.533rem;
+ 	text-align:center;
+ 	appearance:none;
+ 	-moz-appearance:none;
+ 	-webkit-appearance:none;
+ 	border:none;
+ 	outline:none;
+ 	cursor:pointer;
+ }
+ .register-box ul li select option{
+ 	padding:6px;
+ }
+ .register-box ul li .arrow{
+ 	position:absolute;
+ 	top:10px;
+ 	right:50px;
+ 	border-top:10px solid #5dB431;
+ 	border-right:6px solid transparent;
+ 	border-left:6px solid transparent;
+ }
+ .register-box ul li button{
+ 	margin:5% auto;
+ 	width:80%;
+ 	height:0.567rem;
+ 	color:#fff;
+ 	font-size:0.267rem;
+	line-height:0.567rem;
+	background-color:#5dB431;
+ 	border:none;
+	outline:none;
+	cursor:pointer;
+	border-radius:2px;
+ }
+.register-box ul li button:hover{
+	background-color:#5CB451;
+}
+.register-box ul li .tip{
+	height:0.667rem;
+	font-size:0.267rem;
+	color:#DD4E42;
+}
+
+.register-box ul li .bottom{
+	padding:0.5rem;
+}
+.register-box ul li .bottom a{
+	display:block;
+	font-size:0.3rem;
+	color:#565758;
+	line-height:0.5rem;
+	text-align:center;
+}
+.register-box ul li .bottom a:hover{
+	text-decoration:underline;
+}

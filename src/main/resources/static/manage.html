@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>管理页面</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/manage.css">
+  <script src="js/util.js"></script>
+</head>
+<body>
+    <div class="container">
+    	<div id="menu" class="menu">
+    		<ul>
+    			<li>统计</li>
+          <li>下属账号管理</li>
+    			<li>待审核</li>
+         <!--  <li>查看活动</li> -->
+    		</ul>
+    	</div>
+    	<div class="menu-content">
+        <div id="list-chart">
+            <!-- <div id="kind-menu" class="menu-bar clearfix">
+                <h4>区域:</h4>
+                <ul class="clearfix">
+                  <li>区县</li>
+                  <li>城市</li>
+                  <li>学校</li>
+                </ul>
+            </div>
+            <div id="type-menu" class="menu-bar clearfix">
+                <h4>数据:</h4>
+                <ul class="clearfix">
+                  <li>活动发布量</li>
+                  <li>活动参与人次</li>
+                  <li>四级用户数</li>
+                  <li>团员数</li>
+                </ul>
+            </div>
+            <div id="show-box"></div> -->
+        </div>
+    		<div id="chart">
+            
+        </div>
+    	</div>
+      <div class="menu-content">
+       <!--    <div class="search-box clearfix">
+         <input type="text" id="sub-id-nput" placeholder="子账户ID">
+         <button id="search-sub">查询</button>
+       </div> 
+          <p class="tip"></p>-->
+          <div class="addAccount" id = "addAccountOrNot">
+            <!--<a href="addSubAccount.html">添加下属账户</a>-->
+          </div>
+          <div id="sub-account-box" class="sub-account-box">
+          </div>
+      </div>
+      <div class="menu-content">
+      </div>
+      <div class="bottom"><a href="index.html">返回首页</a></div>
+    </div>
+    
+    <script src="js/echarts.min.js"></script>
+    <script src="js/manage.js"></script>
+</body>
+</html>

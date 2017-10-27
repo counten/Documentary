@@ -1,0 +1,95 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors liugang (742230063@qq.com)
+ * @date    2017-10-18 08:26:46
+ * @version 1.0
+ */
+ @media screen and (max-width:576px){
+ 	body{
+		background-color:#f6f6f6;
+	}
+}
+ .login-box{
+ 	margin:6% auto;
+ 	padding:0.33rem 0; 
+ 	max-width:8rem;
+ 	max-height:8rem;
+ 	background-color:#f6f6f6;
+ }
+ .login-box ul li{
+ 	margin:2% auto;
+ 	max-width:5.5rem;
+ 	min-width:3.33rem;
+	font-size:0.267rem;
+	line-height:0.667rem;
+	text-align:center;
+ }
+ .login-box ul li:after{
+ 	content: '';
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	clear: both;
+ }
+ .login-box ul li h3{
+ 	margin:5% 0 8%;
+ 	font-size:0.5rem;
+ 	color:#888;
+ 	line-height:0.667rem;
+ 	
+ }
+ .login-box ul li span{
+ 	display:block;
+ 	float:left;
+ 	width:22%;
+ 	color:#464748;
+ 	text-align:right;
+ }
+ .login-box ul li input{
+ 	display:block;
+ 	float:left;
+ 	margin-left:5%;
+	width:60%;
+	height:0.533rem;
+	color:#565656;
+	font-size:0.267rem;
+	line-height:0.533rem;
+	text-indent:1em;
+	border:none;
+	outline:none;
+	border-radius:2px;
+ }
+ .login-box ul li select{
+ 	display:block;
+ 	float:left;
+ 	margin-left:5%;
+ 	width:60%;
+ 	height:0.533rem;
+ 	color:#565758;
+ 	font-size:0.267rem;
+ 	line-height:0.533rem;
+ 	text-align:center;
+ 	border:none;
+ 	outline:none;
+ }
+ .login-box ul li button{
+ 	margin:5% auto;
+ 	width:80%;
+ 	height:0.567rem;
+ 	color:#fff;
+ 	font-size:0.267rem;
+	line-height:0.567rem;
+	background-color:#DD4E42;
+ 	border:none;
+	outline:none;
+	cursor:pointer;
+	border-radius:2px;
+ }
+
+.login-box ul li .tip{
+	height:0.667rem;
+	font-size:0.267rem;
+	color:#DD4E42;
+}

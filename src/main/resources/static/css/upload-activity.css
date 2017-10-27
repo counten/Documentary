@@ -1,0 +1,129 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors liugang (742230063@qq.com)
+ * @date    2017-10-18 08:26:46
+ * @version 1.0
+ */
+@media screen and (max-width:1000px){
+ 	body{
+		background-color:#f6f6f6;
+	}
+}
+ .container{
+ 	background-color:#f6f6f6;
+ }
+ .title{
+	padding:0.4rem;
+ 	font-size:0.75rem;
+ 	color:#fff;
+ 	font-weight:normal;
+ 	background-color:#DD4E42;
+ }
+  .title a{
+  	display:inline-block;
+  	width:5%;
+  	text-align:center;
+  }
+ .uploadbox{
+ 	margin-top:2%;
+ 	padding-bottom:10%;
+ }
+ .uploadbox ul li{
+ 	width:100%;
+ 	position:relative;
+ 	overflow:hidden;
+ }
+ .uploadbox ul li span{
+ 	display:block;
+ 	padding:0.2rem;
+ 	width:10rem;
+ 	margin-left:5%;
+ 	font-size:0.6rem;
+ 	color:#454647;
+ 	line-height:0.9rem;
+ }
+ .uploadbox ul li input{
+ 	display:block;
+ 	padding:1%;
+ 	margin:auto;
+ 	width:90%;
+ 	height:0.9rem;
+ 	font-size:0.6rem;
+ 	color:#454647;
+ 	text-indent:1em;
+ 	line-height:0.9rem;
+ 	border:none;
+ 	outline:none;
+ }
+ .uploadbox ul li textarea{
+ 	display:block;
+ 	padding:1%;
+ 	margin:auto;
+ 	width:90%;
+ 	font-size:0.6rem;
+ 	color:#454647;
+ 	resize:none;
+ 	border:none;
+ 	outline:none;
+ }
+ .uploadbox ul li #activity-img{
+ 	position:absolute;
+ 	top:-999px;
+ }
+ .uploadbox ul li label{
+ 	display:inline-block;
+ 	margin:0.5rem 0 0.5rem 5%;
+ 	width:4rem;
+ 	height:1.2rem;
+ 	font-size:0.6rem;
+ 	color:#fff;
+	background-color:#DD4E42;
+	line-height:1.2rem;
+	text-align:center;
+	border-radius:2px;
+	cursor:pointer;
+ }
+
+ .uploadbox ul li button{
+ 	display:block;
+ 	margin:2% auto;
+	max-width:8rem;
+	min-width:6rem;
+	height:1.2rem;
+	font-size:0.6rem;
+	color:#fff;
+	background-color:#DD4E42;
+	border:none;
+	outline:none;
+	border-radius:2px;
+	cursor:pointer;
+ }
+
+.uploadbox ul li #img-box{
+	margin:auto;
+	width:90%;
+}
+ .uploadbox ul li #img-box .img-preview-box{
+ 	position:relative;
+ 	margin:1%;
+ 	float:left;
+	width:18%;
+ }
+ .uploadbox ul li #img-box .img-preview-box img{
+ 	width:100%;
+ }
+ .uploadbox ul li #img-box .img-preview-box .img-delete{
+ 	font-size:0.5rem;
+ 	color:#DD4E42;
+ 	text-align:center;
+ 	line-height:1rem;
+ 	cursor:pointer;
+ }
+ .uploadbox ul li .tip{
+	height:1rem;
+	font-size:0.6rem;
+	color:#DD4E42;
+	line-height:1rem;
+	text-align:center;
+ }

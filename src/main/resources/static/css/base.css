@@ -1,0 +1,100 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors liugang (742230063@qq.com)
+ * @date    2017-10-18 08:26:46
+ * @version 1.0
+ */
+html{font-size:60px;}
+body,h1,h2,h3,h4,h5,h6,p,dd{margin:0;}
+ul,ol,dl{margin:0;padding:0;list-style:none;}
+select{margin:0;padding:0;}
+img{border:none;vertical-align:middle;}
+a{text-decoration:none;color:#666;color:inherit;outline:none;}
+body{font:0.233rem/1.5 'Microsoft Yahei',sans-serif;color:#666;/*sans-serif 是手机默认字体*/}
+.clearfix:after{
+	content: '';
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	clear: both;
+}
+.container{
+	margin:0 auto;
+	padding:0;
+	min-width:320px;
+	max-width:1200px;
+	
+}
+.activity-box{
+	padding:0.3rem;
+	/* background-color:#f6f6f6; */
+	border-bottom:1px solid #eee;
+}
+.activity-box a{
+	display:block;
+	float:left;
+	width:85%;
+	height:3.6rem;
+}
+
+.activity-box a .img-box{
+	float:left;
+	width:40%;
+	font-size:100rem;
+	line-height:0;
+
+}
+.activity-box a .img-box img{
+	margin:0;
+	padding:0;
+	width:0.064em;
+	height:0.036em;
+	vertical-align:top;
+
+}
+.activity-box a .title{
+
+	float:left;
+	padding-left:3%;
+	margin:0;
+	width:55%;
+	height:3.6rem;
+	font-size:0.6rem;
+	color:#454647;
+	line-height:1.2rem;
+	overflow:hidden;
+}
+
+.activity-box .operation{
+	float:left;
+	width:15%;
+	height:3.6rem;
+	font-size:0.6rem;
+	line-height:1.2rem;
+	text-align:center;
+}
+.activity-box .operation .color-red{
+	color:#DD4E42;
+}
+
+.bottom{
+	padding:1rem;
+}
+.bottom a{
+	display:block;
+	font-size:0.6rem;
+	color:#565758;
+	line-height:2rem;
+	text-align:center;
+}
+.bottom a:hover{
+	text-decoration:underline;
+}
+p.null{
+	font-size:1rem;
+	color:#aaa;
+	line-height:3.6rem;
+	text-align:center;
+}

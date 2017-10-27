@@ -353,9 +353,8 @@
 							type:"post",
 							url : ASKURL + "/users/deleteUser?selfId="+userInfo.id+"&userId="+aDeleteSubData[this.index].id+"&_method=delete",
 							success : function(data){
-								console.log(data)
 								if(data == 0){
-									oSubAccountBox.removeChild(aSubAccount[index]);
+									aSubAccount[index].style.display = "none";
 								}else{
 									alert("操作失败");
 								}

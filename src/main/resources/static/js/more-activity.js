@@ -36,7 +36,7 @@
 			success:askInfoSuccess
 		});
 		function askInfoSuccess(data){
-			if(data && data[0].id > 0){
+			if(data){
 				var html = "";
 				if(data.length == 0){
 					html += '<p class="null">暂无活动</p>';

@@ -16,6 +16,7 @@ public class FileUploadUtil {
     public static String uploadFileToQiniuYun(MultipartFile file) {
         //构造一个带指定Zone对象的配置类
         Configuration cfg = new Configuration(Zone.zone2());
+        cfg.putThreshold = 6 * 1024 *1024;
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
         //...生成上传凭证，然后准备上传

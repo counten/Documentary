@@ -63,5 +63,11 @@
 	font-size:0.6rem;
 	color:#454647;
 	line-height:1.5;
+	text-align:justify;
+}
+.activity-detail .activity-content p{
+	display:inline-block;
+	text-indent:2em;
+	
 }
 

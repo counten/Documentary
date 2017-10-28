@@ -76,12 +76,11 @@ public class ExcelServiceImpl implements ExcelService{
 //            e.printStackTrace();
 //        }
         OutputStream out = null;
-        String fileName = "countData_"+new Date().getTime();
+        String fileName = "countData_"+new Date().getTime()+".xls";
         try {
             out = response.getOutputStream();
             response.setContentType("application/ms-excel;charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename="
-                    .concat(String.valueOf(URLEncoder.encode(fileName + ".xls", "UTF-8"))));
+            response.setHeader("Content-Disposition", "attachment;filename=".concat(fileName));
             wb.write(out);
             out.close();
         } catch (IOException e) {

@@ -1,9 +1,9 @@
 package com.swu.cjyong.main.controller;
 
-import com.swu.cjyong.main.dao.UserRepository;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.BriefUser;
 import com.swu.cjyong.main.entity.dto.MemberCount;
+import com.swu.cjyong.main.service.ExcelService;
 import com.swu.cjyong.main.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -18,6 +19,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ExcelService excelService;
 
     @ApiOperation(value = "用户登录")
     @GetMapping("/login")
@@ -73,5 +76,12 @@ public class UserController {
     @GetMapping("getAllMeberNumAndAccout4")
     public ResponseEntity<MemberCount> getAllMeberNumAndAccout4(){
         return new ResponseEntity<>(userService.getAllMeberNumAndAccout4(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取统计信息excel")
+    @GetMapping("getAllDataExcel")
+    @ResponseBody
+    public void getAllDataExcel(HttpServletResponse response){
+        excelService.getAllDataExcel(response);
     }
 }

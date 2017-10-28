@@ -12,6 +12,7 @@ public class BriefUser {
     private String account;
     private int numPass = 0;
     private long participantsNum;
+    private int userType;
 
     public static BriefUser UserToBriefUser(User user){
         if (user == null) return null;
@@ -19,6 +20,7 @@ public class BriefUser {
                 .setId(user.getId())
                 .setName(user.getName())
                 .setAccount(user.getAccount())
+                .setUserType(user.getUserType())
                 .setNumPass(null == user.getNumPass() ? 0 : user.getNumPass())
                 .setParticipantsNum(null == user.getParticipantsNum() ? 0 : user.getParticipantsNum());
     }

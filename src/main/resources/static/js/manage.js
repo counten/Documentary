@@ -60,69 +60,6 @@
 								ajax({
 						 			url : ASKURL + "/users/getBelongsNumPass?selfId="+userInfo.id,
 						 			success : function(data){
-						 				/*var oMenuKind = document.getElementById("kind-menu");
-						 				var oMenuDataType = document.getElementById("type-menu");
-						 				var aMenuKindLi = oMenuKind.getElementsByTagName("li");
-						 				var aMenuDataTypeLi = oMenuDataType.getElementsByTagName("li");
-						 				var oShowBox = document.getElementById("show-box");
-						 				var currendKindIndex = 0;
-						 				var currentDataIndex = 0;
-						 				aMenuKindLi[0].style.backgroundColor = "#5CB451"
-						 				aMenuKindLi[0].style.color = "#fff";
-						 				for(var i=0;i<aMenuKindLi.length;i++){
-						 					aMenuKindLi[i].index = i;
-						 					aMenuKindLi[i].onclick = function(){
-						 						if(currendKindIndex != this.index){
-						 							aMenuKindLi[this.index].style.backgroundColor = "#5CB451"
-							 						aMenuKindLi[this.index].style.color = "#fff";
-							 						aMenuKindLi[currendKindIndex].style.backgroundColor = "#fff"
-							 						aMenuKindLi[currendKindIndex].style.color = "#454647";
-							 						currendKindIndex = this.index;
-							 						menuSelected();
-							 					}
-						 					}
-						 				}
-						 				aMenuDataTypeLi[0].style.backgroundColor = "#5CB451"
-						 				aMenuDataTypeLi[0].style.color = "#fff";
-						 				for(var i=0;i<aMenuDataTypeLi.length;i++){
-						 					aMenuDataTypeLi[i].index = i;
-						 					aMenuDataTypeLi[i].onclick = function(){
-						 						if(currentDataIndex != this.index){
-							 						aMenuDataTypeLi[this.index].style.backgroundColor = "#5CB451"
-							 						aMenuDataTypeLi[this.index].style.color = "#fff";
-							 						aMenuDataTypeLi[currentDataIndex].style.backgroundColor = "#fff"
-							 						aMenuDataTypeLi[currentDataIndex].style.color = "#454647";
-							 						currentDataIndex = this.index;
-							 						menuSelected();
-							 					}
-						 					}
-						 				}
-						 				function menuSelected(){
-						 					var html = "";
-						 					html += "<ul>";
-						 					if(currendKindIndex == 0 && currentDataIndex == 0){
-						 						
-						 						for(var i=0;i<data.length;i++){
-						 							if(data.userType){
-							 							var name = data[i].name.length > 10 ? data[i].name.substring(0,10) + "...":data[i].name;
-									 					html += "<li>";
-									 					html += '<span>'+name+':</span>';
-									 					html += '<span class="info">'+data[i].numPass+'</span>';
-									 				}
-							 					}
-						 					}
-						 					if(currendKindIndex == 0 && currentDataIndex == 1){
-						 						var name = data[i].name.length > 10 ? data[i].name.substring(0,10) + "...":data[i].name;
-							 					html += "<li>";
-							 					html += '<span>'+name+':</span>';
-							 					html += '<span class="info">'+data[i].participantsNum+'</span>';
-						 					}
-						 					if(currendKindIndex == 0 && currentDataIndex == 2){
-
-						 					}
-						 					html += "</ul>";
-						 					oShowBox.innerHTML = html;
-						 				}*/
 						 				ajax({
 						 					url :ASKURL + "/users/getAllMeberNumAndAccout4",
 						 					success : function(countData){

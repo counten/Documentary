@@ -11,7 +11,7 @@
 	color:#fff;
 	font-weight:normal;
 	background-color:#DD4E42;
-	line-height:0.75rem;
+	line-height:1rem;
 	text-align:center;
 }
 .activity-detail{
@@ -63,5 +63,10 @@
 	font-size:0.6rem;
 	color:#454647;
 	line-height:1.5;
+	text-align:justify;
+}
+.activity-detail .activity-content p{
+	display:inline-block;
+	text-indent:2em;
 }
 

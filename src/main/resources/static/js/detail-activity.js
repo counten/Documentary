@@ -72,7 +72,13 @@
 				}
 				oActivityImg.innerHTML = html;
 				//内容
-				oActivityContent.innerText = data.content;
+				var contentList = data.content.split("\r\n");
+				var content = "";
+				for(var i=0;i<contentList.length;i++){
+					var str = contentList[i].replace(/\s/g,"");
+					content += "<p>"+str+"</p>";
+				}
+				oActivityContent.innerHTML = content;
 			}else{
 				oActivityTitle.innerText = "访问数据有误";
 			}

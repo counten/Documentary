@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<User> getUserByParentId(Long selfId) {
         User user = userRepository.findOne(selfId);
-        return  (user== null || user.getUserType() == User.FORTH_USER) ? new ArrayList<>():
+        return  (user== null || user.getUserType().equals(User.FORTH_USER)) ? new ArrayList<>():
                 user.getUserType().equals(User.TOP_USER) ? userRepository.findByUserType(User.SECOND_USER) :
                 userRepository.findByParentId(selfId);
     }
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService{
             // 默认属性处理
             user.setUserKind(pUser.getUserKind());
             user.setParentId(selfId);
-            if (user.getUserType() == User.THIRD_USER && pUser.getUserType() == User.SECOND_USER) {
+            if (user.getUserType().equals(User.THIRD_USER) && pUser.getUserType().equals(User.SECOND_USER)) {
                 user.setName(null == user.getName() ? "未填写团委" : user.getName());
             } else {
                 user.setUserType(User.FORTH_USER);
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService{
 
         // 获取下级用户
         List<User> users = new ArrayList<>();
-        if(pUser.getUserType() == User.TOP_USER){
+        if(pUser.getUserType().equals(User.TOP_USER)){
             users = userRepository.findByUserType(User.SECOND_USER);
         } else {
             users = userRepository.findByUserTypeAndParentId(pUser.getUserType()+1, selfId);
@@ -111,11 +111,11 @@ public class UserServiceImpl implements UserService{
     public int deleteUser(Long selfId, Long userId) {
         User user = userRepository.findOne(userId);
         // 判断存在和所属关系
-        if (null == user || user.getParentId() != selfId) {
+        if (null == user || !user.getParentId().equals(selfId)) {
             return 1;
         }
         // 级联删除
-        if(user.getUserType() == User.THIRD_USER) {
+        if(user.getUserType().equals(User.THIRD_USER)) {
             userRepository.deleteByParentId(userId);
         }
         userRepository.delete(userId);

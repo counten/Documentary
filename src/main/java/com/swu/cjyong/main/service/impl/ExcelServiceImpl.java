@@ -27,7 +27,7 @@ public class ExcelServiceImpl implements ExcelService{
     public void getAllDataExcel(HttpServletResponse response) {
         // 创建excel
         HSSFWorkbook wb = new HSSFWorkbook();
-        HSSFSheet sh_account = wb.createSheet("sheet1");
+        HSSFSheet sh_account = wb.createSheet("汇总");
         HSSFSheet sh_district = wb.createSheet("区县");
         HSSFSheet sh_city = wb.createSheet("城市");
         HSSFSheet sh_school = wb.createSheet("学校");
@@ -73,7 +73,7 @@ public class ExcelServiceImpl implements ExcelService{
             os.flush();
             os.close();
         }catch (Exception e){
-
+            System.out.println(e.toString());
         }
 
 

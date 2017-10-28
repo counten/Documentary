@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -58,6 +55,8 @@ public class Activity {
     private String participants;
 
     @NonNull
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
     private String content;
 
     private String img;

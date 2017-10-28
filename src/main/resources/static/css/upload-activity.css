@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 /**
  * 
@@ -35,9 +36,8 @@
  	overflow:hidden;
  }
  .uploadbox ul li span{
- 	display:block;
+ 	display:inline-block;
  	padding:0.2rem;
- 	width:10rem;
  	margin-left:5%;
  	font-size:0.6rem;
  	color:#454647;
@@ -99,7 +99,15 @@
 	border-radius:2px;
 	cursor:pointer;
  }
+.uploadbox ul li b{
+	display:inline-block;
+	margin-left:1rem;
+	font-size:0.4rem;
+	font-weight:normal;
+	color:#454647;
+	line-height:1rem;
 
+}
 .uploadbox ul li #img-box{
 	margin:auto;
 	width:90%;

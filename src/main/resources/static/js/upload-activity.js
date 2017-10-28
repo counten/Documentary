@@ -1,3 +1,4 @@
+
 /**
  * 
  * @authors liugang (742230063@qq.com)
@@ -82,7 +83,7 @@
 	 	 	var windowURL = window.URL || window.webkitURL;
 			if(oActivityImg.files){
 				for(var i=0;i<oActivityImg.files.length;i++){
-					if(oActivityImg.files[i].size < 4*1024*1024){
+					if(oActivityImg.files[i].size < 2*1024*1024){
 						if(imgNum < 3){
 							aImgUpload.push(oActivityImg.files[i]);
 							aImgUploadNeed.push(true);
@@ -91,7 +92,7 @@
 							alert("最多添加3张图片");
 						}
 					}else{
-						alert("图片大小不能超过4M");
+						alert("图片大小不能超过2M");
 					}
 				}
 				for(var i=0;i<aImgUploadNeed.length;i++){
@@ -138,6 +139,12 @@
  	 function limitNum(){
 		this.value=this.value.replace(/\D/g,'');
 	}
+	oActivityContent.onkeyup = function(){
+		if(this.value.length > 1000){
+			this.value = this.value.substring(0,1000);
+			alert("字数不能超过1000");
+		}
+	}
  	 function uploadFail(){
  	 	oTip.style.color = "#DD4E42";
  	 	oTip.innerText = "连接服务器失败，请稍后重试";
@@ -149,6 +156,10 @@
  	 	}
  	 	if(trim(oActivityMember.value).length < 2){
  	 		oTip.innerText = "请输入参与活动的人员";
+ 	 		return false;
+ 	 	}
+ 	 	if(trim(oActivityMember.value).length > 100){
+ 	 		oTip.innerText = "参与人员长度不能超过100";
  	 		return false;
  	 	}
  	 	if(trim(oactivityParticipantsNum.value).length == 0){
@@ -167,11 +178,19 @@
  	 		oTip.innerText = "请输入活动地点";
  	 		return false;
  	 	}
+ 	 	if(trim(oActivityLocation.value).length > 100){
+ 	 		oTip.innerText = "活动地点长度不能超过100";
+ 	 		return false;
+ 	 	}
  	 	if(trim(oActivityContent.value).length < 20){
  	 		oTip.innerText = "内容不能少于20字";
  	 		return false;
  	 	}
- 	 	if(oActivityImg.files.length == 0){
+ 	 	if(oActivityContent.value.length > 1000){
+ 	 		oTip.innerText = "内容不能多于1000字";
+ 	 		return false;
+ 	 	}
+ 	 	if(imgNum == 0){
  	 		oTip.innerText = "至少添加1张图片";
  	 		return false;
  	 	}
@@ -182,8 +201,8 @@
  	 	var count = 0;
  	 	for(var i=0;i<aImgUploadNeed.length;i++){
  	 		if(aImgUploadNeed[i]){
-	 	 		if(aImgUpload[i].size > 4*1024*1024){
-	 	 			oTip.innerText = "第"+(count+1)+"张图片大小超过4M";
+	 	 		if(aImgUpload[i].size > 2*1024*1024){
+	 	 			oTip.innerText = "第"+(count+1)+"张图片大小超过2M";
 	 	 			return false;
 	 	 		}
 	 	 		count++;
@@ -192,5 +211,3 @@
  	 	return true;
  	 }
  	 resize();
- 	 
-

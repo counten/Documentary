@@ -1,3 +1,4 @@
+
 /**
  * 
  * @authors Your Name (you@example.org)
@@ -289,8 +290,8 @@
               		htmlChecking +=				'<img src="'+IMGURL+data[i].img.split(";")[0]+'" alt="">';
               		htmlChecking +=			'</div>';
               		htmlChecking +=			'<div class="title">'+data[i].title+'</div>';
-            		
-           			htmlChecking += 		'<div class="operation">';
+             		htmlChecking +=		'</a>';
+             		htmlChecking += 		'<div class="operation">';
            			if(data[i].state == 1){
 	             		htmlChecking +=  	  	'<div class="state">正在审核</div>';
 	             	}else{
@@ -298,7 +299,6 @@
 	             	}
                   	htmlChecking +=				'<div class="delete">删除</div>';
              		htmlChecking +=			'</div>';
-             		htmlChecking +=		'</a>';
           			htmlChecking +='</div>';
           			dataChecking.push(data[i]);
 				}

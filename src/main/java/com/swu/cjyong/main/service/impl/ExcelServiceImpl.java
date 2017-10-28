@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class ExcelServiceImpl implements ExcelService{
     public void getAllDataExcel(HttpServletResponse response) {
         // 创建excel
         HSSFWorkbook wb = new HSSFWorkbook();
-        HSSFSheet sh_account = wb.createSheet("统计信息");
+        HSSFSheet sh_account = wb.createSheet("sheet1");
         HSSFSheet sh_district = wb.createSheet("区县");
         HSSFSheet sh_city = wb.createSheet("城市");
         HSSFSheet sh_school = wb.createSheet("学校");
@@ -63,31 +60,23 @@ public class ExcelServiceImpl implements ExcelService{
         row7.createCell(1).setCellValue(memberCount.getMember_school());
 
 
+        String path = "CountData_"+new Date().getTime()+".xls";
         dataTosheet(User.DISTRICT, sh_district);
         dataTosheet(User.CITY, sh_city);
         dataTosheet(User.SCHOOL, sh_school);
-
-//        // 文件写出
-//        String path = "countData_";
-//        try {
-//            FileOutputStream os = new FileOutputStream(path+ new Date().getTime()+".xls");
-//            wb.write(os);
-//            os.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        OutputStream out = null;
-        String fileName = "countData_"+new Date().getTime()+".xls";
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + path);
         try {
-            out = response.getOutputStream();
-            response.setContentType("application/ms-excel;charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename=".concat(fileName));
-            wb.write(out);
-            out.close();
-        } catch (IOException e) {
-            System.out.println("输出流错误");
-            e.printStackTrace();
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        }catch (Exception e){
+
         }
+
+
     }
 
     private void dataTosheet(int userType, HSSFSheet sh){
@@ -104,5 +93,4 @@ public class ExcelServiceImpl implements ExcelService{
             row_t.createCell(2).setCellValue(u.getParticipantsNum());
         }
     }
-
 }

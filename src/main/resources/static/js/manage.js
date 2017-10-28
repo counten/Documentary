@@ -1,3 +1,4 @@
+
 /**
  * 
  * @authors Your Name (you@example.org)
@@ -41,6 +42,7 @@
 			}
 		}
 		if(userInfo.userType == 1){
+			oListChart.style.display = "block";
 			aMenuLi[1].style.width = "50%";
 			aMenuLi[2].style.display = "none";
 			aMenuLi[0].style.width = "50%";
@@ -60,102 +62,76 @@
 								ajax({
 						 			url : ASKURL + "/users/getBelongsNumPass?selfId="+userInfo.id,
 						 			success : function(data){
-						 				/*var oMenuKind = document.getElementById("kind-menu");
 						 				var oMenuDataType = document.getElementById("type-menu");
-						 				var aMenuKindLi = oMenuKind.getElementsByTagName("li");
 						 				var aMenuDataTypeLi = oMenuDataType.getElementsByTagName("li");
 						 				var oShowBox = document.getElementById("show-box");
-						 				var currendKindIndex = 0;
+						 				var aDataWrapper = getElementsByClass("data-wrapper",oShowBox);
 						 				var currentDataIndex = 0;
-						 				aMenuKindLi[0].style.backgroundColor = "#5CB451"
-						 				aMenuKindLi[0].style.color = "#fff";
-						 				for(var i=0;i<aMenuKindLi.length;i++){
-						 					aMenuKindLi[i].index = i;
-						 					aMenuKindLi[i].onclick = function(){
-						 						if(currendKindIndex != this.index){
-						 							aMenuKindLi[this.index].style.backgroundColor = "#5CB451"
-							 						aMenuKindLi[this.index].style.color = "#fff";
-							 						aMenuKindLi[currendKindIndex].style.backgroundColor = "#fff"
-							 						aMenuKindLi[currendKindIndex].style.color = "#454647";
-							 						currendKindIndex = this.index;
-							 						menuSelected();
-							 					}
-						 					}
-						 				}
-						 				aMenuDataTypeLi[0].style.backgroundColor = "#5CB451"
+						 				aMenuDataTypeLi[0].style.backgroundColor = "#DD4E42"
 						 				aMenuDataTypeLi[0].style.color = "#fff";
+						 				aDataWrapper[0].style.display = "block";
 						 				for(var i=0;i<aMenuDataTypeLi.length;i++){
 						 					aMenuDataTypeLi[i].index = i;
 						 					aMenuDataTypeLi[i].onclick = function(){
 						 						if(currentDataIndex != this.index){
-							 						aMenuDataTypeLi[this.index].style.backgroundColor = "#5CB451"
+							 						aMenuDataTypeLi[this.index].style.backgroundColor = "#DD4E42"
 							 						aMenuDataTypeLi[this.index].style.color = "#fff";
 							 						aMenuDataTypeLi[currentDataIndex].style.backgroundColor = "#fff"
 							 						aMenuDataTypeLi[currentDataIndex].style.color = "#454647";
+							 						aDataWrapper[currentDataIndex].style.display = "none";
+							 						aDataWrapper[this.index].style.display = "block";
 							 						currentDataIndex = this.index;
-							 						menuSelected();
 							 					}
 						 					}
 						 				}
-						 				function menuSelected(){
-						 					var html = "";
-						 					html += "<ul>";
-						 					if(currendKindIndex == 0 && currentDataIndex == 0){
-						 						
-						 						for(var i=0;i<data.length;i++){
-						 							if(data.userType){
-							 							var name = data[i].name.length > 10 ? data[i].name.substring(0,10) + "...":data[i].name;
-									 					html += "<li>";
-									 					html += '<span>'+name+':</span>';
-									 					html += '<span class="info">'+data[i].numPass+'</span>';
-									 				}
-							 					}
-						 					}
-						 					if(currendKindIndex == 0 && currentDataIndex == 1){
-						 						var name = data[i].name.length > 10 ? data[i].name.substring(0,10) + "...":data[i].name;
-							 					html += "<li>";
-							 					html += '<span>'+name+':</span>';
-							 					html += '<span class="info">'+data[i].participantsNum+'</span>';
-						 					}
-						 					if(currendKindIndex == 0 && currentDataIndex == 2){
-
-						 					}
-						 					html += "</ul>";
-						 					oShowBox.innerHTML = html;
-						 				}*/
+						 				var html1 = "",html2 = "",html3 = "";
+						 				html1 += "<ul>";
+						 				html2 += "<ul>";
+						 				html3 += "<ul>";
+						 				for(var i=0;i<data.length;i++){
+						 					var tempHtml = "";
+						 					var name = data[i].name.length > 20 ? data[i].name.substring(0,20) + "...":data[i].name;
+						 					tempHtml += "<li>";
+						 					tempHtml += '<span class="org-name">'+name+'</span>';
+						 					tempHtml += '<span>发布活动量:   </span>';
+						 					tempHtml += '<span class="info">'+data[i].numPass+'</span>';
+						 					tempHtml += '<span>活动参与人次:   </span>';
+						 					tempHtml += '<span class="info">'+data[i].participantsNum+'</span>';
+					 						tempHtml += "</li>";
+					 						if(data[i].userKind == 1){
+					 							html1 += tempHtml;
+					 						}else if(data[i].userKind == 2){
+					 							html2 += tempHtml;
+					 						}else{
+					 							html3 += tempHtml;
+					 						}
+						 				}
+						 				html1 += "</ul>";
+						 				html2 += "</ul>";
+						 				html3 += "</ul>";
+						 				aDataWrapper[1].innerHTML = html1;
+						 				aDataWrapper[2].innerHTML = html2;
+						 				aDataWrapper[3].innerHTML = html3;
 						 				ajax({
 						 					url :ASKURL + "/users/getAllMeberNumAndAccout4",
 						 					success : function(countData){
-						 						var html = "";
-								 				var total = 0;
-								 				html += "<ul>"
-								 				for(var i=0;i<data.length;i++){
-								 					total += data[i].participantsNum;
-								 					var name = data[i].name.length > 20 ? data[i].name.substring(0,20) + "...":data[i].name;
-								 					html += "<li>";
-								 					html += '<span class="org-name">'+name+'</span>';
-								 					html += '<span>发布活动量:   </span>';
-								 					html += '<span class="info">'+data[i].numPass+'</span>';
-								 					html += '<span>活动参与人次:   </span>';
-								 					html += '<span class="info">'+data[i].participantsNum+'</span>';
-								 				}
-
-								 				html += "</ul>"
-								 				var acount4countTotalHtml = '<div class="total">团支部总数:&nbsp;&nbsp;'+countData.account4Count+'</div>';
-								 				var memberTotalHtml = '<div class="total">团员总数:&nbsp;&nbsp;'+countData.memberCount+'</div>';
-								 				var acount4DistrictTotalHtml = '<div class="total">区县团支部总数:&nbsp;&nbsp;'+countData.account4_district+'</div>';
-								 				var acountDistrictMemberTotalHtml = '<div class="total">区县团员总数:&nbsp;&nbsp;'+countData.member_district+'</div>';
-								 				var acount4CityTotalHtml = '<div class="total">城市团支部总数:&nbsp;&nbsp;'+countData.account4_city+'</div>';
-								 				var acountCityMemberTotalHtml = '<div class="total">城市团员总数:&nbsp;&nbsp;'+countData.member_city+'</div>';
-								 				var acount4SchoolTotalHtml = '<div class="total">学校团支部总数:&nbsp;&nbsp;'+countData.account4_school+'</div>';
-								 				var acountSchoolMemberTotalHtml = '<div class="total">学校团员总数:&nbsp;&nbsp;'+countData.member_school+'</div>';
-								 				var participantsNumTotalHtml = '<div class="total">活动参与总人次:&nbsp;&nbsp;'+total+'</div>';
-								 				oListChart.innerHTML = acount4countTotalHtml + memberTotalHtml + 
-								 									   acount4DistrictTotalHtml + acountDistrictMemberTotalHtml +
-								 									   acount4CityTotalHtml + acountCityMemberTotalHtml+
-								 									   acount4SchoolTotalHtml + acountSchoolMemberTotalHtml +
-								 									   participantsNumTotalHtml + html;
-							 					}
+							 						var html = "";
+									 				var total = 0;
+									 				for(var i=0;i<data.length;i++){
+									 					total += data[i].participantsNum;
+									 				}
+									 				html += '<div class="total">团支部总数:&nbsp;&nbsp;'+countData.account4Count+'</div>';
+									 				html += '<div class="total">团员总数:&nbsp;&nbsp;'+countData.memberCount+'</div>';
+									 				html += '<div class="total">区县团支部总数:&nbsp;&nbsp;'+countData.account4_district+'</div>';
+									 				html += '<div class="total">区县团员总数:&nbsp;&nbsp;'+countData.member_district+'</div>';
+									 				html += '<div class="total">城市团支部总数:&nbsp;&nbsp;'+countData.account4_city+'</div>';
+									 				html += '<div class="total">城市团员总数:&nbsp;&nbsp;'+countData.member_city+'</div>';
+									 				html += '<div class="total">学校团支部总数:&nbsp;&nbsp;'+countData.account4_school+'</div>';
+									 				html += '<div class="total">学校团员总数:&nbsp;&nbsp;'+countData.member_school+'</div>';
+									 				html += '<div class="total">活动参与总人次:&nbsp;&nbsp;'+total+'</div>';
+									 				aDataWrapper[0].innerHTML = html;
+									 				isAsked = true;
+									 			}
 							 				});
 						 			},
 						 			error : function(){
@@ -232,6 +208,7 @@
 							 				// 使用刚指定的配置项和数据显示图表。 
 											oChart.setOption(option); 
 							 				setCookie("userInfo",JSON.stringify(data),12*3600*1000);
+							 				isAsked = true;
 							 			}
 						 			}
 						 		});
@@ -449,3 +426,4 @@
 		resize(function(){
 			oChart.resize();
 		});
+

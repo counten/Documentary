@@ -12,6 +12,7 @@ import com.swu.cjyong.main.service.ActivityService;
 import org.jboss.jandex.PrimitiveType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -161,7 +162,8 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public List<Activity> getActivityByKindId(Integer kind) {
-        return activityRepository.findByUserKindAndStateOrderByCreateTimeDesc(kind, Activity.ACT_PASS);
+        Pageable pager =new PageRequest(0, 50);
+        return activityRepository.findByUserKindAndStateOrderByCreateTimeDesc(kind, Activity.ACT_PASS, pager);
     }
 
     public List<Activity> getActivityByState(Integer state) {

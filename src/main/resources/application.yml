@@ -43,3 +43,9 @@ spring: #spring框架的配置
     hibernate:
       ddl-auto: update
     generate-ddl: true
+
+  # 七牛云图片存储配置
+qiniu:
+  accessKey: sJzCRaqeVgt8BtJ1mTW1PnRb4nbRTrj-asSv1AGi
+  secretKey: jNyuMXq-MN3WI4yTbWQG3HQF9wiGjBXFZjDwO3Ss
+  bucket: cjyong

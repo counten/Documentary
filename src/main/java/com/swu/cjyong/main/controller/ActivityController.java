@@ -7,6 +7,8 @@ import com.swu.cjyong.main.service.ActivityService;
 import com.swu.cjyong.main.util.FileUploadUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/activity")
+@Configuration
 public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+
+    @Value("${qiniu.accessKey}")
+    private String accessKey;
+    @Value("${qiniu.secretKey}")
+    private String secretKey;
+    @Value("${qiniu.bucket}")
+    private String bucket;
+
 
     @ApiOperation(value = "上传活动信息")
     @PostMapping("/uploadActivity")
@@ -113,11 +124,13 @@ public class ActivityController {
      * @param files
      * @return
      */
+
     private String imgFileupload(MultipartFile[] files) {
         StringBuilder imgUrl = new StringBuilder();
         for (MultipartFile file : files) {
             if (file != null) {
-                imgUrl.append(FileUploadUtil.uploadFileToQiniuYun(file) + ";");
+                imgUrl.append(FileUploadUtil.uploadFileToQiniuYun(file,
+                        accessKey, secretKey, bucket) + ";");
             }
         }
         return imgUrl.toString();

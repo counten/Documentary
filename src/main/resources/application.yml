@@ -1,6 +1,6 @@
-server:
+server: #服务器主配置
   contextPath: /
-  port: 443
+  port: 443     #启动端口
   max-http-header-size: 8192
   compression:
     min-response-size: 512
@@ -14,15 +14,16 @@ server:
       pattern: combined
       enabled: true
 
-logging:
+logging:  #日志文件配置
   config: classpath:log4j2.xml
 
-spring:
+spring: #spring框架的配置
   datasource:
         role: com.alibaba.druid.pool.DruidDataSource
         name: root
         password: root
         driver-class-name: com.mysql.jdbc.Driver
+        # 数据库连接（修改环境记得修改地址和端口）
         url: jdbc:mysql://120.77.219.167:3306/activitybackstage?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
         initialize: true
         sql-script-encoding: UTF-8
@@ -35,6 +36,7 @@ spring:
           min-evictable-idle-time-millis: 300000
           poolPreparedStatement: true
           maxPoolPreparedStatementPerConnectionSize: 20
+  # jpa配置
   jpa:
     show-sql: true
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect

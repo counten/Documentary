@@ -277,6 +277,9 @@
 	                   		html +=  			 '<span>团员总数 : </span><span class="info">'+data[i].memberNum+'</span>';
 	                   		html += 		'</li>';
                    		}
+                        html += 		'<li>';
+                        html +=  			 '<span>发表活动数 : </span><span class="info">'+data[i].numPass+'</span>';
+                        html += 		'</li>';
                 		html +=  	'</ul>';
 						  html +=		'<div class="delete-account">删除</div>';
 						  html +=		'<div class="update-passwd">重置密码</div>';

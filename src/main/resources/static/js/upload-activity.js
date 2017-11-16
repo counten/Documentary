@@ -83,7 +83,7 @@
 	 	 	var windowURL = window.URL || window.webkitURL;
 			if(oActivityImg.files){
 				for(var i=0;i<oActivityImg.files.length;i++){
-					if(oActivityImg.files[i].size < 2*1024*1024){
+					if(oActivityImg.files[i].size < 1*1024*1024){
 						if(imgNum < 3){
 							aImgUpload.push(oActivityImg.files[i]);
 							aImgUploadNeed.push(true);
@@ -92,7 +92,7 @@
 							alert("最多添加3张图片");
 						}
 					}else{
-						alert("图片大小不能超过2M");
+						alert("图片大小不能超过1M");
 					}
 				}
 				for(var i=0;i<aImgUploadNeed.length;i++){
@@ -201,7 +201,7 @@
  	 	var count = 0;
  	 	for(var i=0;i<aImgUploadNeed.length;i++){
  	 		if(aImgUploadNeed[i]){
-	 	 		if(aImgUpload[i].size > 2*1024*1024){
+	 	 		if(aImgUpload[i].size > 1*1024*1024){
 	 	 			oTip.innerText = "第"+(count+1)+"张图片大小超过2M";
 	 	 			return false;
 	 	 		}

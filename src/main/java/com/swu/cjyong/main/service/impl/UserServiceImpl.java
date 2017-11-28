@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService{
         user.setNumNotPass(user_old.getNumNotPass())
                 .setNumPass(user_old.getNumPass())
                 .setNumCheck(user_old.getNumCheck())
-                .setNumDelete(user_old.getNumDelete());
+                .setNumDelete(user_old.getNumDelete())
+                .setParticipantsNum(user_old.getParticipantsNum());
         try {
             user_new = userRepository.save(user);
         } catch (Exception e) {

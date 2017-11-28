@@ -31,6 +31,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public User updateUser(User user) {
         User user_new = null;
+        //保留之前的数据信息
+        User user_old = userRepository.findOne(user.getId());
+        user.setNumNotPass(user_old.getNumNotPass())
+                .setNumPass(user_old.getNumPass())
+                .setNumCheck(user_old.getNumCheck())
+                .setNumDelete(user_old.getNumDelete());
         try {
             user_new = userRepository.save(user);
         } catch (Exception e) {

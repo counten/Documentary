@@ -23,5 +23,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     User findFirstByAccount(String name);
 
     void deleteByParentId(Long parentId);
+
+    List<User> findDistinctByParentIdOrPparentId(Long pid, Long ppid);
 }
 

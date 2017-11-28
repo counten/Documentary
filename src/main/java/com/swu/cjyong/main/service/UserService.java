@@ -70,4 +70,9 @@ public interface UserService {
      * @return
      */
     MemberCount getAllMeberNumAndAccout4();
+
+    /**
+     * 重设并检查所有的用户信息
+     */
+    void checkAndUpdateMemberInfo();
 }

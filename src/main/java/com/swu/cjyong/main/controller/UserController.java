@@ -78,6 +78,12 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllMeberNumAndAccout4(), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "检查并重设所有的数据数据信息")
+    @GetMapping("resetAllNumsInfo")
+    public void checkAndUpdateMemberInfo(){
+       userService.checkAndUpdateMemberInfo();
+    }
+
     @ApiOperation(value = "获取统计信息excel")
     @GetMapping("getAllDataExcel")
     @ResponseBody

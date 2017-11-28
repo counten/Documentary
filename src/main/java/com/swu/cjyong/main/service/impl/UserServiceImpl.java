@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService{
         memberCount.setMember_school(memberNums);
         //统计区县的数量
         List<User> ditrict = userRepository.findByUserKindAndUserType(User.DISTRICT, User.FORTH_USER);
-        memberCount.setAccount4_school(ditrict.size());
+        memberCount.setAccount4_district(ditrict.size());
         memberNums = 0;
         for(User user : ditrict) {
             if (user.getMemberNum() != null) {
@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService{
         memberCount.setMember_district(memberNums);
         //统计城市的数量
         List<User> city = userRepository.findByUserKindAndUserType(User.CITY, User.FORTH_USER);
-        memberCount.setAccount4_school(city.size());
+        memberCount.setAccount4_city(city.size());
         memberNums = 0;
         for(User user : city) {
             if (user.getMemberNum() != null) {
@@ -168,5 +168,28 @@ public class UserServiceImpl implements UserService{
         memberCount.setMember_city(memberNums);
         memberCount.addAll();
         return memberCount;
+    }
+
+    public void checkAndUpdateMemberInfo() {
+        //检索所有的二级用户信息
+        List<User> users = userRepository.findByUserType(User.SECOND_USER);
+        for (User user : users) {
+            List<User> sons = userRepository.findDistinctByParentIdOrPparentId(user.getId(), user.getId());
+            int numChecks = 0, numPass = 0, numDelete = 0, numNotPass = 0;
+            long participantsNum = 0L;
+            for (User sonUser : sons) {
+                numChecks += sonUser.getNumCheck();
+                numPass += sonUser.getNumPass();
+                numNotPass += sonUser.getNumNotPass();
+                numDelete += sonUser.getNumDelete();
+                participantsNum += sonUser.getParticipantsNum();
+            }
+            user.setNumDelete(numDelete)
+                    .setNumPass(numPass)
+                    .setNumNotPass(numNotPass)
+                    .setNumCheck(numChecks)
+                    .setParticipantsNum(participantsNum);
+            userRepository.save(user);
+        }
     }
 }

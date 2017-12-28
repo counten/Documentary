@@ -95,7 +95,7 @@ public class ActivityServiceImpl implements ActivityService {
                 pparent.setNumCheck(Math.max(0, pparent.getNumCheck() - 1));
                 if (checkResult.equals(1L)) {
                     pparent.setNumPass(pparent.getNumPass() + 1);
-                    pparent.setParticipantsNum(pparent.getParticipantsNum() + currentActivity.getParticipantsNum());
+                    pparent.setParticipantsNum(pparent.getParticipantsNum() - currentActivity.getParticipantsNum());
                 } else {
                     pparent.setNumNotPass(pparent.getNumNotPass() + 1);
                 }

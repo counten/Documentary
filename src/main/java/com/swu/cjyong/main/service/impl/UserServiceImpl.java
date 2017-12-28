@@ -1,6 +1,8 @@
 package com.swu.cjyong.main.service.impl;
 
+import com.swu.cjyong.main.dao.ActivityRepository;
 import com.swu.cjyong.main.dao.UserRepository;
+import com.swu.cjyong.main.entity.Activity;
 import com.swu.cjyong.main.entity.User;
 import com.swu.cjyong.main.entity.dto.BriefUser;
 import com.swu.cjyong.main.entity.dto.MemberCount;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ActivityRepository activityRepository;
 
     @Override
     public User selectUserByAccountAndPasswd(String account, String passwd) {
@@ -192,4 +197,5 @@ public class UserServiceImpl implements UserService{
             userRepository.save(user);
         }
     }
+    
 }

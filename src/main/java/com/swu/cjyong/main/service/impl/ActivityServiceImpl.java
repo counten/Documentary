@@ -95,7 +95,7 @@ public class ActivityServiceImpl implements ActivityService {
                 pparent.setNumCheck(Math.max(0, pparent.getNumCheck() - 1));
                 if (checkResult.equals(1L)) {
                     pparent.setNumPass(pparent.getNumPass() + 1);
-                    pparent.setParticipantsNum(pparent.getParticipantsNum() - currentActivity.getParticipantsNum());
+                    pparent.setParticipantsNum(pparent.getParticipantsNum() + currentActivity.getParticipantsNum());
                 } else {
                     pparent.setNumNotPass(pparent.getNumNotPass() + 1);
                 }
@@ -140,7 +140,6 @@ public class ActivityServiceImpl implements ActivityService {
             activityRepository.saveAndFlush(currentActivity);
             return currentActivity;
         }
-
         return null;
     }
 
@@ -150,7 +149,7 @@ public class ActivityServiceImpl implements ActivityService {
             user.setNumCheck(Math.max(0, user.getNumCheck() - 1));
         } else if (currentState.equals(Activity.ACT_PASS)) {
             user.setNumPass(Math.max(0, user.getNumPass() - 1));
-            user.setParticipantsNum(user.getParticipantsNum() + activity.getParticipantsNum());
+            user.setParticipantsNum(user.getParticipantsNum() - activity.getParticipantsNum());
         } else {
             user.setNumNotPass(Math.max(0, user.getNumNotPass() - 1));
         }

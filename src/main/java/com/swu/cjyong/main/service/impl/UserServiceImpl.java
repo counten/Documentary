@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService{
         //统计学校的团员数量
         List<User> school = userRepository.findByUserKindAndUserType(User.SCHOOL, User.FORTH_USER);
         memberCount.setAccount4_school(school.size());
-        int memberNums = 0;
+        long memberNums = 0;
         for(User user : school) {
             if (user.getMemberNum() != null) {
                 memberNums += user.getMemberNum();
@@ -177,7 +177,8 @@ public class UserServiceImpl implements UserService{
 
     public void checkAndUpdateMemberInfo() {
         //检索所有的二级用户信息
-        List<User> users = userRepository.findByUserType(User.SECOND_USER);
+        checkAllUserInfo();
+  /*      List<User> users = userRepository.findByUserType(User.SECOND_USER);
         for (User user : users) {
             List<User> sons = userRepository.findDistinctByParentIdOrPparentId(user.getId(), user.getId());
             int numChecks = 0, numPass = 0, numDelete = 0, numNotPass = 0;
@@ -195,7 +196,58 @@ public class UserServiceImpl implements UserService{
                     .setNumCheck(numChecks)
                     .setParticipantsNum(participantsNum);
             userRepository.save(user);
+        }*/
+    }
+
+    private void checkAllUserInfo() {
+        //检索所有的四级用户
+        List<User> users = userRepository.findByUserType(User.FORTH_USER);
+        for (User user : users) {
+            List<Activity> activities = activityRepository.findByStateAndUserId(Activity.ACT_PASS, user.getId());
+            long parts = 0;
+            for (Activity activity : activities) {
+                parts += activity.getParticipantsNum();
+            }
+            if (parts != user.getParticipantsNum()) {
+                user.setParticipantsNum(parts);
+                userRepository.saveAndFlush(user);
+            }
+        }
+
+        //检索所有的三级用户
+        List<User> users2 = userRepository.findByUserType(User.THIRD_USER);
+        for (User user : users2) {
+            List<Activity> activities = activityRepository.findByStateAndUserId(Activity.ACT_PASS, user.getId());
+            long parts = 0;
+            for (Activity activity : activities) {
+                parts += activity.getParticipantsNum();
+            }
+            List<User> users3 = userRepository.findByParentId(user.getId());
+            for (User sonUser : users3) {
+                parts += sonUser.getParticipantsNum();
+            }
+            if (parts != user.getParticipantsNum()) {
+                user.setParticipantsNum(parts);
+                userRepository.saveAndFlush(user);
+            }
+        }
+
+        //检索二级用户
+        List<User> users4 = userRepository.findByUserType(User.SECOND_USER);
+        for (User user : users4) {
+            List<Activity> activities = activityRepository.findByStateAndUserId(Activity.ACT_PASS, user.getId());
+            long parts = 0;
+            for (Activity activity : activities) {
+                parts += activity.getParticipantsNum();
+            }
+            List<User> users5 = userRepository.findByParentId(user.getId());
+            for (User sonUser : users5) {
+                parts += sonUser.getParticipantsNum();
+            }
+            if (parts != user.getParticipantsNum()) {
+                user.setParticipantsNum(parts);
+                userRepository.saveAndFlush(user);
+            }
         }
     }
-    
 }

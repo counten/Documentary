@@ -1,6 +1,6 @@
 server: #服务器主配置
   contextPath: /
-  port: 443     #启动端口
+  port: 9191     #启动端口
   max-http-header-size: 8192
   compression:
     min-response-size: 512
